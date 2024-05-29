@@ -77,4 +77,9 @@ dependencies {
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
+    //ronded image view
+    implementation ("com.makeramen:roundedimageview:2.3.0")
+
+    //Recycler View
+    implementation ("androidx.recyclerview:recyclerview:1.2.1")
 }

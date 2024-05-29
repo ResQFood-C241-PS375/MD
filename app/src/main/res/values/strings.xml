@@ -5,4 +5,7 @@
     <string name="error_text">Fill this box</string>
     <string name="upload">Upload</string>
     <string name="location_name">Location</string>
+    <string name="price">Price</string>
+    <string name="expired">Expired</string>
+    <string name="dishes_name">Dishes Name</string>
 </resources>

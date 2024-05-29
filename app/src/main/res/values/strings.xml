@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ResQFood</string>
+    <string name="donation_name">Donation Name</string>
+    <string name="description">Description</string>
 </resources>

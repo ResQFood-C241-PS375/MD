@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".view.posting.PostDonationActivity">
 
-    <ImageButton
+    <ImageView
         android:id="@+id/galleryButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -79,7 +79,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.resqfood.view.custom_view.CTextView
-        android:id="@+id/expiredTV"
+        android:id="@+id/locationTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/location_name"
@@ -96,7 +96,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout"
-        app:layout_constraintTop_toBottomOf="@+id/expiredTV">
+        app:layout_constraintTop_toBottomOf="@+id/locationTV">
 
         <com.resqfood.view.custom_view.CInputText
             android:id="@+id/inputLocation"

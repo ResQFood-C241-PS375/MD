@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<ScrollView android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".view.posting.PostSaleActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.posting.PostDonationFragment">
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/main"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/galleryButton"
@@ -24,14 +25,14 @@
         app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/add_product_photo" />
+        app:srcCompat="@drawable/add_donation_photo" />
 
     <com.resqfood.view.custom_view.CTextView
-        android:id="@+id/dishesTV"
+        android:id="@+id/donationTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/dishes_name"
+        android:text="@string/donation_name"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -44,10 +45,10 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="@+id/galleryButton"
         app:layout_constraintStart_toStartOf="@+id/galleryButton"
-        app:layout_constraintTop_toBottomOf="@+id/dishesTV">
+        app:layout_constraintTop_toBottomOf="@+id/donationTV">
 
         <com.resqfood.view.custom_view.CInputText
-            android:id="@+id/inputDishes"
+            android:id="@+id/inputDonation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="top"
@@ -62,9 +63,9 @@
         android:layout_marginTop="20dp"
         android:text="@string/description"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/dishesTV"
+        app:layout_constraintEnd_toEndOf="@+id/donationTV"
         app:layout_constraintHorizontal_bias="0.033"
-        app:layout_constraintStart_toStartOf="@+id/dishesTV"
+        app:layout_constraintStart_toStartOf="@+id/donationTV"
         app:layout_constraintTop_toBottomOf="@+id/inputLayout" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -86,10 +87,10 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.resqfood.view.custom_view.CTextView
-        android:id="@+id/priceTV"
+        android:id="@+id/locationTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/price"
+        android:text="@string/location_name"
         android:textSize="16sp"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="@+id/descriptionTV"
@@ -103,48 +104,19 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout"
-        app:layout_constraintTop_toBottomOf="@+id/priceTV">
+        app:layout_constraintTop_toBottomOf="@+id/locationTV">
 
         <com.resqfood.view.custom_view.CInputText
-            android:id="@+id/inputPrice"
+            android:id="@+id/inputLocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="top"
             android:padding="10dp" />
 
     </com.google.android.material.textfield.TextInputLayout>
-
-    <com.resqfood.view.custom_view.CTextView
-        android:id="@+id/CTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/expired"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/InputLayout"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/InputLayout"
-        app:layout_constraintTop_toBottomOf="@+id/InputLayout" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/InputLayouts"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/InputLayout"
-        app:layout_constraintStart_toStartOf="@+id/InputLayout"
-        app:layout_constraintTop_toBottomOf="@+id/CTextView">
-
-        <com.resqfood.view.custom_view.CInputText
-            android:id="@+id/inputExpired"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="top"
-            android:padding="10dp" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
 
     <com.resqfood.view.custom_view.CButton
+        android:id="@+id/CButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -152,10 +124,7 @@
         android:padding="0dp"
         android:text="@string/upload"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="@+id/InputLayouts"
-        app:layout_constraintStart_toStartOf="@+id/InputLayouts"
-        app:layout_constraintTop_toBottomOf="@+id/InputLayouts" />
-
+        app:layout_constraintEnd_toEndOf="@+id/InputLayout"
+        app:layout_constraintStart_toStartOf="@+id/InputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/InputLayout" />
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-</ScrollView>

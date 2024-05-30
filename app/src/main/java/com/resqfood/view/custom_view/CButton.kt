@@ -13,7 +13,7 @@ class CButton (context: Context, attributeSet: AttributeSet): AppCompatButton(co
 
     private fun applyFont() {
         val typeface: Typeface =
-            Typeface.createFromAsset(context.assets,"Poppins.otf")
+            Typeface.createFromAsset(context.assets,"Poppins.ttf")
         setTypeface(typeface)
     }
 

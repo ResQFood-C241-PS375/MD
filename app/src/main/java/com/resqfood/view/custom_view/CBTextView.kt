@@ -5,7 +5,7 @@ import android.graphics.Typeface
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
 
-class CTextView(context: Context, attributeSet: AttributeSet): AppCompatTextView(context, attributeSet) {
+class CBTextView(context: Context, attributeSet: AttributeSet): AppCompatTextView(context, attributeSet) {
 
     init {
         applyFont()
@@ -13,7 +13,7 @@ class CTextView(context: Context, attributeSet: AttributeSet): AppCompatTextView
 
     private fun applyFont() {
         val typeface:Typeface =
-            Typeface.createFromAsset(context.assets,"Poppins.ttf")
+            Typeface.createFromAsset(context.assets,"Poppins-Bold.ttf")
         setTypeface(typeface)
     }
 

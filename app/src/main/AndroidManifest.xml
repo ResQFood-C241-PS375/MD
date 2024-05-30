@@ -13,23 +13,35 @@
         android:theme="@style/Theme.ResQFood"
         tools:targetApi="31">
         <activity
-            android:name=".view.posting.PostSaleActivity"
+            android:name=".view.post_detail.DetailSaleActivity"
             android:exported="false" />
         <activity
-            android:name=".view.posting.PostDonationActivity"
+            android:name=".view.post_detail.DetailDonationActivity"
             android:exported="false" />
         <activity
-            android:name=".SplashScreen"
+            android:name=".view.welcome.WelcomeActivity"
             android:exported="false" />
         <activity
-            android:name=".view.main.MainActivity"
-            android:exported="true">
+            android:name=".view.register.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.main.PrimaryActivity"
+            android:exported="true"
+            android:label="@string/title_activity_primary"
+            android:theme="@style/Theme.ResQFood.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".view.login.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SplashScreen"
+            android:exported="false" />
+
     </application>
 
 </manifest>

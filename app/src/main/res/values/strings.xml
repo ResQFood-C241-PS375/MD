@@ -44,4 +44,8 @@
     <string name="description_example">Description Example</string>
     <string name="location">Location</string>
     <string name="location_example">Location Example</string>
+    <string name="logout">Logout</string>
+    <string name="whatsapp">WhatsApp</string>
+    <string name="fullname">Fullname</string>
+    <string name="username">Username</string>
 </resources>

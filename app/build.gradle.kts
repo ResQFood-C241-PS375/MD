@@ -85,4 +85,7 @@ dependencies {
     
     //Recycler View
     implementation ("androidx.recyclerview:recyclerview:1.2.1")
+
+    //Circle ImageView
+    implementation("de.hdodenhof:circleimageview:3.1.0")
 }

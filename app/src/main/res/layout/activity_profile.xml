@@ -1,183 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profile_image"
-        android:layout_width="166dp"
-        android:layout_height="166dp"
-        android:layout_marginTop="110dp"
-        android:src="@drawable/base_account_photo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <com.resqfood.view.custom_view.CTextView
-        android:id="@+id/usernameTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/username"
-        android:textSize="16sp"
-        android:layout_marginTop="36dp"
-        android:layout_marginHorizontal="17dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profile_image" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="166dp"
+            android:layout_height="166dp"
+            android:layout_marginTop="110dp"
+            android:src="@drawable/base_account_photo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/usernameTIL"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="17dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/usernameTV"
-        app:layout_constraintTop_toBottomOf="@+id/usernameTV">
-
-        <com.resqfood.view.custom_view.CInputText
-            android:id="@+id/usernameCIT"
-            android:layout_width="match_parent"
+        <com.resqfood.view.custom_view.CTextView
+            android:id="@+id/usernameTV"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="top"
-            android:padding="10dp" />
+            android:text="@string/username"
+            android:textSize="16sp"
+            android:layout_marginTop="36dp"
+            android:layout_marginHorizontal="17dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/profile_image" />
 
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.resqfood.view.custom_view.CTextView
-        android:id="@+id/fullnameTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/fullname"
-        android:textSize="16sp"
-        android:layout_marginTop="18dp"
-        android:layout_marginHorizontal="17dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usernameTIL" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/fullnameTIL"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="17dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/fullnameTV"
-        app:layout_constraintTop_toBottomOf="@+id/fullnameTV">
-
-        <com.resqfood.view.custom_view.CInputText
-            android:id="@+id/fullnameCIT"
-            android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/usernameTIL"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="top"
-            android:padding="10dp" />
+            android:layout_marginEnd="17dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/usernameTV"
+            app:layout_constraintTop_toBottomOf="@+id/usernameTV">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.resqfood.view.custom_view.CInputText
+                android:id="@+id/usernameCIT"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:padding="10dp" />
 
-    <com.resqfood.view.custom_view.CTextView
-        android:id="@+id/emailTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/email"
-        android:textSize="16sp"
-        android:layout_marginTop="18dp"
-        android:layout_marginHorizontal="17dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fullnameTIL" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/emailTIL"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="17dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/emailTV"
-        app:layout_constraintTop_toBottomOf="@+id/emailTV">
-
-        <com.resqfood.view.custom_view.CInputText
-            android:id="@+id/emailCIT"
-            android:layout_width="match_parent"
+        <com.resqfood.view.custom_view.CTextView
+            android:id="@+id/fullnameTV"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="top"
-            android:padding="10dp" />
+            android:text="@string/fullname"
+            android:textSize="16sp"
+            android:layout_marginTop="18dp"
+            android:layout_marginHorizontal="17dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/usernameTIL" />
 
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.resqfood.view.custom_view.CTextView
-        android:id="@+id/passwordTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/password"
-        android:textSize="16sp"
-        android:layout_marginTop="18dp"
-        android:layout_marginHorizontal="17dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailTIL" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/passwordTiL"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="17dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/passwordTV"
-        app:layout_constraintTop_toBottomOf="@+id/passwordTV">
-
-        <com.resqfood.view.custom_view.CInputText
-            android:id="@+id/passwordCIT"
-            android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/fullnameTIL"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="top"
-            android:padding="10dp" />
+            android:layout_marginEnd="17dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/fullnameTV"
+            app:layout_constraintTop_toBottomOf="@+id/fullnameTV">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.resqfood.view.custom_view.CInputText
+                android:id="@+id/fullnameCIT"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:padding="10dp" />
 
-    <com.resqfood.view.custom_view.CTextView
-        android:id="@+id/whatsappTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/whatsapp"
-        android:textSize="16sp"
-        android:layout_marginTop="18dp"
-        android:layout_marginHorizontal="17dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordTiL" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/whatsappTiL"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="17dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/whatsappTV"
-        app:layout_constraintTop_toBottomOf="@+id/whatsappTV">
-
-        <com.resqfood.view.custom_view.CInputText
-            android:id="@+id/whatsappCIT"
-            android:layout_width="match_parent"
+        <com.resqfood.view.custom_view.CTextView
+            android:id="@+id/emailTV"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="top"
-            android:padding="10dp" />
+            android:text="@string/email"
+            android:textSize="16sp"
+            android:layout_marginTop="18dp"
+            android:layout_marginHorizontal="17dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fullnameTIL" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/emailTIL"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="17dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/emailTV"
+            app:layout_constraintTop_toBottomOf="@+id/emailTV">
 
-    <com.resqfood.view.custom_view.CButton
-        android:id="@+id/CButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/red"
-        android:padding="0dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/logout"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="@+id/whatsappTiL"
-        app:layout_constraintStart_toStartOf="@+id/whatsappTiL"
-        app:layout_constraintTop_toBottomOf="@id/whatsappTiL"/>
+            <com.resqfood.view.custom_view.CInputText
+                android:id="@+id/emailCIT"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:padding="10dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.resqfood.view.custom_view.CTextView
+            android:id="@+id/passwordTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/password"
+            android:textSize="16sp"
+            android:layout_marginTop="18dp"
+            android:layout_marginHorizontal="17dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/emailTIL" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passwordTiL"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="17dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/passwordTV"
+            app:layout_constraintTop_toBottomOf="@+id/passwordTV">
+
+            <com.resqfood.view.custom_view.CInputText
+                android:id="@+id/passwordCIT"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:padding="10dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.resqfood.view.custom_view.CTextView
+            android:id="@+id/whatsappTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/whatsapp"
+            android:textSize="16sp"
+            android:layout_marginTop="18dp"
+            android:layout_marginHorizontal="17dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/passwordTiL" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/whatsappTiL"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="17dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/whatsappTV"
+            app:layout_constraintTop_toBottomOf="@+id/whatsappTV">
+
+            <com.resqfood.view.custom_view.CInputText
+                android:id="@+id/whatsappCIT"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:padding="10dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.resqfood.view.custom_view.CButton
+            android:id="@+id/CButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/red"
+            android:padding="0dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/logout"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@+id/whatsappTiL"
+            app:layout_constraintStart_toStartOf="@+id/whatsappTiL"
+            app:layout_constraintTop_toBottomOf="@id/whatsappTiL"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

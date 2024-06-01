@@ -19,7 +19,7 @@ class ApiConfig {
                 .addInterceptor(loggingInterceptor)
                 .build()
             val retrofit = Retrofit.Builder()
-//                .baseUrl(BuildConfig.API_URL)
+//                .baseUrl(BuildConfig.API_URL) Naro API disini
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build()
@@ -43,7 +43,7 @@ class ApiConfig {
                 .addInterceptor(authInterceptor)
                 .build()
             val retrofit = Retrofit.Builder()
-//                .baseUrl(BuildConfig.API_URL)
+//                .baseUrl(BuildConfig.API_URL) Naro API disini
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build()

@@ -1,7 +1,9 @@
 package com.resqfood.view.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -12,6 +14,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.resqfood.R
 import com.resqfood.databinding.ActivityPrimaryBinding
+import com.resqfood.view.profile.ProfileActivity
 
 class PrimaryActivity : AppCompatActivity() {
 
@@ -49,6 +52,17 @@ class PrimaryActivity : AppCompatActivity() {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.primary, menu)
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId) {
+            R.id.profile -> {
+                val intent = Intent(this, ProfileActivity::class.java)
+                startActivity(intent)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

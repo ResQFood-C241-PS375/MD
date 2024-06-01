@@ -3,9 +3,12 @@ package com.resqfood.data.adapter
 import android.location.GnssAntennaInfo.Listener
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.resqfood.data.pref.DonationModel
 import com.resqfood.databinding.CardDonationBinding
+
+// Nunggu CC baru di benerin lagi adapternya
 
 class DonationAdapter(
     private val listDonation: ArrayList<DonationModel>,
@@ -39,4 +42,17 @@ class DonationAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(listDonation[position])
     }
+
+//    companion object {
+//        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ListDonationItem>() {
+//            override fun areItemsTheSame(oldItem: ListStoryItem, newItem: ListDonationItem): Boolean {
+//                return oldItem.id == newItem.id
+//            }
+//
+//            override fun areContentsTheSame(oldItem: ListStoryItem, newItem: ListDonationItem): Boolean {
+//                return oldItem == newItem
+//            }
+//        }
+//        const val PARCEL_NAME = "data"
+//    }
 }

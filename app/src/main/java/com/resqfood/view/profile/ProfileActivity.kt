@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.resqfood.databinding.ActivityProfileBinding
 
+// Ini juga belomm
+
 class ProfileActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProfileBinding

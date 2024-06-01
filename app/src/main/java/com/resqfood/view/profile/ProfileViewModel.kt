@@ -1,4 +1,9 @@
 package com.resqfood.view.profile
 
-class ProfileViewModel {
+import androidx.lifecycle.ViewModel
+import com.resqfood.repository.Repository
+
+// Ini belumm
+
+class ProfileViewModel(private val repository: Repository) : ViewModel() {
 }

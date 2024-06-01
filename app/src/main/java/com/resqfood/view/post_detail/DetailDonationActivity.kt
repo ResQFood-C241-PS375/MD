@@ -10,6 +10,8 @@ import androidx.core.view.WindowInsetsCompat
 import com.resqfood.R
 import com.resqfood.databinding.ActivityDetailDonationBinding
 
+// Ini belum
+
 class DetailDonationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailDonationBinding
 

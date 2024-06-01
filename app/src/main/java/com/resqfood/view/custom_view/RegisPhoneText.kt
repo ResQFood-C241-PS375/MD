@@ -36,6 +36,12 @@ class RegisPhoneText: AppCompatEditText {
                 } else {
                     error = null
                 }
+                if (!s.matches(Regex("^[0-9]+$"))) {
+                    setError(context.getString(R.string.error_phone_number), null)
+                } else {
+                    // Hanya menghilangkan error jika sudah memenuhi kedua kondisi
+                    if (s.length >= 10) error = null
+                }
             }
             override fun afterTextChanged(s: Editable) {
 

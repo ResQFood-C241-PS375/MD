@@ -11,6 +11,8 @@ import com.resqfood.R
 import com.resqfood.databinding.ActivityDetailDonationBinding
 import com.resqfood.databinding.ActivityDetailSaleBinding
 
+// Ini belum
+
 class DetailSaleActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailSaleBinding
 

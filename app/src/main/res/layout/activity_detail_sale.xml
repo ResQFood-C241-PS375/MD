@@ -8,7 +8,7 @@
     tools:context=".view.post_detail.DetailSaleActivity">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imageUpload"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_margin="20dp"
@@ -19,16 +19,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.resqfood.view.custom_view.CBTextView
-        android:id="@+id/CBTextView"
+        android:id="@+id/titleTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="Title Example"
+        android:text="@string/title_example"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView2"
+        app:layout_constraintEnd_toEndOf="@+id/imageUpload"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintStart_toStartOf="@+id/imageUpload"
+        app:layout_constraintTop_toBottomOf="@+id/imageUpload" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/circleImageView"
@@ -36,8 +36,8 @@
         android:layout_height="45dp"
         android:layout_marginTop="15dp"
         android:src="@drawable/ic_baseline_person_24"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/CBTextView" />
+        app:layout_constraintStart_toStartOf="@+id/imageUpload"
+        app:layout_constraintTop_toBottomOf="@+id/titleTV" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -46,7 +46,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/circleImageView"
-        app:layout_constraintEnd_toEndOf="@+id/imageView2"
+        app:layout_constraintEnd_toEndOf="@+id/imageUpload"
         app:layout_constraintHorizontal_bias="0.06"
         app:layout_constraintStart_toEndOf="@+id/circleImageView"
         app:layout_constraintTop_toTopOf="@+id/circleImageView" />
@@ -68,7 +68,7 @@
         android:layout_marginTop="10dp"
         android:text="@string/description_example"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView2"
+        app:layout_constraintEnd_toEndOf="@+id/imageUpload"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/CBTextView2"
         app:layout_constraintTop_toBottomOf="@+id/CBTextView2" />
@@ -90,7 +90,7 @@
         android:layout_marginTop="10dp"
         android:text="@string/expired_example"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView2"
+        app:layout_constraintEnd_toEndOf="@+id/imageUpload"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/CBTextView221"
         app:layout_constraintTop_toBottomOf="@+id/CBTextView221" />

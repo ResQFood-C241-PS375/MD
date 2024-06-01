@@ -37,7 +37,9 @@
     <string name="message_welcome_page">Bagikan keseharianmu disini bersama teman-teman lainnya!</string>
 
     <string name="error_password">Password tidak boleh kurang dari 8 karakter</string>
+    <string name="error_phone_number">No telpon harus berupa angka</string>
     <string name="error_phone">No HP tidak boleh kurang dari 10 angka</string>
+
     <string name="nama_lengkap">Nama Lengkap</string>
     <string name="register_data">Lengkapi data dirimu !</string>
     <string name="user">User</string>
@@ -50,4 +52,5 @@
     <string name="username">Username</string>
     <string name="expired_example">Expired Example</string>
     <string name="whatsapp_icon">WhatsApp Icon</string>
+    <string name="title_example">Title Example</string>
 </resources>

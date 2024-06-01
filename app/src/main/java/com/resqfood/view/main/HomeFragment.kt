@@ -19,6 +19,8 @@ import com.resqfood.databinding.FragmentHomeBinding
 import com.resqfood.view.post_detail.DetailDonationActivity
 import com.resqfood.view.post_detail.DetailSaleActivity
 
+// ini belum, nunggu adapter duluu
+
 class HomeFragment : Fragment(), DonationAdapter.OnItemClickListener, ForSaleAdapter.OnItemClickListener {
 
     private var _binding: FragmentHomeBinding? = null

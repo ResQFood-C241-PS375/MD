@@ -1,4 +1,7 @@
 package com.resqfood.view.register
 
-class RegisterViewModel {
+import androidx.lifecycle.ViewModel
+import com.resqfood.repository.Repository
+
+class RegisterViewModel(private val repository: Repository) : ViewModel() {
 }

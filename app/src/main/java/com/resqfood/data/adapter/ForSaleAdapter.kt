@@ -6,10 +6,24 @@ import androidx.recyclerview.widget.RecyclerView
 import com.resqfood.data.pref.ForSaleModel
 import com.resqfood.databinding.CardForSaleBinding
 
-class ForSaleAdapter(private val listForSale: List<ForSaleModel>) : RecyclerView.Adapter<ForSaleAdapter.ViewHolder>() {
-    class ViewHolder(private val binding: CardForSaleBinding) : RecyclerView.ViewHolder(binding.root) {
+class ForSaleAdapter(
+    private val listForSale: List<ForSaleModel>,
+    private val listener: ForSaleAdapter.OnItemClickListener
+) : RecyclerView.Adapter<ForSaleAdapter.ViewHolder>() {
+
+    interface OnItemClickListener {
+        fun onItemClick(forsale : ForSaleModel)
+    }
+
+    inner class ViewHolder(private val binding: CardForSaleBinding) : RecyclerView.ViewHolder(binding.root) {
+        init {
+            itemView.setOnClickListener {
+                listener.onItemClick(listForSale[adapterPosition])
+            }
+        }
+
         fun bind(item: ForSaleModel) {
-            binding.forsaleImgUrl.setImageResource(item.image) // Ganti dengan metode pemuatan gambar yang sesuai
+            binding.forsaleImgUrl.setImageResource(item.image)
             binding.forsaleTitle.text = item.title
         }
     }

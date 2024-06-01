@@ -1,5 +1,6 @@
 package com.resqfood.view.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,8 +16,10 @@ import com.resqfood.data.adapter.ForSaleAdapter
 import com.resqfood.data.pref.DonationModel
 import com.resqfood.data.pref.ForSaleModel
 import com.resqfood.databinding.FragmentHomeBinding
+import com.resqfood.view.post_detail.DetailDonationActivity
+import com.resqfood.view.post_detail.DetailSaleActivity
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), DonationAdapter.OnItemClickListener, ForSaleAdapter.OnItemClickListener {
 
     private var _binding: FragmentHomeBinding? = null
 
@@ -44,7 +47,7 @@ class HomeFragment : Fragment() {
             DonationModel("Donasi 20 Potong Ayam Goreng dan 30 Gorengan untuk Panti Asuhan", R.drawable.donation_photo)
         )
 
-        val donationAdapter = DonationAdapter(donationList)
+        val donationAdapter = DonationAdapter(donationList, this)
         binding.recyclerViewHorizontal.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
         binding.recyclerViewHorizontal.adapter = donationAdapter
 
@@ -60,10 +63,30 @@ class HomeFragment : Fragment() {
             ForSaleModel("Telur Bulat Isi Kentang (Beli 1 Gratis 4)", R.drawable.for_sale_img)
         )
 
-        val gridAdapter = ForSaleAdapter(itemList)
+        val gridAdapter = ForSaleAdapter(itemList, this)
         binding.recyclerViewGrid.layoutManager = GridLayoutManager(requireActivity(), 2) // 2 kolom dalam grid
         binding.recyclerViewGrid.adapter = gridAdapter
 
     }
 
+    override fun onItemClick(donation: DonationModel) {
+        val intent = Intent(activity, DetailDonationActivity::class.java).apply {
+            putExtra("donation_title", donation.title)
+            putExtra("donation_image", donation.image)
+        }
+        startActivity(intent)
+    }
+
+    override fun onItemClick(forsale: ForSaleModel) {
+        val intent = Intent(activity, DetailSaleActivity::class.java).apply {
+            putExtra("sale_title", forsale.title)
+            putExtra("sale_image", forsale.image)
+        }
+        startActivity(intent)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

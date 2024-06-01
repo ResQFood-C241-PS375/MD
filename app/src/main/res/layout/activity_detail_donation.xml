@@ -13,6 +13,7 @@
         android:layout_height="200dp"
         android:layout_margin="20dp"
         android:src="@drawable/blank_photo"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -94,13 +95,31 @@
         app:layout_constraintStart_toStartOf="@+id/CBTextView221"
         app:layout_constraintTop_toBottomOf="@+id/CBTextView221" />
 
-    <com.resqfood.view.custom_view.CButton
+    <FrameLayout
+        android:id="@+id/btn_whatsapp"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="38dp"
         android:layout_marginTop="30dp"
-        android:backgroundTint="@color/main_green"
-        app:layout_constraintEnd_toEndOf="@+id/imageView2"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/CTextView2121" />
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/custom_button_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/CTextView2121"
+        app:layout_constraintTop_toBottomOf="@+id/CTextView2121" >
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/main_green"
+            android:text="" />
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_whatsapp"
+            android:contentDescription="@string/whatsapp_icon" />
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

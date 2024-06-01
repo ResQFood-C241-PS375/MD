@@ -81,7 +81,7 @@ class PostSaleFragment : Fragment() {
             val title = binding.inputDishes.text.toString()
             val description = binding.inputDescription.text.toString()
             val expired = binding.inputExpired.text.toString()
-            viewModel.donationUpload(imageFile,title, description, expired)
+            viewModel.saleUpload(imageFile,title, description, expired)
             viewModel.uploadSale.observe(requireActivity()) { result: RegisterResponse ->
                 var alertDialog: AlertDialog.Builder? = null
                 if (result.error == true) {

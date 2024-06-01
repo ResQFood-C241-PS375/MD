@@ -22,5 +22,4 @@ class ProfileActivity : AppCompatActivity() {
         binding.passwordCIT.setText("password123")
         binding.whatsappCIT.setText("08123456789")
     }
-
 }

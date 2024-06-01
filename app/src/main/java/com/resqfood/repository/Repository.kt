@@ -20,6 +20,11 @@ class Repository private constructor(
     private val userPreference: UserPreference
 ) {
 
+    // kayaknya nambah ini
+    suspend fun getProfile() {
+
+    }
+
     suspend fun getDonation(token: String): DonationResponse {
         return withContext(Dispatchers.IO) {
             if (token.isEmpty()) {

@@ -6,4 +6,5 @@ import com.resqfood.repository.Repository
 // Ini belumm
 
 class ProfileViewModel(private val repository: Repository) : ViewModel() {
+
 }

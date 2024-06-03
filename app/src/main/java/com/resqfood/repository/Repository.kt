@@ -1,8 +1,12 @@
 package com.resqfood.repository
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.resqfood.data.api.ApiConfig
+import com.resqfood.data.pref.Profile
+import com.resqfood.data.pref.ProfileResponse
 import com.resqfood.data.pref.UserModel
 import com.resqfood.data.pref.UserPreference
 import kotlinx.coroutines.Dispatchers
@@ -12,6 +16,9 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.File
 
 // Ini juga nunggu CC baru disesuain
@@ -21,8 +28,32 @@ class Repository private constructor(
 ) {
 
     // kayaknya nambah ini
-    suspend fun getProfile() {
+    private val _profile = MutableLiveData<Profile>()
+    val profile: LiveData<Profile> get() = _profile
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> get() = _isLoading
+
+    private val _error = MutableLiveData<String>()
+    val error: LiveData<String> get() = _error
+    suspend fun findProfile(profileId: String) {
+        _isLoading.value = true
+        val client = ApiConfig.getApiService().getProfile(profileId)
+        client.enqueue(object : Callback<ProfileResponse> {
+            override fun onResponse(call: Call<ProfileResponse>, response: Response<ProfileResponse>) {
+                _isLoading.value = false
+                if (response.isSuccessful) {
+                    _profile.value = response.body()?.profile
+                } else {
+                    _error.value = response.message()
+                }
+            }
+
+            override fun onFailure(call: Call<ProfileResponse>, t: Throwable) {
+                _isLoading.value = false
+                _error.value = t.message
+            }
+        })
     }
 
     suspend fun getDonation(token: String): DonationResponse {

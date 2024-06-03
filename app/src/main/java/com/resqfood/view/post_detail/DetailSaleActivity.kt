@@ -24,8 +24,8 @@ class DetailSaleActivity : AppCompatActivity() {
         val saleTitle = intent.getStringExtra("sale_title")
         val saleImage = intent.getIntExtra("sale_image", 0)
 
-        binding.CBTextView.text = saleTitle
-        binding.imageView2.setImageResource(saleImage)
+        binding.titleTV.text = saleTitle
+        binding.imageUpload.setImageResource(saleImage)
 
         binding.button.setOnClickListener {
             openWhatsApp()

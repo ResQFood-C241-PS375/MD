@@ -3,6 +3,7 @@ package com.resqfood.data.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.resqfood.data.pref.ForSaleModel
 import com.resqfood.databinding.CardForSaleBinding
@@ -10,24 +11,23 @@ import com.resqfood.databinding.CardForSaleBinding
 // Nunggu CC baru dibenerin lagi
 
 class ForSaleAdapter(
-    private val listForSale: List<ForSaleModel>,
-    private val listener: ForSaleAdapter.OnItemClickListener
-) : RecyclerView.Adapter<ForSaleAdapter.ViewHolder>() {
+    private val listener: OnItemClickListener
+) : ListAdapter<ForSaleModel, ForSaleAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     interface OnItemClickListener {
-        fun onItemClick(forsale : ForSaleModel)
+        fun onItemClick(sale : ForSaleModel)
     }
 
     inner class ViewHolder(private val binding: CardForSaleBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
             itemView.setOnClickListener {
-                listener.onItemClick(listForSale[adapterPosition])
+                listener.onItemClick(getItem(adapterPosition))
             }
         }
 
         fun bind(item: ForSaleModel) {
-            binding.forsaleImgUrl.setImageResource(item.image)
-            binding.forsaleTitle.text = item.title
+            binding.forsaleImgUrl.setImageResource(item.image) // Ganti dengan properti yang sesuai
+            binding.forsaleTitle.text = item.title // Ganti dengan properti yang sesuai
         }
     }
 
@@ -36,22 +36,20 @@ class ForSaleAdapter(
         return ViewHolder(binding)
     }
 
-    override fun getItemCount(): Int = listForSale.size
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(listForSale[position])
+        holder.bind(getItem(position))
     }
 
-//    companion object {
-//        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ListSaleItem>() {
-//            override fun areItemsTheSame(oldItem: ListSaleItem, newItem: ListSaleItem): Boolean {
-//                return oldItem.id == newItem.id
-//            }
-//
-//            override fun areContentsTheSame(oldItem: ListSaleItem, newItem: ListSaleItem): Boolean {
-//                return oldItem == newItem
-//            }
-//        }
-//        const val PARCEL_NAME = "data"
-//    }
+    companion object {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ForSaleModel>() {
+            override fun areItemsTheSame(oldItem: ForSaleModel, newItem: ForSaleModel): Boolean {
+                return oldItem == newItem
+            }
+
+            override fun areContentsTheSame(oldItem: ForSaleModel, newItem: ForSaleModel): Boolean {
+                return oldItem == newItem
+            }
+        }
+        const val PARCEL_NAME = "data"
+    }
 }

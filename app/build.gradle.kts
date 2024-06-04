@@ -88,4 +88,10 @@ dependencies {
 
     //Circle ImageView
     implementation("de.hdodenhof:circleimageview:3.1.0")
+
+    //ViewModel
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1")
+
+    //LiveData
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.4.1")
 }

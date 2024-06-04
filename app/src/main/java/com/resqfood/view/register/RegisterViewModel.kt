@@ -6,14 +6,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.resqfood.repository.Repository
 import kotlinx.coroutines.launch
+import java.io.File
 
 class RegisterViewModel(private val repository: Repository) : ViewModel() {
     private val _resultRegister = MutableLiveData<RegisterResponse>()
     val resultRegister: LiveData<RegisterResponse> = _resultRegister
 
-    fun registerUser(name: String, email: String, password: String, phone: String) {
+    fun registerUser(file: File, name: String, email: String, password: String, phone: String) {
         viewModelScope.launch {
-            _resultRegister.value = repository.registerUser(name, email, password, phone)
+            _resultRegister.value = repository.registerUser(file, name, email, password, phone)
         }
     }
 }

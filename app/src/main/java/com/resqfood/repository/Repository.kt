@@ -60,9 +60,15 @@ class Repository private constructor(
         }
     }
 
-    suspend fun registerUser(name: String, email: String, password: String, phone: String): RegisterResponse {
+    suspend fun registerUser(imageFile: File, name: String, email: String, password: String, phone: String): RegisterResponse {
         return withContext(Dispatchers.IO) {
-            val response = ApiConfig.getApiService().register(name, email, password, phone).execute()
+            val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
+            val multipartBody = MultipartBody.Part.createFormData(
+                "photo",
+                imageFile.name,
+                requestImageFile
+            )
+            val response = ApiConfig.getApiService().register(multipartBody, name, email, password, phone).execute()
             if (response.isSuccessful) {
 //                Log.i("info", response.message())
                 return@withContext response.body()!!

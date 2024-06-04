@@ -7,6 +7,7 @@ import com.resqfood.di.Injection
 import com.resqfood.repository.Repository
 import com.resqfood.view.login.LoginViewModel
 import com.resqfood.view.main.HomeViewModel
+import com.resqfood.view.post_detail.DetailViewModel
 import com.resqfood.view.posting.PostingViewModel
 import com.resqfood.view.profile.ProfileActivity
 import com.resqfood.view.profile.ProfileViewModel
@@ -31,6 +32,9 @@ class ViewModelFactory(private val repository: Repository) : ViewModelProvider.N
             }
             modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
                 ProfileViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(DetailViewModel::class.java) -> {
+                DetailViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

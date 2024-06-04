@@ -1,15 +1,20 @@
 package com.resqfood.view.main
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowInsets
+import android.view.WindowManager
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.resqfood.ViewModelFactory
 import com.resqfood.data.adapter.DonationAdapter
 import com.resqfood.data.adapter.ForSaleAdapter
 import com.resqfood.data.api.ApiConfig
@@ -24,21 +29,15 @@ import retrofit2.Response
 
 // ini belum
 
-class HomeFragment : Fragment(), DonationAdapter.OnItemClickListener, ForSaleAdapter.OnItemClickListener {
+class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-
-    private lateinit var donationAdapter: DonationAdapter
-    private lateinit var saleAdapter: ForSaleAdapter
-
-    companion object {
-        private const val TAG = "HomeFragment"
-        private const val DONATION_ID = ""
-        private const val SALE_ID = ""
+    private val viewModel by viewModels<HomeViewModel> {
+        ViewModelFactory.getInstance(requireActivity())
     }
 
     override fun onCreateView(
@@ -53,83 +52,36 @@ class HomeFragment : Fragment(), DonationAdapter.OnItemClickListener, ForSaleAda
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val donationAdapter = DonationAdapter(this)
-        binding.recyclerViewHorizontal.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
-        binding.recyclerViewHorizontal.adapter = donationAdapter
+        setupRVDonation()
+        setupRVSale()
 
-        val saleAdapter = ForSaleAdapter(this)
-        binding.recyclerViewGrid.layoutManager = GridLayoutManager(requireActivity(), 2) // 2 kolom dalam grid
-        binding.recyclerViewGrid.adapter = saleAdapter
-
-
-        findDonation()
-        findSale()
     }
 
-    private fun findDonation() {
-        val client = ApiConfig.getApiService().getDonation(DONATION_ID)
-        client.enqueue(object : Callback<DonationResponse> {
-            override fun onResponse(
-                call: Call<DonationResponse>,
-                response: Response<DonationResponse>
-            ) {
-                if (response.isSuccessful) {
-                    val responseBody = response.body()
-                    if (responseBody != null) {
-                        donationAdapter.submitList(responseBody.donations)
-                    }
-                } else {
-                    Log.e(TAG, "onFailure: ${response.message()}")
-                }
-            }
 
-            override fun onFailure(call: Call<DonationResponse>, t: Throwable) {
-                Log.e(TAG, "onFailure: ${t.message}")
-            }
-        })
-    }
 
-    private fun findSale() {
-        val client = ApiConfig.getApiService().getSale(SALE_ID)
-        client.enqueue(object : Callback<SaleResponse> {
-            override fun onResponse(
-                call: Call<SaleResponse>,
-                response: Response<SaleResponse>
-            ) {
-                if (response.isSuccessful) {
-                    val responseBody = response.body()
-                    if (responseBody != null) {
-                        saleAdapter.submitList(responseBody.sales)
-                    }
-                } else {
-                    Log.e(TAG, "onFailure: ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<SaleResponse>, t: Throwable) {
-                Log.e(TAG, "onFailure: ${t.message}")
-            }
-        })
-    }
-
-    override fun onItemClick(donation: DonationModel) {
-        val intent = Intent(activity, DetailDonationActivity::class.java).apply {
-            putExtra("donation_title", donation.title)
-            putExtra("donation_image", donation.image)
+    private fun setupRVSale() {
+        viewModel.getDonation()
+        viewModel.donation.observe(viewLifecycleOwner) { donation: DonationResponse ->
+            val adapter = DonationAdapter()
+            adapter.submitList(donation.listDonation)
+            binding.rvDonation.adapter = adapter
+            binding.rvDonation.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
         }
-        startActivity(intent)
     }
 
-    override fun onItemClick(sale: ForSaleModel) {
-        val intent = Intent(activity, DetailSaleActivity::class.java).apply {
-            putExtra("sale_title", sale.title)
-            putExtra("sale_image", sale.image)
+    private fun setupRVDonation() {
+        viewModel.getSale()
+        viewModel.sale.observe(viewLifecycleOwner) { sale: SaleResponse ->
+            val adapter = ForSaleAdapter()
+            adapter.submitList(sale.listSale)
+            binding.rvSale.adapter = adapter
+            binding.rvSale.layoutManager = GridLayoutManager(requireActivity(), 2) // 2 kolom dalam grid
         }
-        startActivity(intent)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    override fun onResume() {
+        super.onResume()
+        setupRVDonation()
+        setupRVSale()
     }
 }

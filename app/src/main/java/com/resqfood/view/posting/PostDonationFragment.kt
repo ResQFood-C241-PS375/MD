@@ -81,7 +81,7 @@ class PostDonationFragment : Fragment() {
             val description = binding.inputDescription.text.toString()
             val location = binding.inputLocation.text.toString()
             viewModel.donationUpload(imageFile,title, description, location)
-            viewModel.uploadDonation.observe(requireActivity()) { result: RegisterResponse ->
+            viewModel.uploadDonation.observe(viewLifecycleOwner) { result: RegisterResponse ->
                 var alertDialog: AlertDialog.Builder? = null
                 if (result.error == true) {
                     showLoading(false)

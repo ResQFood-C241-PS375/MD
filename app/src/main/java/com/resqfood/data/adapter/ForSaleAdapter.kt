@@ -1,33 +1,33 @@
 package com.resqfood.data.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.resqfood.data.pref.ForSaleModel
 import com.resqfood.databinding.CardForSaleBinding
+import com.resqfood.view.post_detail.DetailSaleActivity
 
 // Nunggu CC baru dibenerin lagi
 
-class ForSaleAdapter(
-    private val listener: OnItemClickListener
-) : ListAdapter<ForSaleModel, ForSaleAdapter.ViewHolder>(DIFF_CALLBACK) {
+class ForSaleAdapter : ListAdapter<ListSaleItem, ForSaleAdapter.ViewHolder>(DIFF_CALLBACK) {
 
-    interface OnItemClickListener {
-        fun onItemClick(sale : ForSaleModel)
-    }
+    class ViewHolder(private val binding: CardForSaleBinding) : RecyclerView.ViewHolder(binding.root) {
 
-    inner class ViewHolder(private val binding: CardForSaleBinding) : RecyclerView.ViewHolder(binding.root) {
-        init {
-            itemView.setOnClickListener {
-                listener.onItemClick(getItem(adapterPosition))
+        fun bind(item: ListSaleItem) {
+            binding.forsaleTitle.text = item.title
+            Glide.with(binding.root)
+                .load(item.image)
+                .into(binding.forsaleImgUrl)
+            binding.root.setOnClickListener {
+                val context = binding.root.context
+                val intent = Intent(context, DetailSaleActivity::class.java)
+                intent.putExtra(PARCEL_NAME, item)
+                itemView.context.startActivity(intent)
             }
-        }
-
-        fun bind(item: ForSaleModel) {
-            binding.forsaleImgUrl.setImageResource(item.image) // Ganti dengan properti yang sesuai
-            binding.forsaleTitle.text = item.title // Ganti dengan properti yang sesuai
         }
     }
 
@@ -41,12 +41,12 @@ class ForSaleAdapter(
     }
 
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ForSaleModel>() {
-            override fun areItemsTheSame(oldItem: ForSaleModel, newItem: ForSaleModel): Boolean {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ListSaleItem>() {
+            override fun areItemsTheSame(oldItem: ListSaleItem, newItem: ListSaleItem): Boolean {
                 return oldItem == newItem
             }
 
-            override fun areContentsTheSame(oldItem: ForSaleModel, newItem: ForSaleModel): Boolean {
+            override fun areContentsTheSame(oldItem: ListSaleItem, newItem: ListSaleItem): Boolean {
                 return oldItem == newItem
             }
         }

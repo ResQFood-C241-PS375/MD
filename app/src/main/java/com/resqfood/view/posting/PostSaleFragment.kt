@@ -82,7 +82,7 @@ class PostSaleFragment : Fragment() {
             val description = binding.inputDescription.text.toString()
             val expired = binding.inputExpired.text.toString()
             viewModel.saleUpload(imageFile,title, description, expired)
-            viewModel.uploadSale.observe(requireActivity()) { result: RegisterResponse ->
+            viewModel.uploadSale.observe(viewLifecycleOwner) { result: RegisterResponse ->
                 var alertDialog: AlertDialog.Builder? = null
                 if (result.error == true) {
                     showLoading(false)

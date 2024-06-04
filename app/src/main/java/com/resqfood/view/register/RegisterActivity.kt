@@ -30,6 +30,10 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         showLoading(false)
+        setupView()
+        setupAction()
+        playAnimation()
+
     }
 
     private fun setupView() {

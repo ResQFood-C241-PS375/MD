@@ -21,8 +21,14 @@ class Repository private constructor(
 ) {
 
     // kayaknya nambah ini
-    suspend fun getProfile() {
-
+    suspend fun getProfile(token: String): UserResponse {
+        return withContext(Dispatchers.IO) {
+            if (token.isEmpty()) {
+                return@withContext UserResponse()
+            } else {
+                return@withContext ApiConfig.getApiServiceWithToken(token).getProfile().execute().body()!!
+            }
+        }
     }
 
     suspend fun getDonation(token: String): DonationResponse {

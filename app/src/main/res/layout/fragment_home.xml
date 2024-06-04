@@ -23,7 +23,7 @@
             android:textStyle="bold"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewHorizontal"
+            android:id="@+id/rvDonation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="18dp"
@@ -40,7 +40,7 @@
             android:textStyle="bold"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewGrid"
+            android:id="@+id/rvSale"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="9dp"

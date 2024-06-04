@@ -8,7 +8,7 @@
     tools:context=".view.post_detail.DetailSaleActivity">
 
     <ImageView
-        android:id="@+id/imageUpload"
+        android:id="@+id/imageDetail"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_margin="20dp"
@@ -19,37 +19,38 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.resqfood.view.custom_view.CBTextView
-        android:id="@+id/titleTV"
+        android:id="@+id/saleTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:text="@string/title_example"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageUpload"
+        app:layout_constraintEnd_toEndOf="@+id/imageDetail"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/imageUpload"
-        app:layout_constraintTop_toBottomOf="@+id/imageUpload" />
+        app:layout_constraintStart_toStartOf="@+id/imageDetail"
+        app:layout_constraintTop_toBottomOf="@+id/imageDetail" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/circleImageView"
+        android:id="@+id/userImage"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_marginTop="15dp"
         android:src="@drawable/ic_baseline_person_24"
-        app:layout_constraintStart_toStartOf="@+id/imageUpload"
-        app:layout_constraintTop_toBottomOf="@+id/titleTV" />
+        app:layout_constraintStart_toStartOf="@+id/imageDetail"
+        app:layout_constraintTop_toBottomOf="@+id/saleTitle" />
 
     <TextView
+        android:id="@+id/userName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/user"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/circleImageView"
-        app:layout_constraintEnd_toEndOf="@+id/imageUpload"
+        app:layout_constraintBottom_toBottomOf="@+id/userImage"
+        app:layout_constraintEnd_toEndOf="@+id/imageDetail"
         app:layout_constraintHorizontal_bias="0.06"
-        app:layout_constraintStart_toEndOf="@+id/circleImageView"
-        app:layout_constraintTop_toTopOf="@+id/circleImageView" />
+        app:layout_constraintStart_toEndOf="@+id/userImage"
+        app:layout_constraintTop_toTopOf="@+id/userImage" />
 
     <com.resqfood.view.custom_view.CBTextView
         android:id="@+id/CBTextView2"
@@ -58,17 +59,17 @@
         android:layout_marginTop="15dp"
         android:text="@string/description"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/circleImageView"
-        app:layout_constraintTop_toBottomOf="@+id/circleImageView" />
+        app:layout_constraintStart_toStartOf="@+id/userImage"
+        app:layout_constraintTop_toBottomOf="@+id/userImage" />
 
     <com.resqfood.view.custom_view.CTextView
-        android:id="@+id/CTextView2"
+        android:id="@+id/saleDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/description_example"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageUpload"
+        app:layout_constraintEnd_toEndOf="@+id/imageDetail"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/CBTextView2"
         app:layout_constraintTop_toBottomOf="@+id/CBTextView2" />
@@ -80,17 +81,17 @@
         android:layout_marginTop="15dp"
         android:text="@string/expired"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/CTextView2"
-        app:layout_constraintTop_toBottomOf="@+id/CTextView2" />
+        app:layout_constraintStart_toStartOf="@+id/saleDescription"
+        app:layout_constraintTop_toBottomOf="@+id/saleDescription" />
 
     <com.resqfood.view.custom_view.CTextView
-        android:id="@+id/CTextView2121"
+        android:id="@+id/saleExpired"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/expired_example"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageUpload"
+        app:layout_constraintEnd_toEndOf="@+id/imageDetail"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/CBTextView221"
         app:layout_constraintTop_toBottomOf="@+id/CBTextView221" />
@@ -103,8 +104,8 @@
         android:layout_marginEnd="20dp"
         android:background="@drawable/custom_button_background"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/CTextView2121"
-        app:layout_constraintTop_toBottomOf="@+id/CTextView2121" >
+        app:layout_constraintStart_toStartOf="@+id/saleExpired"
+        app:layout_constraintTop_toBottomOf="@+id/saleExpired" >
 
         <Button
             android:id="@+id/button"

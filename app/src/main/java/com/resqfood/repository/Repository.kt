@@ -44,7 +44,6 @@ class Repository private constructor(
                 return@withContext DonationResponse()
             } else {
                 return@withContext ApiConfig.getApiServiceWithToken(token).getDonation().execute().body()!!
-
             }
         }
     }

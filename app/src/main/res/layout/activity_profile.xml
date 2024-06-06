@@ -21,35 +21,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.resqfood.view.custom_view.CTextView
-            android:id="@+id/usernameTV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/username"
-            android:textSize="16sp"
-            android:layout_marginTop="36dp"
-            android:layout_marginHorizontal="17dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/profile_image" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/usernameTIL"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="17dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/usernameTV"
-            app:layout_constraintTop_toBottomOf="@+id/usernameTV">
-
-            <com.resqfood.view.custom_view.CInputText
-                android:id="@+id/usernameCIT"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="top"
-                android:padding="10dp" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.resqfood.view.custom_view.CTextView
             android:id="@+id/fullnameTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -60,7 +31,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/usernameTIL" />
+            app:layout_constraintTop_toBottomOf="@+id/profile_image" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/fullnameTIL"
@@ -174,7 +145,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.resqfood.view.custom_view.CButton
-            android:id="@+id/CButton"
+            android:id="@+id/logout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/red"

@@ -1,12 +1,9 @@
 package com.resqfood.repository
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.resqfood.data.api.ApiConfig
-import com.resqfood.data.pref.Profile
-import com.resqfood.data.pref.ProfileResponse
+import com.resqfood.data.api.SearchAPIService
+import com.resqfood.data.pref.SaleModel
 import com.resqfood.data.pref.UserModel
 import com.resqfood.data.pref.UserPreference
 import kotlinx.coroutines.Dispatchers
@@ -16,15 +13,16 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
 
 // Ini juga nunggu CC baru disesuain
 
 class Repository private constructor(
-    private val userPreference: UserPreference
+    private val userPreference: UserPreference,
+
+    //misal
+    private val apiService: SearchAPIService
 ) {
 
     // kayaknya nambah ini
@@ -57,6 +55,11 @@ class Repository private constructor(
 
             }
         }
+    }
+
+    //misal gini
+    suspend fun searchResults(keyword: String): Response<SaleModel> {
+        return apiService.searchProduct(keyword)
     }
 
     suspend fun registerUser(imageFile: File, name: String, email: String, password: String, phone: String): RegisterResponse {

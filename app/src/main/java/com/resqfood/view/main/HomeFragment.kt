@@ -10,7 +10,9 @@ import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -20,6 +22,7 @@ import com.resqfood.data.adapter.ForSaleAdapter
 import com.resqfood.data.api.ApiConfig
 import com.resqfood.data.pref.DonationModel
 import com.resqfood.data.pref.ForSaleModel
+import com.resqfood.data.pref.SaleModel
 import com.resqfood.databinding.FragmentHomeBinding
 import com.resqfood.view.post_detail.DetailDonationActivity
 import com.resqfood.view.post_detail.DetailSaleActivity
@@ -40,6 +43,12 @@ class HomeFragment : Fragment() {
         ViewModelFactory.getInstance(requireActivity())
     }
 
+    private val sharedViewModel: SharedViewModel by activityViewModels {
+        ViewModelFactory.getInstance(requireActivity())
+    }
+
+    private lateinit var forSaleAdapter: ForSaleAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -55,13 +64,14 @@ class HomeFragment : Fragment() {
         setupRVDonation()
         setupRVSale()
 
+        //misal
+        setupRecyclerView()
+        observeViewModel()
     }
 
-
-
-    private fun setupRVSale() {
+    private fun setupRVDonation() {
         viewModel.getDonation()
-        viewModel.donation.observe(viewLifecycleOwner) { donation: DonationResponse ->
+        viewModel.donation.observe(viewLifecycleOwner) { donation: DonationModel ->
             val adapter = DonationAdapter()
             adapter.submitList(donation.listDonation)
             binding.rvDonation.adapter = adapter
@@ -69,19 +79,33 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setupRVDonation() {
+    private fun setupRVSale() {
         viewModel.getSale()
-        viewModel.sale.observe(viewLifecycleOwner) { sale: SaleResponse ->
+        viewModel.sale.observe(viewLifecycleOwner) { sale: SaleModel ->
             val adapter = ForSaleAdapter()
-            adapter.submitList(sale.listSale)
+            adapter.submitList(sale.sale)
             binding.rvSale.adapter = adapter
             binding.rvSale.layoutManager = GridLayoutManager(requireActivity(), 2) // 2 kolom dalam grid
         }
+    }
+
+    private fun setupRecyclerView() {
+        forSaleAdapter = ForSaleAdapter()
+        binding.rvSale.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvSale.adapter = forSaleAdapter
+    }
+
+    private fun observeViewModel() {
+        sharedViewModel.searchResults.observe(viewLifecycleOwner, Observer { sale: List<ForSaleModel> ->
+            forSaleAdapter.submitList(sale)
+        })
     }
 
     override fun onResume() {
         super.onResume()
         setupRVDonation()
         setupRVSale()
+        setupRecyclerView()
+        observeViewModel()
     }
 }

@@ -9,6 +9,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/lime_green"
         android:theme="@style/Theme.ResQFood.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
@@ -16,7 +17,26 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/main_green"
-            app:popupTheme="@style/Theme.ResQFood.PopupOverlay" />
+            app:popupTheme="@style/Theme.ResQFood.PopupOverlay">
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <com.google.android.material.search.SearchBar
+            android:id="@+id/searchBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="17dp"
+            android:hint="">
+        </com.google.android.material.search.SearchBar>
+
+        <com.google.android.material.search.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint=""
+            app:layout_anchor="@id/searchBar">
+        </com.google.android.material.search.SearchView>
+
 
     </com.google.android.material.appbar.AppBarLayout>
 

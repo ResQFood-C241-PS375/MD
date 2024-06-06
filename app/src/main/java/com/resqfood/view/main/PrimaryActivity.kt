@@ -8,6 +8,8 @@ import android.view.MenuItem
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import androidx.activity.viewModels
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -17,8 +19,10 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.resqfood.R
 import com.resqfood.ViewModelFactory
+import com.resqfood.data.adapter.ForSaleAdapter
 import com.resqfood.databinding.ActivityPrimaryBinding
 import com.resqfood.view.profile.ProfileActivity
 import com.resqfood.view.welcome.WelcomeActivity
@@ -28,6 +32,11 @@ class PrimaryActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityPrimaryBinding
     private val viewModel by viewModels<HomeViewModel> {
+        ViewModelFactory.getInstance(this)
+    }
+
+    //misal
+    private val sharedViewModel: SharedViewModel by viewModels {
         ViewModelFactory.getInstance(this)
     }
 
@@ -58,6 +67,8 @@ class PrimaryActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        setupSearch()
     }
 
     private fun setupView() {
@@ -71,6 +82,26 @@ class PrimaryActivity : AppCompatActivity() {
             )
         }
         supportActionBar?.hide()
+    }
+
+    private fun setupSearch() {
+        with(binding.appBarPrimary) {
+            searchView.setupWithSearchBar(searchBar)
+            searchView.editText.setOnEditorActionListener { textView, actionId, event -> //Mungkin bisa ditambah parameter
+//                searchBar.setText(searchView.text)
+//                searchView.hide()
+//                Toast.makeText(this@PrimaryActivity, searchView.text, Toast.LENGTH_SHORT).show()
+//                false
+
+                val keyword = searchView.text.toString()
+                if (keyword.isNotEmpty()) {
+                    sharedViewModel.searchProduct(keyword)
+                    Toast.makeText(this@PrimaryActivity, "Searching for: $keyword", Toast.LENGTH_SHORT).show()
+                }
+                searchView.hide()
+                true
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

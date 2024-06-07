@@ -27,7 +27,7 @@ class HomeFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     private val viewModel by viewModels<HomeViewModel> {
-        ViewModelFactory.getInstance(requireActivity())
+        ViewModelFactory.getInstance(requireContext())
     }
 
     override fun onCreateView(

@@ -32,7 +32,7 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
     fun getSale() {
         viewModelScope.launch {
             repository.getSession().collect{
-                _donation.value = repository.getSale(it.token)
+                _sale.value = repository.getSale(it.token)
             }
         }
     }

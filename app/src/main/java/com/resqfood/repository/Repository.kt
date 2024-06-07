@@ -2,7 +2,6 @@ package com.resqfood.repository
 
 import com.google.gson.Gson
 import com.resqfood.data.api.ApiConfig
-import com.resqfood.data.api.SearchAPIService
 import com.resqfood.data.pref.SaleModel
 import com.resqfood.data.pref.UserModel
 import com.resqfood.data.pref.UserPreference

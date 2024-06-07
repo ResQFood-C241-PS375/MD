@@ -3,6 +3,8 @@ package com.resqfood.data.adapter
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -13,9 +15,16 @@ import com.resqfood.view.post_detail.DetailSaleActivity
 
 // Nunggu CC baru dibenerin lagi
 
-class ForSaleAdapter : ListAdapter<ListSaleItem, ForSaleAdapter.ViewHolder>(DIFF_CALLBACK) {
+class ForSaleAdapter : ListAdapter<ListSaleItem, ForSaleAdapter.ViewHolder>(DIFF_CALLBACK), Filterable {
 
-    class ViewHolder(private val binding: CardForSaleBinding) : RecyclerView.ViewHolder(binding.root) {
+    private var unfilteredData: List<ListSaleItem> = emptyList()
+
+    init {
+        submitList(unfilteredData)
+    }
+
+    class ViewHolder(private val binding: CardForSaleBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: ListSaleItem) {
             binding.forsaleTitle.text = item.title
@@ -51,5 +60,32 @@ class ForSaleAdapter : ListAdapter<ListSaleItem, ForSaleAdapter.ViewHolder>(DIFF
             }
         }
         const val PARCEL_NAME = "data"
+    }
+
+    fun setData(list: List<ListSaleItem>) {
+        this.unfilteredData = list
+        submitList(list)
+    }
+
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val filteredList = if (constraint.isNullOrEmpty()) {
+                    unfilteredData
+                } else {
+                    val filterPattern = constraint.toString().lowercase().trim()
+                    unfilteredData.filter {
+                        it.name.lowercase().contains(filterPattern)
+                    }
+                }
+                return FilterResults().apply { values = filteredList }
+
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                submitList(results?.values as? List<ListSaleItem>)
+            }
+        }
     }
 }

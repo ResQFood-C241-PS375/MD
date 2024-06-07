@@ -35,11 +35,6 @@ class PrimaryActivity : AppCompatActivity() {
         ViewModelFactory.getInstance(this)
     }
 
-    //misal
-    private val sharedViewModel: SharedViewModel by viewModels {
-        ViewModelFactory.getInstance(this)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -67,8 +62,6 @@ class PrimaryActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
-        setupSearch()
     }
 
     private fun setupView() {
@@ -82,26 +75,6 @@ class PrimaryActivity : AppCompatActivity() {
             )
         }
         supportActionBar?.hide()
-    }
-
-    private fun setupSearch() {
-        with(binding.appBarPrimary) {
-            searchView.setupWithSearchBar(searchBar)
-            searchView.editText.setOnEditorActionListener { textView, actionId, event -> //Mungkin bisa ditambah parameter
-//                searchBar.setText(searchView.text)
-//                searchView.hide()
-//                Toast.makeText(this@PrimaryActivity, searchView.text, Toast.LENGTH_SHORT).show()
-//                false
-
-                val keyword = searchView.text.toString()
-                if (keyword.isNotEmpty()) {
-                    sharedViewModel.searchProduct(keyword)
-                    Toast.makeText(this@PrimaryActivity, "Searching for: $keyword", Toast.LENGTH_SHORT).show()
-                }
-                searchView.hide()
-                true
-            }
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

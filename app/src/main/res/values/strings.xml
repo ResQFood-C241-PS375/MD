@@ -54,4 +54,5 @@
     <string name="whatsapp_icon">WhatsApp Icon</string>
     <string name="title_example">Title Example</string>
     <string name="nomor_hp">Nomor HP</string>
+    <string name="search_bar_hint">Masukkan nama makanan atau minuman</string>
 </resources>

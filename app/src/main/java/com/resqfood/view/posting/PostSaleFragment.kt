@@ -75,45 +75,45 @@ class PostSaleFragment : Fragment() {
     }
 
     private fun postSale() {
-        currentImageUri?.let { uri ->
-            val imageFile = uriToFile(uri, requireActivity()).reduceFileImage()
-            Log.d("Image File", "showImage: ${imageFile.path}")
-            val title = binding.inputDishes.text.toString()
-            val description = binding.inputDescription.text.toString()
-            val expired = binding.inputExpired.text.toString()
-            viewModel.saleUpload(imageFile,title, description, expired)
-            viewModel.uploadSale.observe(viewLifecycleOwner) { result: RegisterResponse ->
-                var alertDialog: AlertDialog.Builder? = null
-                if (result.error == true) {
-                    showLoading(false)
-                    alertDialog = AlertDialog.Builder(requireActivity()).apply {
-                        setTitle("Kesalahan Input !")
-                        setMessage(result.message)
-                        setNegativeButton("Upload ulang") { dialog, _ ->
-                            dialog.cancel()
-                            dialog.dismiss()
-                        }
-                        create()
-                    }
-                    alertDialog.show()
-                } else {
-                    showLoading(false)
-                    alertDialog = AlertDialog.Builder(requireActivity()).apply {
-                        setTitle("Berhasil !")
-                        setMessage(result.message)
-                        setNegativeButton("Lanjut") { dialog, _ ->
-                            val intent = Intent(requireActivity(), PrimaryActivity::class.java)
-                            startActivity(intent)
-                            dialog.cancel()
-                            dialog.dismiss()
-                        }
-                        create()
-                    }
-                    alertDialog.show()
-                }
-            }
-
-        }
+//        currentImageUri?.let { uri ->
+//            val imageFile = uriToFile(uri, requireActivity()).reduceFileImage()
+//            Log.d("Image File", "showImage: ${imageFile.path}")
+//            val title = binding.inputDishes.text.toString()
+//            val description = binding.inputDescription.text.toString()
+//            val expired = binding.inputExpired.text.toString()
+//            viewModel.saleUpload(imageFile,title, description, expired)
+//            viewModel.uploadSale.observe(viewLifecycleOwner) { result: RegisterResponse ->
+//                var alertDialog: AlertDialog.Builder? = null
+//                if (result.error == true) {
+//                    showLoading(false)
+//                    alertDialog = AlertDialog.Builder(requireActivity()).apply {
+//                        setTitle("Kesalahan Input !")
+//                        setMessage(result.message)
+//                        setNegativeButton("Upload ulang") { dialog, _ ->
+//                            dialog.cancel()
+//                            dialog.dismiss()
+//                        }
+//                        create()
+//                    }
+//                    alertDialog.show()
+//                } else {
+//                    showLoading(false)
+//                    alertDialog = AlertDialog.Builder(requireActivity()).apply {
+//                        setTitle("Berhasil !")
+//                        setMessage(result.message)
+//                        setNegativeButton("Lanjut") { dialog, _ ->
+//                            val intent = Intent(requireActivity(), PrimaryActivity::class.java)
+//                            startActivity(intent)
+//                            dialog.cancel()
+//                            dialog.dismiss()
+//                        }
+//                        create()
+//                    }
+//                    alertDialog.show()
+//                }
+//            }
+//
+//        }
     }
 
     private fun showLoading(isLoading: Boolean) {

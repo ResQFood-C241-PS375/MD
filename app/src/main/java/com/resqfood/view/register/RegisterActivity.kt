@@ -34,7 +34,7 @@ class RegisterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityRegisterBinding.inflate(layoutInflater)
+        binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         showLoading(false)
@@ -85,6 +85,7 @@ class RegisterActivity : AppCompatActivity() {
         viewModel.resultRegister.observe(this) {
             showLoading(true)
             val alertDialog: AlertDialog.Builder?
+            Log.d("${it.error}","GGGGGGGG")
             if (it.error == true) {
                 showLoading(false)
                 alertDialog = AlertDialog.Builder(this).apply {
@@ -101,6 +102,7 @@ class RegisterActivity : AppCompatActivity() {
                 alertDialog = AlertDialog.Builder(this).apply {
                     setTitle("Berhasil dibuat !")
                     setMessage(it.message)
+                    Log.d("${it.message}","BISALAAAAAHHH")
                     setNegativeButton("silahkan login") { dialog, _ ->
                         dialog.dismiss()
                         dialog.cancel()
@@ -120,9 +122,11 @@ class RegisterActivity : AppCompatActivity() {
             currentImageUri?.let {
                 viewModel.registerUser(
                     uriToFile(it, this).reduceFileImage(),
-                    binding.nameEditText.text.toString(),
+                    binding.userNameEditText.text.toString(),
+                    binding.fullNameEditText.text.toString(),
                     binding.emailEditText.text.toString(),
                     binding.passwordEditText.text.toString(),
+                    binding.confirmPasswordEditText.text.toString(),
                     binding.phoneEditText.text.toString()
                 )
             }
@@ -138,9 +142,13 @@ class RegisterActivity : AppCompatActivity() {
 
         val title = ObjectAnimator.ofFloat(binding.titleTextView, View.ALPHA, 1f).setDuration(100)
         val nameTextView =
-            ObjectAnimator.ofFloat(binding.nameTextView, View.ALPHA, 1f).setDuration(100)
+            ObjectAnimator.ofFloat(binding.userNameTextView, View.ALPHA, 1f).setDuration(100)
         val nameEditTextLayout =
-            ObjectAnimator.ofFloat(binding.nameEditTextLayout, View.ALPHA, 1f).setDuration(100)
+            ObjectAnimator.ofFloat(binding.userNameEditTextLayout, View.ALPHA, 1f).setDuration(100)
+        val fnameTextView =
+            ObjectAnimator.ofFloat(binding.fullNameTextView, View.ALPHA, 1f).setDuration(100)
+        val fnameEditTextLayout =
+            ObjectAnimator.ofFloat(binding.fullNameEditTextLayout, View.ALPHA, 1f).setDuration(100)
         val emailTextView =
             ObjectAnimator.ofFloat(binding.emailTextView, View.ALPHA, 1f).setDuration(100)
         val emailEditTextLayout =
@@ -149,6 +157,14 @@ class RegisterActivity : AppCompatActivity() {
             ObjectAnimator.ofFloat(binding.passwordTextView, View.ALPHA, 1f).setDuration(100)
         val passwordEditTextLayout =
             ObjectAnimator.ofFloat(binding.passwordEditTextLayout, View.ALPHA, 1f).setDuration(100)
+        val cPasswordTextView =
+            ObjectAnimator.ofFloat(binding.confirmPasswordTextView, View.ALPHA, 1f).setDuration(100)
+        val cPasswordEditTextLayout =
+            ObjectAnimator.ofFloat(binding.confirmPasswordEditTextLayout, View.ALPHA, 1f).setDuration(100)
+        val phoneTextView =
+            ObjectAnimator.ofFloat(binding.phoneTextView, View.ALPHA, 1f).setDuration(100)
+        val phoneEditTextLayout =
+            ObjectAnimator.ofFloat(binding.phoneEditTextLayout, View.ALPHA, 1f).setDuration(100)
         val signup = ObjectAnimator.ofFloat(binding.signupButton, View.ALPHA, 1f).setDuration(100)
 
 
@@ -157,10 +173,16 @@ class RegisterActivity : AppCompatActivity() {
                 title,
                 nameTextView,
                 nameEditTextLayout,
+                fnameTextView,
+                fnameEditTextLayout,
                 emailTextView,
                 emailEditTextLayout,
                 passwordTextView,
                 passwordEditTextLayout,
+                cPasswordTextView,
+                cPasswordEditTextLayout,
+                phoneTextView,
+                phoneEditTextLayout,
                 signup
             )
             startDelay = 100

@@ -27,7 +27,7 @@
         <com.google.android.material.search.SearchView
             android:id="@+id/searchView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             app:layout_anchor="@id/searchBar">
         </com.google.android.material.search.SearchView>
     </androidx.appcompat.widget.Toolbar>
@@ -79,6 +79,13 @@
                 android:paddingHorizontal="9dp"
                 android:paddingVertical="9dp"
                 android:scrollbars="none" />
+
+            <Button
+                android:id="@+id/tesLogout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="30sp"
+                android:text="@string/test"/>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

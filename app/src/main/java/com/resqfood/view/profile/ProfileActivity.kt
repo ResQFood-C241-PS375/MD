@@ -1,5 +1,6 @@
 package com.resqfood.view.profile
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -15,8 +16,12 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.resqfood.ViewModelFactory
-import com.resqfood.data.adapter.DonationAdapter
-import com.resqfood.data.adapter.ForSaleAdapter
+import com.resqfood.data.adapter.DonationActionListener
+//import com.resqfood.data.adapter.DonationAdapter
+//import com.resqfood.data.adapter.DonationProfileAdapter
+//import com.resqfood.data.adapter.ForSaleAdapter
+//import com.resqfood.data.adapter.ForSaleProfileAdapter
+import com.resqfood.data.adapter.SaleActionListener
 import com.resqfood.data.pref.DonationModel
 import com.resqfood.data.pref.Profile
 import com.resqfood.data.pref.SaleModel
@@ -27,7 +32,7 @@ import kotlinx.coroutines.launch
 
 // Ini juga belomm
 
-class ProfileActivity : AppCompatActivity() {
+class ProfileActivity : AppCompatActivity(), DonationActionListener, SaleActionListener {
 
     private lateinit var binding: ActivityProfileBinding
     private val viewModel by viewModels<ProfileViewModel> {
@@ -39,49 +44,76 @@ class ProfileActivity : AppCompatActivity() {
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        getProfile()
-        setupRVDonationProfile()
-        setupRVSaleProfile()
+//        getProfile()
+//        setupRVDonationProfile()
+//        setupRVSaleProfile()
 
-        binding.logout.setOnClickListener {
-            viewModel.logout()
-            finish()
-            val intent = Intent(this, PrimaryActivity::class.java)
-            startActivity(intent)
-        }
+//        binding.logout.setOnClickListener {
+//            viewModel.logout()
+//            finish()
+//            val intent = Intent(this, PrimaryActivity::class.java)
+//            startActivity(intent)
+//        }
     }
 
-    private fun getProfile() {
-        viewModel.getProfile()
-        viewModel.profile.observe(this) {
-            binding.fullnameCIT.text = it.name
-            Glide.with(binding.root)
-                .load(it.image)
-                .into(binding.profileImage)
-            binding.emailCIT.text = it.email
-            binding.whatsappCIT.text = it.phone
-        }
+//    private fun getProfile() {
+//        viewModel.getProfile()
+//        viewModel.profile.observe(this) {
+//            binding.fullnameCIT.text = it.name
+//            Glide.with(binding.root)
+//                .load(it.image)
+//                .into(binding.profileImage)
+//            binding.emailCIT.text = it.email
+//            binding.whatsappCIT.text = it.phone
+//        }
+//    }
+
+//    private fun setupRVDonationProfile() {
+//        viewModel.donation.observe(this) { donation: DonationModel ->
+//            val adapter = DonationProfileAdapter()
+//            adapter.submitList(donation.listDonationProfile)
+//            binding.rvdonationProfile.adapter = adapter
+//            binding.rvdonationProfile.layoutManager = LinearLayoutManager(this)
+//        }
+//        viewModel.getDonation()
+//    }
+//
+//    private fun setupRVSaleProfile() {
+//        viewModel.sale.observe(this) { sale: SaleModel ->
+//            val adapter = ForSaleProfileAdapter()
+//            adapter.submitList(sale.listSale)
+//            binding.rvSaleProfile.adapter = adapter
+//            binding.rvSaleProfile.layoutManager = LinearLayoutManager(this)
+//        }
+//        viewModel.getSale()
+//    }
+
+    override fun onDeleteDonation(donationId: String) {
+        AlertDialog.Builder(this)
+            .setTitle("Konfirmasi Hapus")
+            .setMessage("Apakah Anda yakin ingin menghapus profil ini?")
+            .setPositiveButton("Hapus") { dialog, which ->
+                // Assuming you have a method in your ViewModel to handle deletion
+//                viewModel.deleteDonation(donationId)
+                Toast.makeText(this, "Berhasil dihapus", Toast.LENGTH_SHORT).show()
+            }
+            .setNegativeButton("Batal", null)
+            .show()
     }
 
-    private fun setupRVDonationProfile() {
-        viewModel.donation.observe(this) { donation: DonationModel ->
-            val adapter = DonationAdapter()
-            adapter.submitList(donation.listDonationProfile)
-            binding.rvdonationProfile.adapter = adapter
-            binding.rvdonationProfile.layoutManager = LinearLayoutManager(this)
-        }
-        viewModel.getDonation()
+    override fun onDeleteSale(saleId: String) {
+        AlertDialog.Builder(this)
+            .setTitle("Konfirmasi Hapus")
+            .setMessage("Apakah Anda yakin ingin menghapus profil ini?")
+            .setPositiveButton("Hapus") { dialog, which ->
+                // Assuming you have a method in your ViewModel to handle deletion
+//                viewModel.deleteSale(saleId)
+                Toast.makeText(this, "Berhasil dihapus", Toast.LENGTH_SHORT).show()
+            }
+            .setNegativeButton("Batal", null)
+            .show()
     }
 
-    private fun setupRVSaleProfile() {
-        viewModel.sale.observe(this) { sale: SaleModel ->
-            val adapter = ForSaleAdapter()
-            adapter.submitList(sale.sale)
-            binding.rvSaleProfile.adapter = adapter
-            binding.rvSaleProfile.layoutManager = LinearLayoutManager(this)
-        }
-        viewModel.getSale()
-    }
 
     // bikin update profile
 

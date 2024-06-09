@@ -22,7 +22,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.resqfood.R
 import com.resqfood.ViewModelFactory
-import com.resqfood.data.adapter.ForSaleAdapter
 import com.resqfood.databinding.ActivityPrimaryBinding
 import com.resqfood.view.profile.ProfileActivity
 import com.resqfood.view.welcome.WelcomeActivity

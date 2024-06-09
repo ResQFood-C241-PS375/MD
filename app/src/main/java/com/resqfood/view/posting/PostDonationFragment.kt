@@ -74,45 +74,45 @@ class PostDonationFragment : Fragment() {
 
 
     private fun postDonation() {
-        currentImageUri?.let { uri ->
-            val imageFile = uriToFile(uri, requireActivity()).reduceFileImage()
-            Log.d("Image File", "showImage: ${imageFile.path}")
-            val title = binding.inputDonation.text.toString()
-            val description = binding.inputDescription.text.toString()
-            val location = binding.inputLocation.text.toString()
-            viewModel.donationUpload(imageFile,title, description, location)
-            viewModel.uploadDonation.observe(viewLifecycleOwner) { result: RegisterResponse ->
-                var alertDialog: AlertDialog.Builder? = null
-                if (result.error == true) {
-                    showLoading(false)
-                    alertDialog = AlertDialog.Builder(requireActivity()).apply {
-                        setTitle("Kesalahan Input !")
-                        setMessage(result.message)
-                        setNegativeButton("Upload ulang") { dialog, _ ->
-                            dialog.cancel()
-                            dialog.dismiss()
-                        }
-                        create()
-                    }
-                    alertDialog.show()
-                } else {
-                    showLoading(false)
-                    alertDialog = AlertDialog.Builder(requireActivity()).apply {
-                        setTitle("Berhasil !")
-                        setMessage(result.message)
-                        setNegativeButton("Lanjut") { dialog, _ ->
-                            val intent = Intent(requireActivity(), PrimaryActivity::class.java)
-                            startActivity(intent)
-                            dialog.cancel()
-                            dialog.dismiss()
-                        }
-                        create()
-                    }
-                    alertDialog.show()
-                }
-            }
-
-        }
+//        currentImageUri?.let { uri ->
+//            val imageFile = uriToFile(uri, requireActivity()).reduceFileImage()
+//            Log.d("Image File", "showImage: ${imageFile.path}")
+//            val title = binding.inputDonation.text.toString()
+//            val description = binding.inputDescription.text.toString()
+//            val location = binding.inputLocation.text.toString()
+//            viewModel.donationUpload(imageFile,title, description, location)
+//            viewModel.uploadDonation.observe(viewLifecycleOwner) { result: RegisterResponse ->
+//                var alertDialog: AlertDialog.Builder? = null
+//                if (result.error == true) {
+//                    showLoading(false)
+//                    alertDialog = AlertDialog.Builder(requireActivity()).apply {
+//                        setTitle("Kesalahan Input !")
+//                        setMessage(result.message)
+//                        setNegativeButton("Upload ulang") { dialog, _ ->
+//                            dialog.cancel()
+//                            dialog.dismiss()
+//                        }
+//                        create()
+//                    }
+//                    alertDialog.show()
+//                } else {
+//                    showLoading(false)
+//                    alertDialog = AlertDialog.Builder(requireActivity()).apply {
+//                        setTitle("Berhasil !")
+//                        setMessage(result.message)
+//                        setNegativeButton("Lanjut") { dialog, _ ->
+//                            val intent = Intent(requireActivity(), PrimaryActivity::class.java)
+//                            startActivity(intent)
+//                            dialog.cancel()
+//                            dialog.dismiss()
+//                        }
+//                        create()
+//                    }
+//                    alertDialog.show()
+//                }
+//            }
+//
+//        }
     }
 
     private fun showLoading(isLoading: Boolean) {

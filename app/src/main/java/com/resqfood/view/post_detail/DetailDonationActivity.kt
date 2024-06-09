@@ -14,7 +14,7 @@ import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.resqfood.R
 import com.resqfood.ViewModelFactory
-import com.resqfood.data.adapter.DonationAdapter
+//import com.resqfood.data.adapter.DonationAdapter
 import com.resqfood.databinding.ActivityDetailDonationBinding
 import com.resqfood.view.main.HomeViewModel
 
@@ -22,7 +22,7 @@ import com.resqfood.view.main.HomeViewModel
 
 class DetailDonationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailDonationBinding
-    private lateinit var detailDonation: ListDonationItem
+//    private lateinit var detailDonation: ListDonationItem
     private val viewModel by viewModels<DetailViewModel> {
         ViewModelFactory.getInstance(this)
     }
@@ -33,20 +33,20 @@ class DetailDonationActivity : AppCompatActivity() {
         binding = ActivityDetailDonationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            detailDonation = intent.getParcelableExtra(DonationAdapter.PARCEL_NAME, ListDonationItem::class.java)!!
-        } else {
-            @Suppress("DEPRECATION")
-            detailDonation = intent.getParcelableExtra(DonationAdapter.PARCEL_NAME)!!
-        }
-
-        // DonationDetail
-        Glide.with(binding.root)
-            .load(detailDonation.image)
-            .into(binding.imageDetail)
-        binding.donationTitle.text = detailDonation.name
-        binding.donationDescription.text = detailDonation.description
-        binding.donationLocation.text = detailDonation.location
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+//            detailDonation = intent.getParcelableExtra(DonationAdapter.PARCEL_NAME, ListDonationItem::class.java)!!
+//        } else {
+//            @Suppress("DEPRECATION")
+//            detailDonation = intent.getParcelableExtra(DonationAdapter.PARCEL_NAME)!!
+//        }
+//
+//        // DonationDetail
+//        Glide.with(binding.root)
+//            .load(detailDonation.image)
+//            .into(binding.imageDetail)
+//        binding.donationTitle.text = detailDonation.name
+//        binding.donationDescription.text = detailDonation.description
+//        binding.donationLocation.text = detailDonation.location
 
         // Users
         getProfile()
@@ -57,14 +57,14 @@ class DetailDonationActivity : AppCompatActivity() {
     }
 
     private fun getProfile() {
-        viewModel.getProfile()
-        viewModel.profile.observe(this) {
-            binding.userName.text = it.name
-            Glide.with(binding.root)
-                .load(it.image)
-                .into(binding.userImage)
-            userNumber = it.phone
-        }
+//        viewModel.getProfile()
+//        viewModel.profile.observe(this) {
+//            binding.userName.text = it.name
+//            Glide.with(binding.root)
+//                .load(it.image)
+//                .into(binding.userImage)
+//            userNumber = it.phone
+//        }
     }
 
     private fun openWhatsApp() {

@@ -13,8 +13,8 @@ import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
 import com.resqfood.R
 import com.resqfood.ViewModelFactory
-import com.resqfood.data.adapter.DonationAdapter
-import com.resqfood.data.adapter.ForSaleAdapter
+//import com.resqfood.data.adapter.DonationAdapter
+//import com.resqfood.data.adapter.ForSaleAdapter
 import com.resqfood.databinding.ActivityDetailDonationBinding
 import com.resqfood.databinding.ActivityDetailSaleBinding
 
@@ -22,7 +22,7 @@ import com.resqfood.databinding.ActivityDetailSaleBinding
 
 class DetailSaleActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailSaleBinding
-    private lateinit var detailSale: ListSaleItem
+//    private lateinit var detailSale: ListSaleItem
     private val viewModel by viewModels<DetailViewModel> {
         ViewModelFactory.getInstance(this)
     }
@@ -34,20 +34,20 @@ class DetailSaleActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            detailSale = intent.getParcelableExtra(ForSaleAdapter.PARCEL_NAME, ListSaleItem::class.java)!!
-        } else {
-            @Suppress("DEPRECATION")
-            detailSale= intent.getParcelableExtra(ForSaleAdapter.PARCEL_NAME)!!
-        }
-
-        // DonationDetail
-        Glide.with(binding.root)
-            .load(detailSale.image)
-            .into(binding.imageDetail)
-        binding.saleTitle.text = detailSale.name
-        binding.saleDescription.text = detailSale.description
-        binding.saleExpired.text = detailSale.expired
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+//            detailSale = intent.getParcelableExtra(ForSaleAdapter.PARCEL_NAME, ListSaleItem::class.java)!!
+//        } else {
+//            @Suppress("DEPRECATION")
+//            detailSale= intent.getParcelableExtra(ForSaleAdapter.PARCEL_NAME)!!
+//        }
+//
+//        // DonationDetail
+//        Glide.with(binding.root)
+//            .load(detailSale.image)
+//            .into(binding.imageDetail)
+//        binding.saleTitle.text = detailSale.name
+//        binding.saleDescription.text = detailSale.description
+//        binding.saleExpired.text = detailSale.expired
 
         // Users
         getProfile()
@@ -58,14 +58,14 @@ class DetailSaleActivity : AppCompatActivity() {
     }
 
     private fun getProfile() {
-        viewModel.getProfile()
-        viewModel.profile.observe(this) {
-            binding.userName.text = it.name
-            Glide.with(binding.root)
-                .load(it.image)
-                .into(binding.userImage)
-            userNumber = it.phone
-        }
+//        viewModel.getProfile()
+//        viewModel.profile.observe(this) {
+//            binding.userName.text = it.name
+//            Glide.with(binding.root)
+//                .load(it.image)
+//                .into(binding.userImage)
+//            userNumber = it.phone
+//        }
     }
 
     private fun openWhatsApp() {

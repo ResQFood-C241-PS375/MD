@@ -10,10 +10,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.resqfood.R
 import com.resqfood.ViewModelFactory
-//import com.resqfood.data.adapter.DonationAdapter
+import com.resqfood.data.adapter.DonationAdapter
+import com.resqfood.data.response.DonationResponse
 //import com.resqfood.data.adapter.ForSaleAdapter
-import com.resqfood.data.pref.DonationModel
-import com.resqfood.data.pref.SaleModel
 import com.resqfood.databinding.FragmentHomeBinding
 
 // ini belum
@@ -41,7 +40,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        setupRVDonation()
+        setupRVDonation()
 //        setupRVSale()
 //        setupSearchView()
 
@@ -51,13 +50,13 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupRVDonation() {
-//        viewModel.donation.observe(viewLifecycleOwner) { donation: DonationModel ->
-//            val adapter = DonationAdapter()
-//            adapter.submitList(donation.listDonation)
-//            binding.rvDonation.adapter = adapter
-//            binding.rvDonation.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-//        }
-//        viewModel.getDonation()
+        viewModel.donation.observe(viewLifecycleOwner) { donation: DonationResponse ->
+            val adapter = DonationAdapter()
+            adapter.submitList(donation.donations)
+            binding.rvDonation.adapter = adapter
+            binding.rvDonation.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        }
+        viewModel.getDonation()
     }
 
     private fun setupRVSale() {

@@ -13,7 +13,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import com.resqfood.R
 import com.resqfood.ViewModelFactory
+import com.resqfood.data.response.PostDonationResponse
 import com.resqfood.databinding.FragmentPostDonationBinding
 import com.resqfood.reduceFileImage
 import com.resqfood.uriToFile
@@ -74,45 +76,44 @@ class PostDonationFragment : Fragment() {
 
 
     private fun postDonation() {
-//        currentImageUri?.let { uri ->
-//            val imageFile = uriToFile(uri, requireActivity()).reduceFileImage()
-//            Log.d("Image File", "showImage: ${imageFile.path}")
-//            val title = binding.inputDonation.text.toString()
-//            val description = binding.inputDescription.text.toString()
-//            val location = binding.inputLocation.text.toString()
-//            viewModel.donationUpload(imageFile,title, description, location)
-//            viewModel.uploadDonation.observe(viewLifecycleOwner) { result: RegisterResponse ->
-//                var alertDialog: AlertDialog.Builder? = null
-//                if (result.error == true) {
-//                    showLoading(false)
-//                    alertDialog = AlertDialog.Builder(requireActivity()).apply {
-//                        setTitle("Kesalahan Input !")
-//                        setMessage(result.message)
-//                        setNegativeButton("Upload ulang") { dialog, _ ->
-//                            dialog.cancel()
-//                            dialog.dismiss()
-//                        }
-//                        create()
-//                    }
-//                    alertDialog.show()
-//                } else {
-//                    showLoading(false)
-//                    alertDialog = AlertDialog.Builder(requireActivity()).apply {
-//                        setTitle("Berhasil !")
-//                        setMessage(result.message)
-//                        setNegativeButton("Lanjut") { dialog, _ ->
-//                            val intent = Intent(requireActivity(), PrimaryActivity::class.java)
-//                            startActivity(intent)
-//                            dialog.cancel()
-//                            dialog.dismiss()
-//                        }
-//                        create()
-//                    }
-//                    alertDialog.show()
-//                }
-//            }
-//
-//        }
+        currentImageUri?.let { uri ->
+            val imageFile = uriToFile(uri, requireActivity()).reduceFileImage()
+            Log.d("Image File", "showImage: ${imageFile.path}")
+            val title = binding.inputDonation.text.toString()
+            val description = binding.inputDescription.text.toString()
+            val location = binding.inputLocation.text.toString()
+            viewModel.donationUpload(imageFile,title, description, location)
+            viewModel.uploadDonation.observe(viewLifecycleOwner) { result: PostDonationResponse ->
+                var alertDialog: AlertDialog.Builder? = null
+                if (result.message != "Donasi berhasil dibuat!") {
+                    showLoading(false)
+                    alertDialog = AlertDialog.Builder(requireActivity()).apply {
+                        setTitle("Kesalahan Input !")
+                        setMessage(R.string.error_input)
+                        setNegativeButton("Upload ulang") { dialog, _ ->
+                            dialog.cancel()
+                            dialog.dismiss()
+                        }
+                        create()
+                    }
+                    alertDialog.show()
+                } else {
+                    showLoading(false)
+                    alertDialog = AlertDialog.Builder(requireActivity()).apply {
+                        setTitle("Berhasil !")
+                        setMessage(result.message)
+                        setNegativeButton("Lanjut") { dialog, _ ->
+                            val intent = Intent(requireActivity(), PrimaryActivity::class.java)
+                            startActivity(intent)
+                            dialog.cancel()
+                            dialog.dismiss()
+                        }
+                        create()
+                    }
+                    alertDialog.show()
+                }
+            }
+        }
     }
 
     private fun showLoading(isLoading: Boolean) {

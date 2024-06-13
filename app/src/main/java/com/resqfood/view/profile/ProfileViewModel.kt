@@ -4,9 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.resqfood.data.pref.DonationModel
-import com.resqfood.data.pref.Profile
-import com.resqfood.data.pref.SaleModel
 import com.resqfood.repository.Repository
 import kotlinx.coroutines.launch
 

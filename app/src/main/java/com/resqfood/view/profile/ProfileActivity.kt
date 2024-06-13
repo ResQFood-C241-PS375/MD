@@ -22,9 +22,6 @@ import com.resqfood.data.adapter.DonationActionListener
 //import com.resqfood.data.adapter.ForSaleAdapter
 //import com.resqfood.data.adapter.ForSaleProfileAdapter
 import com.resqfood.data.adapter.SaleActionListener
-import com.resqfood.data.pref.DonationModel
-import com.resqfood.data.pref.Profile
-import com.resqfood.data.pref.SaleModel
 import com.resqfood.databinding.ActivityProfileBinding
 import com.resqfood.view.main.PrimaryActivity
 import com.resqfood.view.posting.PostingViewModel

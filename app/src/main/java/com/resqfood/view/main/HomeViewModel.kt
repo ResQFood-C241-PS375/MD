@@ -6,13 +6,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.resqfood.data.pref.UserModel
+import com.resqfood.data.response.DonationResponse
 import com.resqfood.repository.Repository
 import kotlinx.coroutines.launch
 
 class HomeViewModel(private val repository: Repository) : ViewModel() {
 
-//    private val _donation = MutableLiveData<DonationResponse>()
-//    val donation: LiveData<DonationResponse> = _donation
+    private val _donation = MutableLiveData<DonationResponse>()
+    val donation: LiveData<DonationResponse> = _donation
 //
 //    private val _sale = MutableLiveData<SaleResponse>()
 //    val sale: LiveData<SaleResponse> = _sale
@@ -21,19 +22,19 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
         return repository.getSession().asLiveData()
     }
 
-        fun logout() {
+    fun logout() {
         viewModelScope.launch {
             repository.logout()
         }
     }
 
-//    fun getDonation() {
-//        viewModelScope.launch {
-//            repository.getSession().collect{
-//                _donation.value = repository.getDonation(it.token)
-//            }
-//        }
-//    }
+    fun getDonation() {
+        viewModelScope.launch {
+            repository.getSession().collect{
+                _donation.value = repository.getDonation(it.token)
+            }
+        }
+    }
 //
 //    fun getSale() {
 //        viewModelScope.launch {

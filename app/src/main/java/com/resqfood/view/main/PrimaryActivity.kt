@@ -45,7 +45,7 @@ class PrimaryActivity : AppCompatActivity() {
                 startActivity(Intent(this, WelcomeActivity::class.java))
                 finish()
             } else {
-                setupView()
+//                setupView()
             }
         }
 

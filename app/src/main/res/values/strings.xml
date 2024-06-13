@@ -57,4 +57,6 @@
     <string name="search_bar_hint">Masukkan nama makanan atau minuman</string>
     <string name="test">ORAAA ORAAA</string>
     <string name="confirm_password">Confirm Password</string>
+
+    <string name="error_input">Data yg dimasukkan tidak benar</string>
 </resources>

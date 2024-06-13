@@ -19,7 +19,6 @@ class ApiConfig {
                 .addInterceptor(loggingInterceptor)
                 .build()
             val retrofit = Retrofit.Builder()
-//                .baseUrl(BuildConfig.API_URL) Naro API disini
                 .baseUrl("https://resqfood-c241-ps375.et.r.appspot.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
@@ -44,7 +43,6 @@ class ApiConfig {
                 .addInterceptor(authInterceptor)
                 .build()
             val retrofit = Retrofit.Builder()
-//                .baseUrl(BuildConfig.API_URL) Naro API disini
                 .baseUrl("https://resqfood-c241-ps375.et.r.appspot.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)

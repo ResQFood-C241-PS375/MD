@@ -87,7 +87,7 @@ class LoginActivity : AppCompatActivity() {
                     }
                     alertDialog?.create()
                     alertDialog?.show()
-                    viewModel.saveSession(UserModel(username, it.user?.token!!))
+                    viewModel.saveSession(UserModel(username, it.user?.token!!, it.user?.userId!!))
                 }
             }
         }

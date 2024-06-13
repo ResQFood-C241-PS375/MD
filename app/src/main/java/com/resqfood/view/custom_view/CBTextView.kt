@@ -16,5 +16,4 @@ class CBTextView(context: Context, attributeSet: AttributeSet): AppCompatTextVie
             Typeface.createFromAsset(context.assets,"Poppins-Bold.ttf")
         setTypeface(typeface)
     }
-
 }

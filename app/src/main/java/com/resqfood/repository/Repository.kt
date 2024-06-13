@@ -3,10 +3,12 @@ package com.resqfood.repository
 import android.util.Log
 import com.google.gson.Gson
 import com.resqfood.data.api.ApiConfig
-import com.resqfood.data.pref.SaleModel
 import com.resqfood.data.pref.UserModel
 import com.resqfood.data.pref.UserPreference
+import com.resqfood.data.response.DetailDonationResponse
+import com.resqfood.data.response.DonationResponse
 import com.resqfood.data.response.LoginResponse
+import com.resqfood.data.response.PostDonationResponse
 import com.resqfood.data.response.RegisterResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -21,10 +23,7 @@ import java.io.File
 // Ini juga nunggu CC baru disesuain
 
 class Repository private constructor(
-    private val userPreference: UserPreference,
-
-    //misal
-//    private val apiService: SearchAPIService
+    private val userPreference: UserPreference
 ) {
 
     // kayaknya nambah ini
@@ -38,15 +37,36 @@ class Repository private constructor(
 //        }
 //    }
 //
-//    suspend fun getDonation(token: String): DonationResponse {
+//    suspend fun getDonationId(id: String, token: String): DetailDonationResponse {
 //        return withContext(Dispatchers.IO) {
 //            if (token.isEmpty()) {
-//                return@withContext DonationResponse()
+//                return@withContext DetailDonationResponse()
 //            } else {
-//                return@withContext ApiConfig.getApiServiceWithToken(token).getDonation().execute().body()!!
+//                return@withContext ApiConfig.getApiServiceWithToken(token).getDetailDonation(id).execute().body()!!
 //            }
 //        }
 //    }
+    suspend fun getDonation(token: String): DonationResponse {
+        return withContext(Dispatchers.IO) {
+            if (token.isEmpty()) {
+                return@withContext DonationResponse()
+            } else {
+                return@withContext ApiConfig.getApiServiceWithToken(token).getDonation().execute().body()!!
+            }
+        }
+    }
+
+
+    suspend fun getDonationId(id: String, token: String): DetailDonationResponse {
+        return withContext(Dispatchers.IO) {
+            if (token.isEmpty()) {
+                return@withContext DetailDonationResponse()
+            } else {
+                return@withContext ApiConfig.getApiServiceWithToken(token).getDetailDonation(id).execute().body()!!
+            }
+        }
+    }
+
 //
 //    suspend fun getSale(token: String): SaleResponse {
 //        return withContext(Dispatchers.IO) {
@@ -122,26 +142,27 @@ class Repository private constructor(
 //        }
 //    }
 //
-//    suspend fun postDonation(imageFile: File, title: String, description: String, location: String, token: String): RegisterResponse {
-//        return withContext(Dispatchers.IO) {
-//            val requestTitle = title.toRequestBody("text/plain".toMediaType())
-//            val requestDescription = description.toRequestBody("text/plain".toMediaType())
-//            val requestLocation = location.toRequestBody("text/plain".toMediaType())
-//            val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
-//            val multipartBody = MultipartBody.Part.createFormData(
-//                "photo",
-//                imageFile.name,
-//                requestImageFile
-//            )
-//            val response = ApiConfig.getApiServiceWithToken(token).postDonation(multipartBody,requestTitle, requestDescription, requestLocation).execute()
-//            return@withContext if (response.isSuccessful) {
-//                response.body()!!
-//            } else {
-//                val jsonInString = response.errorBody()?.string()
-//                Gson().fromJson<RegisterResponse?>(jsonInString, RegisterResponse::class.java)
-//            }
-//        }
-//    }
+    suspend fun postDonation(imageFile: File, title: String, description: String, location: String, token: String, userId: String): PostDonationResponse {
+        return withContext(Dispatchers.IO) {
+            val requestTitle = title.toRequestBody("text/plain".toMediaType())
+            val requestDescription = description.toRequestBody("text/plain".toMediaType())
+            val requestLocation = location.toRequestBody("text/plain".toMediaType())
+            val requestUserId = userId.toRequestBody("text/plain".toMediaType())
+            val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
+            val multipartBody = MultipartBody.Part.createFormData(
+                "image",
+                imageFile.name,
+                requestImageFile
+            )
+            val response = ApiConfig.getApiServiceWithToken(token).postDonation(multipartBody,requestTitle, requestDescription, requestLocation, requestUserId).execute()
+            return@withContext if (response.isSuccessful) {
+                response.body()!!
+            } else {
+                val jsonInString = response.errorBody()?.string()
+                Gson().fromJson<PostDonationResponse?>(jsonInString, PostDonationResponse::class.java)
+            }
+        }
+    }
 
     suspend fun saveSession(user: UserModel) {
         userPreference.saveSession(user)

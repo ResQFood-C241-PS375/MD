@@ -63,4 +63,5 @@
     <string name="empty_image_warning">Silakan masukkan pilih gambar di galeri terlebih dahulu</string>
     <string name="label_0">Roti</string>
     <string name="label_1">Bukan Roti</string>
+    <string name="alert_title">Perhatian</string>
 </resources>

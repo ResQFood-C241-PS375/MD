@@ -59,4 +59,8 @@
     <string name="confirm_password">Confirm Password</string>
 
     <string name="error_input">Data yg dimasukkan tidak benar</string>
+    <string name="image_classifier_failed">Image classifier failed to initialize. See error logs for details</string>
+    <string name="empty_image_warning">Silakan masukkan pilih gambar di galeri terlebih dahulu</string>
+    <string name="label_0">Roti</string>
+    <string name="label_1">Bukan Roti</string>
 </resources>

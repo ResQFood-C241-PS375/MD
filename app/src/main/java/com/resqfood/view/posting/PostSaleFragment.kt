@@ -1,31 +1,28 @@
 package com.resqfood.view.posting
 
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
+import com.resqfood.R
 import com.resqfood.ViewModelFactory
 import com.resqfood.databinding.FragmentPostSaleBinding
-import com.resqfood.reduceFileImage
-import com.resqfood.uriToFile
-import com.resqfood.view.main.PrimaryActivity
+import com.resqfood.helper.ImageClassifierHelper
+import org.tensorflow.lite.task.vision.classifier.Classifications
 
 class PostSaleFragment : Fragment() {
 
     private var _binding: FragmentPostSaleBinding? = null
     private val binding get() = _binding!!
     private var currentImageUri: Uri? = null
+    private lateinit var imageClassifierHelper: ImageClassifierHelper
     private val viewModel by viewModels<PostingViewModel> {
         ViewModelFactory.getInstance(requireActivity())
     }
@@ -36,8 +33,7 @@ class PostSaleFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentPostSaleBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -62,6 +58,7 @@ class PostSaleFragment : Fragment() {
         if (uri != null) {
             currentImageUri = uri
             showImage()
+            analyzeImage(uri)
         } else {
             Log.d("Photo Picker", "No media selected")
         }
@@ -72,6 +69,38 @@ class PostSaleFragment : Fragment() {
             Log.d("Image URI", "showImage: $it")
             binding.galleryButton.setImageURI(it)
         }
+    }
+
+    private fun analyzeImage(uri: Uri) {
+        imageClassifierHelper = ImageClassifierHelper(
+            context = requireActivity(),
+            classifierListener = object : ImageClassifierHelper.ClassifierListener {
+                override fun onError(error: String) {
+                    requireActivity().runOnUiThread {
+                        Toast.makeText(requireActivity(), error, Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun onResults(results: List<Classifications>?, inferenceTime: Long) {
+                    requireActivity().runOnUiThread {
+                        results?.let { it ->
+                            if (it.isNotEmpty() && it[0].categories.isNotEmpty()) {
+                                val highestConfidenceCategory = it[0].categories.maxByOrNull { it.score }
+                                val predictedLabel = if (highestConfidenceCategory != null && highestConfidenceCategory.score > 0.8) {
+                                    getString(R.string.label_0)
+                                } else {
+                                    getString(R.string.label_1)
+                                }
+                                if (predictedLabel == "Bukan Roti") {
+                                    showToast("Predicted: Bukan Roti")
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        )
+        imageClassifierHelper.classifyStaticImage(uri)
     }
 
     private fun postSale() {
@@ -114,6 +143,10 @@ class PostSaleFragment : Fragment() {
 //            }
 //
 //        }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show()
     }
 
     private fun showLoading(isLoading: Boolean) {

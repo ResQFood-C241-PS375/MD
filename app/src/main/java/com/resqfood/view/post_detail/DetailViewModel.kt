@@ -5,30 +5,32 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.resqfood.data.response.DetailDonationResponse
+import com.resqfood.data.response.DetailSellResponse
 import com.resqfood.repository.Repository
 import kotlinx.coroutines.launch
 
 class DetailViewModel(private val repository: Repository) : ViewModel() {
 
-    private val _donationId = MutableLiveData<DetailDonationResponse>()
-    val donationId: LiveData<DetailDonationResponse> = _donationId
+    private val _donationUser = MutableLiveData<DetailDonationResponse>()
+    val donationUser: LiveData<DetailDonationResponse> = _donationUser
 
-//    private val _theUserId = MutableLiveData<DetailDonationResponse>()
-//    val theUserId: LiveData<DetailDonationResponse> = _theUserId
+    private val _sellUser = MutableLiveData<DetailSellResponse>()
+    val sellUser: LiveData<DetailSellResponse> = _sellUser
 
-    fun getDonationId(id: String) {
+    fun getDonationUser(id: String) {
         viewModelScope.launch {
             repository.getSession().collect{
-                _donationId.value = repository.getDonationId(id, it.token)
+                _donationUser.value = repository.getDonationUser(id, it.token)
             }
         }
     }
 
-//    fun getIdDonation(id: String) {
-//        viewModelScope.launch {
-//            repository.getSession().collect{
-//                _theUserId.value = repository.getDonationId(id, it.token)
-//            }
-//        }
-//    }
+    fun getSellUser(id: String) {
+        viewModelScope.launch {
+            repository.getSession().collect{
+                _sellUser.value = repository.getSellUser(id, it.token)
+            }
+        }
+    }
+
 }

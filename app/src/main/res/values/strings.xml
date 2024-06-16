@@ -54,7 +54,7 @@
     <string name="whatsapp_icon">WhatsApp Icon</string>
     <string name="title_example">Title Example</string>
     <string name="nomor_hp">Nomor HP</string>
-    <string name="search_bar_hint">Masukkan nama makanan atau minuman</string>
+    <string name="search_bar_hint">Masukkan nama produk</string>
     <string name="test">ORAAA ORAAA</string>
     <string name="confirm_password">Confirm Password</string>
 
@@ -64,4 +64,6 @@
     <string name="label_0">Roti</string>
     <string name="label_1">Bukan Roti</string>
     <string name="alert_title">Perhatian</string>
+    <string name="copyright"><![CDATA[Copyright © 2024 ResQFood Team. All rights reserved]]></string>
+    <string name="price_example">Price Example</string>
 </resources>

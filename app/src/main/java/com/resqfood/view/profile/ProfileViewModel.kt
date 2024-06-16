@@ -4,6 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.resqfood.data.response.DeleteDonation
+import com.resqfood.data.response.UserDonation
+import com.resqfood.data.response.UserInfo
+import com.resqfood.data.response.UserSell
 import com.resqfood.repository.Repository
 import kotlinx.coroutines.launch
 
@@ -13,23 +17,26 @@ class ProfileViewModel(private val repository: Repository) : ViewModel() {
 
     // tambahin variabel buat deletesale sma deletedonation
     
-//    private val _profile = MutableLiveData<UserResponse>()
-//    val profile: LiveData<UserResponse> = _profile
-//
-//    private val _donation = MutableLiveData<DonationResponse>()
-//    val donation: LiveData<DonationResponse> = _donation
-//
-//    private val _sale = MutableLiveData<SaleResponse>()
-//    val sale: LiveData<SaleResponse> = _sale
-//
-//    fun deleteDonation() {
-//        viewModelScope.launch {
-//            repository.getSession().collect{
-//                // ini isi apa gitu loh cok
-//            }
-//        }
-//    }
-//
+    private val _infoUser = MutableLiveData<UserInfo>()
+    val infoUser: LiveData<UserInfo> = _infoUser
+
+    private val _donationUser = MutableLiveData<UserDonation>()
+    val donationUser: LiveData<UserDonation> = _donationUser
+
+    private val _deleteDonation = MutableLiveData<DeleteDonation>()
+    val deleteDonation: LiveData<DeleteDonation> = _deleteDonation
+
+    private val _sellUser = MutableLiveData<UserSell>()
+    val sellUser: LiveData<UserSell> = _sellUser
+
+    fun deleteDonation(id: String) {
+        viewModelScope.launch {
+            repository.getSession().collect{
+                _deleteDonation.value = repository.deleteDonation(it.token, id)
+            }
+        }
+    }
+
 //    fun deleteSale() {
 //        viewModelScope.launch {
 //            repository.getSession().collect{
@@ -38,36 +45,33 @@ class ProfileViewModel(private val repository: Repository) : ViewModel() {
 //        }
 //    }
 
-//    fun getProfile() {
-//        viewModelScope.launch {
-//            repository.getSession().collect{
-//                _profile.value = repository.getProfile(it.token)
-//            }
-//        }
-//    }
-//
-//    fun getDonation() {
-//        viewModelScope.launch {
-//            repository.getSession().collect { session ->
-//                val donationData = repository.getDonation(session.token)
-//                _donation.value = donationData
-//            }
-//        }
-//    }
-//
-//    fun getSale() {
-//        viewModelScope.launch {
-//            repository.getSession().collect { session ->
-//                val saleData = repository.getSale(session.token)
-//                _sale.value = saleData
-//            }
-//        }
-//    }
-//
-//    fun logout() {
-//        viewModelScope.launch {
-//            repository.logout()
-//        }
-//    }
+    fun getUserInfo() {
+        viewModelScope.launch {
+            repository.getSession().collect{
+                _infoUser.value = repository.getUserInfo(it.token, it.userId)
+            }
+        }
+    }
 
+    fun getDonationUser() {
+        viewModelScope.launch {
+            repository.getSession().collect {
+                _donationUser.value = repository.getUserDonationInfo(it.userId, it.token)
+            }
+        }
+    }
+
+    fun getSellUser() {
+        viewModelScope.launch {
+            repository.getSession().collect {
+                _sellUser.value = repository.getUserSellInfo(it.userId, it.token)
+            }
+        }
+    }
+
+    fun logout() {
+        viewModelScope.launch {
+            repository.logout()
+        }
+    }
 }

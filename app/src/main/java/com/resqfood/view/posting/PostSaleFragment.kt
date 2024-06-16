@@ -1,5 +1,6 @@
 package com.resqfood.view.posting
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -14,8 +15,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.resqfood.R
 import com.resqfood.ViewModelFactory
+import com.resqfood.data.response.PostSellResponse
 import com.resqfood.databinding.FragmentPostSaleBinding
 import com.resqfood.helper.ImageClassifierHelper
+import com.resqfood.reduceFileImage
+import com.resqfood.uriToFile
+import com.resqfood.view.main.PrimaryActivity
 import org.tensorflow.lite.task.vision.classifier.Classifications
 
 class PostSaleFragment : Fragment() {
@@ -105,45 +110,46 @@ class PostSaleFragment : Fragment() {
     }
 
     private fun postSale() {
-//        currentImageUri?.let { uri ->
-//            val imageFile = uriToFile(uri, requireActivity()).reduceFileImage()
-//            Log.d("Image File", "showImage: ${imageFile.path}")
-//            val title = binding.inputDishes.text.toString()
-//            val description = binding.inputDescription.text.toString()
-//            val expired = binding.inputExpired.text.toString()
-//            viewModel.saleUpload(imageFile,title, description, expired)
-//            viewModel.uploadSale.observe(viewLifecycleOwner) { result: RegisterResponse ->
-//                var alertDialog: AlertDialog.Builder? = null
-//                if (result.error == true) {
-//                    showLoading(false)
-//                    alertDialog = AlertDialog.Builder(requireActivity()).apply {
-//                        setTitle("Kesalahan Input !")
-//                        setMessage(result.message)
-//                        setNegativeButton("Upload ulang") { dialog, _ ->
-//                            dialog.cancel()
-//                            dialog.dismiss()
-//                        }
-//                        create()
-//                    }
-//                    alertDialog.show()
-//                } else {
-//                    showLoading(false)
-//                    alertDialog = AlertDialog.Builder(requireActivity()).apply {
-//                        setTitle("Berhasil !")
-//                        setMessage(result.message)
-//                        setNegativeButton("Lanjut") { dialog, _ ->
-//                            val intent = Intent(requireActivity(), PrimaryActivity::class.java)
-//                            startActivity(intent)
-//                            dialog.cancel()
-//                            dialog.dismiss()
-//                        }
-//                        create()
-//                    }
-//                    alertDialog.show()
-//                }
-//            }
-//
-//        }
+        currentImageUri?.let { uri ->
+            val imageFile = uriToFile(uri, requireActivity()).reduceFileImage()
+            Log.d("Image File", "showImage: ${imageFile.path}")
+            val title = binding.inputDishes.text.toString()
+            val description = binding.inputDescription.text.toString()
+            val expired = binding.inputExpired.text.toString()
+            val price = binding.inputPrice.text.toString()
+            viewModel.saleUpload(imageFile,title, description, expired, price)
+            viewModel.uploadSale.observe(viewLifecycleOwner) { result: PostSellResponse ->
+                var alertDialog: AlertDialog.Builder? = null
+                if (result.error == true) {
+                    showLoading(false)
+                    alertDialog = AlertDialog.Builder(requireActivity()).apply {
+                        setTitle("Kesalahan Input !")
+                        setMessage(result.message)
+                        setNegativeButton("Upload ulang") { dialog, _ ->
+                            dialog.cancel()
+                            dialog.dismiss()
+                        }
+                        create()
+                    }
+                    alertDialog.show()
+                } else {
+                    showLoading(false)
+                    alertDialog = AlertDialog.Builder(requireActivity()).apply {
+                        setTitle("Berhasil !")
+                        setMessage(result.message)
+                        setNegativeButton("Lanjut") { dialog, _ ->
+                            val intent = Intent(requireActivity(), PrimaryActivity::class.java)
+                            startActivity(intent)
+                            dialog.cancel()
+                            dialog.dismiss()
+                        }
+                        create()
+                    }
+                    alertDialog.show()
+                }
+            }
+
+        }
     }
 
     private fun showAlert(message: String) {

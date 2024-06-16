@@ -47,6 +47,9 @@ data class Users(
 	@field:SerializedName("nama_lengkap")
 	val namaLengkap: String,
 
+	@field:SerializedName("profile_img")
+	val profileImg: String,
+
 	@field:SerializedName("donation")
 	val donation: Donation
 ) : Parcelable

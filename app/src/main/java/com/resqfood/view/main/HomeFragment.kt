@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -11,7 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.resqfood.R
 import com.resqfood.ViewModelFactory
 import com.resqfood.data.adapter.DonationAdapter
+import com.resqfood.data.adapter.ForSaleAdapter
 import com.resqfood.data.response.DonationResponse
+import com.resqfood.data.response.SellResponse
 //import com.resqfood.data.adapter.ForSaleAdapter
 import com.resqfood.databinding.FragmentHomeBinding
 
@@ -41,11 +44,32 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupRVDonation()
-//        setupRVSale()
+        setupRVSale()
 //        setupSearchView()
 
         binding.tesLogout.setOnClickListener {
             viewModel.logout()
+        }
+
+        var searchBarText = ""
+
+        with(binding){
+            searchView.setupWithSearchBar(searchBar)
+            searchView
+                .editText
+                .setOnEditorActionListener { _, actionID, _ ->
+                    viewModel.getSearch(searchView.text.toString())
+//                    searchBar.text = searchView.text
+                    searchBarText = searchView.editText.text.toString()
+                    searchView.hide()
+                    false
+                }
+//                    if (actionID == EditorInfo.IME_ACTION_SEARCH) {
+//                        viewModel.getSearch(searchView.editText.text.toString())
+//                        searchBarText = searchView.editText.text.toString()  // Reassignment to a var, not val
+//                        searchView.hide()
+//                        true
+//                    } else false
         }
     }
 
@@ -60,14 +84,13 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupRVSale() {
-//        viewModel.sale.observe(viewLifecycleOwner) { sale: SaleModel ->
-//            val adapter = ForSaleAdapter()
-//            adapter.submitList(sale.Sale)
-//            binding.rvSale.adapter = adapter
-//            binding.rvSale.layoutManager = GridLayoutManager(requireContext(), 2) // 2 kolom dalam grid
-//            adapter.setData(sale.listSale)
-//        }
-//        viewModel.getSale()
+        viewModel.sale.observe(viewLifecycleOwner) { sale: SellResponse ->
+            val adapter = ForSaleAdapter()
+            adapter.submitList(sale.sells)
+            binding.rvSale.adapter = adapter
+            binding.rvSale.layoutManager = GridLayoutManager(requireContext(), 2) // 2 kolom dalam grid
+        }
+        viewModel.getSale()
     }
 
     private fun setupSearchView() {
@@ -89,6 +112,6 @@ class HomeFragment : Fragment() {
         super.onResume()
         setupRVDonation()
         setupRVSale()
-        setupSearchView()
+//        setupSearchView()
     }
 }

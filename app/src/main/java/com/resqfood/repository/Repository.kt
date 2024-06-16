@@ -5,11 +5,20 @@ import com.google.gson.Gson
 import com.resqfood.data.api.ApiConfig
 import com.resqfood.data.pref.UserModel
 import com.resqfood.data.pref.UserPreference
+import com.resqfood.data.response.DeleteDonation
 import com.resqfood.data.response.DetailDonationResponse
+import com.resqfood.data.response.DetailSellResponse
 import com.resqfood.data.response.DonationResponse
 import com.resqfood.data.response.LoginResponse
 import com.resqfood.data.response.PostDonationResponse
+import com.resqfood.data.response.PostSellResponse
 import com.resqfood.data.response.RegisterResponse
+import com.resqfood.data.response.SearchRequest
+import com.resqfood.data.response.SearchSell
+import com.resqfood.data.response.SellResponse
+import com.resqfood.data.response.UserDonation
+import com.resqfood.data.response.UserInfo
+import com.resqfood.data.response.UserSell
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
@@ -26,26 +35,47 @@ class Repository private constructor(
     private val userPreference: UserPreference
 ) {
 
-    // kayaknya nambah ini
-//    suspend fun getProfile(token: String): UserResponse {
-//        return withContext(Dispatchers.IO) {
-//            if (token.isEmpty()) {
-//                return@withContext UserResponse()
-//            } else {
-//                return@withContext ApiConfig.getApiServiceWithToken(token).getProfile().execute().body()!!
-//            }
-//        }
-//    }
-//
-//    suspend fun getDonationId(id: String, token: String): DetailDonationResponse {
-//        return withContext(Dispatchers.IO) {
-//            if (token.isEmpty()) {
-//                return@withContext DetailDonationResponse()
-//            } else {
-//                return@withContext ApiConfig.getApiServiceWithToken(token).getDetailDonation(id).execute().body()!!
-//            }
-//        }
-//    }
+    suspend fun getUserInfo(token: String, id: String): UserInfo {
+        return withContext(Dispatchers.IO) {
+            if (token.isEmpty()) {
+                return@withContext UserInfo()
+            } else {
+                return@withContext ApiConfig.getApiServiceWithToken(token).getUserInfo(id).execute().body()!!
+            }
+        }
+    }
+
+    suspend fun deleteDonation(id: String, token: String): DeleteDonation {
+        return withContext(Dispatchers.IO) {
+            if (token.isEmpty()) {
+                return@withContext DeleteDonation()
+//                null
+            } else {
+                return@withContext ApiConfig.getApiServiceWithToken(token).deleteDonation(id).execute().body()!!
+            }
+        }
+    }
+
+    suspend fun getUserDonationInfo(id: String, token: String): UserDonation {
+        return withContext(Dispatchers.IO) {
+            if (token.isEmpty()) {
+                return@withContext UserDonation()
+            } else {
+                return@withContext ApiConfig.getApiServiceWithToken(token).getUserDonationInfo(id).execute().body()!!
+            }
+        }
+    }
+
+    suspend fun getUserSellInfo(id: String, token: String): UserSell {
+        return withContext(Dispatchers.IO) {
+            if (token.isEmpty()) {
+                return@withContext UserSell()
+            } else {
+                return@withContext ApiConfig.getApiServiceWithToken(token).getUserSellInfo(id).execute().body()!!
+            }
+        }
+    }
+
     suspend fun getDonation(token: String): DonationResponse {
         return withContext(Dispatchers.IO) {
             if (token.isEmpty()) {
@@ -56,33 +86,48 @@ class Repository private constructor(
         }
     }
 
-
-    suspend fun getDonationId(id: String, token: String): DetailDonationResponse {
+    suspend fun getSearchSell(token: String, title: String): SearchSell {
         return withContext(Dispatchers.IO) {
             if (token.isEmpty()) {
-                return@withContext DetailDonationResponse()
+                return@withContext SearchSell(emptyList(), true,"token is empty")
             } else {
-                return@withContext ApiConfig.getApiServiceWithToken(token).getDetailDonation(id).execute().body()!!
+                return@withContext ApiConfig.getApiServiceWithToken(token).getSearchSell(title).execute().body()!!
             }
         }
     }
 
-//
-//    suspend fun getSale(token: String): SaleResponse {
-//        return withContext(Dispatchers.IO) {
-//            if (token.isEmpty()) {
-//                return@withContext SaleResponse()
-//            } else {
-//                return@withContext ApiConfig.getApiServiceWithToken(token).getSale().execute().body()!!
-//
-//            }
-//        }
-//    }
 
-    //misal gini
-//    suspend fun searchResults(keyword: String): Response<SaleModel> {
-//        return apiService.searchProduct(keyword)
-//    }
+    suspend fun getDonationUser(id: String, token: String): DetailDonationResponse {
+        return withContext(Dispatchers.IO) {
+            if (token.isEmpty()) {
+                return@withContext DetailDonationResponse()
+            } else {
+                return@withContext ApiConfig.getApiServiceWithToken(token).getDonationUser(id).execute().body()!!
+            }
+        }
+    }
+
+    suspend fun getSale(token: String): SellResponse {
+        return withContext(Dispatchers.IO) {
+            if (token.isEmpty()) {
+                return@withContext SellResponse()
+            } else {
+                return@withContext ApiConfig.getApiServiceWithToken(token).getSale().execute().body()!!
+
+            }
+        }
+    }
+
+    suspend fun getSellUser(id: String, token: String): DetailSellResponse {
+        return withContext(Dispatchers.IO) {
+            if (token.isEmpty()) {
+                return@withContext DetailSellResponse()
+            } else {
+                return@withContext ApiConfig.getApiServiceWithToken(token).getSellUser(id).execute().body()!!
+            }
+        }
+    }
+
 
     suspend fun registerUser(imageFile: File, username: String, fullName: String ,email: String, password: String, confirmPassword: String ,phone: String): RegisterResponse {
         return withContext(Dispatchers.IO) {
@@ -121,27 +166,29 @@ class Repository private constructor(
         }
     }
 
-//    suspend fun postSale(imageFile: File, title: String, description: String, expired: String, token: String): RegisterResponse {
-//        return withContext(Dispatchers.IO) {
-//            val requestTitle = title.toRequestBody("text/plain".toMediaType())
-//            val requestDescription = description.toRequestBody("text/plain".toMediaType())
-//            val requestExpired = expired.toRequestBody("text/plain".toMediaType())
-//            val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
-//            val multipartBody = MultipartBody.Part.createFormData(
-//                "photo",
-//                imageFile.name,
-//                requestImageFile
-//            )
-//            val response = ApiConfig.getApiServiceWithToken(token).postSale(multipartBody,requestTitle, requestDescription, requestExpired).execute()
-//            return@withContext if (response.isSuccessful) {
-//                response.body()!!
-//            } else {
-//                val jsonInString = response.errorBody()?.string()
-//                Gson().fromJson<RegisterResponse?>(jsonInString, RegisterResponse::class.java)
-//            }
-//        }
-//    }
-//
+    suspend fun postSale(imageFile: File, title: String, description: String, expired: String, token: String, price: String, userId: String): PostSellResponse {
+        return withContext(Dispatchers.IO) {
+            val requestTitle = title.toRequestBody("text/plain".toMediaType())
+            val requestDescription = description.toRequestBody("text/plain".toMediaType())
+            val requestExpired = expired.toRequestBody("text/plain".toMediaType())
+            val requestUserId = userId.toRequestBody("text/plain".toMediaType())
+            val requestPrice = price.toRequestBody("text/plain".toMediaType())
+            val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
+            val multipartBody = MultipartBody.Part.createFormData(
+                "sell_img",
+                imageFile.name,
+                requestImageFile
+            )
+            val response = ApiConfig.getApiServiceWithToken(token).postSale(multipartBody,requestTitle, requestDescription, requestExpired, requestPrice ,requestUserId).execute()
+            return@withContext if (response.isSuccessful) {
+                response.body()!!
+            } else {
+                val jsonInString = response.errorBody()?.string()
+                Gson().fromJson<PostSellResponse?>(jsonInString, PostSellResponse::class.java)
+            }
+        }
+    }
+
     suspend fun postDonation(imageFile: File, title: String, description: String, location: String, token: String, userId: String): PostDonationResponse {
         return withContext(Dispatchers.IO) {
             val requestTitle = title.toRequestBody("text/plain".toMediaType())

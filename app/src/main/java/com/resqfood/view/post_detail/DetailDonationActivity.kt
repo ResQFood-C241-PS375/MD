@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -38,6 +39,10 @@ class DetailDonationActivity : AppCompatActivity() {
         binding = ActivityDetailDonationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+
 
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
 ////            detailDonation = intent.getParcelableExtra(EXTRA_ID, Donation::class.java)!!
@@ -66,15 +71,23 @@ class DetailDonationActivity : AppCompatActivity() {
 //            binding.donationLocation.text = detailProfile.donation.location
 //        }
 
-        viewModel.getDonationId(detailDonation.donationId)
-        viewModel.donationId.observe(this){
-            // DonationDetail
+//        detailDonation.userId
+        Glide.with(binding.root)
+            .load(detailDonation.image)
+            .into(binding.imageDetail)
+        binding.donationTitle.text = detailDonation.title
+        binding.donationDescription.text = detailDonation.deskripsi
+        binding.donationLocation.text = detailDonation.location
+
+        Log.d("donation",detailDonation.userId)
+
+        viewModel.getDonationUser(detailDonation.userId)
+        viewModel.donationUser.observe(this){ users ->
+            binding.userName.text = users.user?.namaLengkap
             Glide.with(binding.root)
-                .load(detailDonation.image)
-                .into(binding.imageDetail)
-            binding.donationTitle.text = detailDonation.title
-            binding.donationDescription.text = detailDonation.deskripsi
-            binding.donationLocation.text = detailDonation.location
+                .load(users.user?.profileImg)
+                .into(binding.userImage)
+            userNumber = users.user?.noHp
         }
 
 
@@ -116,16 +129,14 @@ class DetailDonationActivity : AppCompatActivity() {
         }
     }
 
-//    private fun getProfile() {
-//        viewModel.getProfile()
-//        viewModel.profile.observe(this) {
-//            binding.userName.text = it.name
-//            Glide.with(binding.root)
-//                .load(it.image)
-//                .into(binding.userImage)
-//            userNumber = it.phone
-//        }
-//    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home){
+            onBackPressed()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 
     private fun openWhatsApp() {
         userNumber?.let {

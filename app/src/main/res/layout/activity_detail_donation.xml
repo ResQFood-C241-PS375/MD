@@ -7,6 +7,18 @@
     android:layout_height="match_parent"
     tools:context=".view.post_detail.DetailDonationActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/main_green"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/baseline_arrow_back"
+        app:titleTextColor="@color/white"
+        app:title="Deskripsi Donasi" />
+
     <ImageView
         android:id="@+id/imageDetail"
         android:layout_width="match_parent"
@@ -16,7 +28,7 @@
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
     <com.resqfood.view.custom_view.CBTextView
         android:id="@+id/donationTitle"
@@ -123,6 +135,23 @@
             android:layout_gravity="center"
             android:src="@drawable/ic_whatsapp"
             android:contentDescription="@string/whatsapp_icon" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/main_green"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:text="@string/copyright" />
+
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

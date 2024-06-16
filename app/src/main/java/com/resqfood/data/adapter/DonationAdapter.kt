@@ -56,5 +56,6 @@ class DonationAdapter : ListAdapter<Donation, DonationAdapter.ViewHolder>(DIFF_C
                 return oldItem == newItem
             }
         }
+//        val LIST_DONATION = "donation_detail"
     }
 }

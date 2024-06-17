@@ -7,9 +7,8 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.resqfood.data.pref.UserModel
 import com.resqfood.data.response.DonationResponse
-import com.resqfood.data.response.SearchSell
 import com.resqfood.data.response.SellResponse
-import com.resqfood.data.response.SellsItem
+import com.resqfood.data.response.SellSearch
 import com.resqfood.repository.Repository
 import kotlinx.coroutines.launch
 
@@ -21,13 +20,13 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
     private val _sale = MutableLiveData<SellResponse>()
     val sale: LiveData<SellResponse> = _sale
 
-    private val _search = MutableLiveData<SearchSell>()
-    val search: LiveData<SearchSell> = _search
+    private val _search = MutableLiveData<SellSearch?>()
+    val search: LiveData<SellSearch?> = _search
 
     fun getSearch(title: String) {
         viewModelScope.launch {
-            repository.getSession().collect{
-                _search.value = repository.getSearchSell(title, it.token)
+            repository.getSession().collect { user ->
+                _search.value = repository.getSearchSell(title, user.token)
             }
         }
     }
@@ -36,11 +35,11 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
         return repository.getSession().asLiveData()
     }
 
-    fun logout() {
-        viewModelScope.launch {
-            repository.logout()
-        }
-    }
+//    fun logout() {
+//        viewModelScope.launch {
+//            repository.logout()
+//        }
+//    }
 
     fun getDonation() {
         viewModelScope.launch {
@@ -48,6 +47,10 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
                 _donation.value = repository.getDonation(it.token)
             }
         }
+    }
+
+    fun resetSearch() {
+        _search.value = null
     }
 
     fun getSale() {

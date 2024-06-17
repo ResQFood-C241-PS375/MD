@@ -13,12 +13,13 @@ import com.resqfood.data.response.LoginResponse
 import com.resqfood.data.response.PostDonationResponse
 import com.resqfood.data.response.PostSellResponse
 import com.resqfood.data.response.RegisterResponse
-import com.resqfood.data.response.SearchRequest
-import com.resqfood.data.response.SearchSell
 import com.resqfood.data.response.SellResponse
+import com.resqfood.data.response.SellSearch
+import com.resqfood.data.response.UpdateUser
 import com.resqfood.data.response.UserDonation
 import com.resqfood.data.response.UserInfo
 import com.resqfood.data.response.UserSell
+import com.resqfood.data.response.UserUpdate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
@@ -45,16 +46,48 @@ class Repository private constructor(
         }
     }
 
-    suspend fun deleteDonation(id: String, token: String): DeleteDonation {
+    suspend fun updateUser(token: String, userId: String, imageFile: File, username: String, fullName: String, email: String, password: String, phone: String): UpdateUser? {
         return withContext(Dispatchers.IO) {
-            if (token.isEmpty()) {
-                return@withContext DeleteDonation()
-//                null
+            Log.d("inforepo","repooo")
+//            val requestUserId = userId.toRequestBody("text/plain".toMediaType())
+            val requestUserame = username.toRequestBody("text/plain".toMediaType())
+            val requestFullName = fullName.toRequestBody("text/plain".toMediaType())
+            val requestEmail = email.toRequestBody("text/plain".toMediaType())
+            val requestPassword = password.toRequestBody("text/plain".toMediaType())
+            val requestPhone = phone.toRequestBody("text/plain".toMediaType())
+            val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
+            val multipartBody = MultipartBody.Part.createFormData(
+                "profile_img",
+                imageFile.name,
+                requestImageFile
+            )
+            val response = ApiConfig.getApiServiceWithToken(token).updateUserInfo(userId, requestFullName, requestUserame,  requestEmail, requestPassword, requestPhone, multipartBody).execute()
+            return@withContext if (response.isSuccessful) {
+                response.body()
             } else {
-                return@withContext ApiConfig.getApiServiceWithToken(token).deleteDonation(id).execute().body()!!
+                val jsonInString = response.errorBody()?.string()
+                Gson().fromJson<UpdateUser?>(jsonInString, UpdateUser::class.java)
             }
         }
     }
+
+
+    suspend fun deleteDonation(id: String, token: String): DeleteDonation? {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = ApiConfig.getApiServiceWithToken(token).deleteDonation(id).execute()
+                if (response.isSuccessful) {
+                    response.body()
+                } else {
+                    null
+                }
+            } catch (e: Exception) {
+                null
+            }
+        }
+    }
+
+
 
     suspend fun getUserDonationInfo(id: String, token: String): UserDonation {
         return withContext(Dispatchers.IO) {
@@ -86,12 +119,13 @@ class Repository private constructor(
         }
     }
 
-    suspend fun getSearchSell(token: String, title: String): SearchSell {
+    suspend fun getSearchSell(title: String, token: String): SellSearch {
         return withContext(Dispatchers.IO) {
-            if (token.isEmpty()) {
-                return@withContext SearchSell(emptyList(), true,"token is empty")
+            val response = ApiConfig.getApiServiceWithToken(token).getSearchSell(title).execute()
+            if (response.isSuccessful) {
+                response.body() ?: SellSearch()
             } else {
-                return@withContext ApiConfig.getApiServiceWithToken(token).getSearchSell(title).execute().body()!!
+                SellSearch() // Return an empty SellSearch object on failure
             }
         }
     }
@@ -197,7 +231,7 @@ class Repository private constructor(
             val requestUserId = userId.toRequestBody("text/plain".toMediaType())
             val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
             val multipartBody = MultipartBody.Part.createFormData(
-                "image",
+                "donation_img",
                 imageFile.name,
                 requestImageFile
             )

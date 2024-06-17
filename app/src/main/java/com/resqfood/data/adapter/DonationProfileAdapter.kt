@@ -21,9 +21,8 @@ class DonationProfileAdapter(private val viewModel: ProfileViewModel) : ListAdap
         this.onItemClickCallback = onItemClickCallback
     }
 
-    inner class ViewHolder(private val binding: CardDonationUserBinding, private val viewModel: ProfileViewModel) :
+    inner class ViewHolder(private val binding: CardDonationUserBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
         fun bind(item: DonationsItem) {
             binding.donationTitle.text = item.title
             Glide.with(binding.root)
@@ -31,15 +30,14 @@ class DonationProfileAdapter(private val viewModel: ProfileViewModel) : ListAdap
                 .into(binding.donationImgUrl)
             binding.root.setOnClickListener {
                 onItemClickCallback.onItemClicked(item.donationId)
-//                viewModel.deleteDonation(item.donationId)
-                Log.d("usersid",item.donationId)
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = CardDonationUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding, viewModel)
+        val binding =
+            CardDonationUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -49,14 +47,16 @@ class DonationProfileAdapter(private val viewModel: ProfileViewModel) : ListAdap
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<DonationsItem>() {
             override fun areItemsTheSame(oldItem: DonationsItem, newItem: DonationsItem): Boolean {
-                return oldItem == newItem
+                return oldItem.donationId == newItem.donationId
             }
 
-            override fun areContentsTheSame(oldItem: DonationsItem, newItem: DonationsItem): Boolean {
+            override fun areContentsTheSame(
+                oldItem: DonationsItem,
+                newItem: DonationsItem
+            ): Boolean {
                 return oldItem == newItem
             }
         }
-        const val PARCEL_NAME = "data"
     }
 
     interface OnItemClickCallback {

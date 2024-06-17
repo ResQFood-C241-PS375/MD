@@ -1,15 +1,18 @@
 package com.resqfood.view.profile
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.resqfood.data.response.DeleteDonation
+import com.resqfood.data.response.UpdateUser
 import com.resqfood.data.response.UserDonation
 import com.resqfood.data.response.UserInfo
 import com.resqfood.data.response.UserSell
 import com.resqfood.repository.Repository
 import kotlinx.coroutines.launch
+import java.io.File
 
 // Ini belumm
 
@@ -23,16 +26,27 @@ class ProfileViewModel(private val repository: Repository) : ViewModel() {
     private val _donationUser = MutableLiveData<UserDonation>()
     val donationUser: LiveData<UserDonation> = _donationUser
 
-    private val _deleteDonation = MutableLiveData<DeleteDonation>()
-    val deleteDonation: LiveData<DeleteDonation> = _deleteDonation
+    private val _deleteDonation = MutableLiveData<DeleteDonation?>()
+    val deleteDonation: LiveData<DeleteDonation?> = _deleteDonation
 
     private val _sellUser = MutableLiveData<UserSell>()
     val sellUser: LiveData<UserSell> = _sellUser
 
+    private val _updateUser = MutableLiveData<UpdateUser?>()
+    val updateUser: LiveData<UpdateUser?> = _updateUser
+
     fun deleteDonation(id: String) {
         viewModelScope.launch {
-            repository.getSession().collect{
-                _deleteDonation.value = repository.deleteDonation(it.token, id)
+            repository.getSession().collect { session ->
+                val result = repository.deleteDonation(id, session.token)
+                if (result != null && result.message == "Donasi berhasil dihapus!") {
+                    // Filter out the deleted donation from the current list
+                    _donationUser.value?.let {
+                        val updatedList = it.donations.filterNot { donation -> donation.donationId == id }
+                        _donationUser.postValue(it.copy(donations = updatedList))
+                    }
+                }
+                _deleteDonation.postValue(result)
             }
         }
     }
@@ -44,6 +58,16 @@ class ProfileViewModel(private val repository: Repository) : ViewModel() {
 //            }
 //        }
 //    }
+
+    fun updateUser(file: File, username: String, fullName: String, email: String, password: String, phone: String) {
+        viewModelScope.launch {
+            repository.getSession().collect { session ->
+                Log.d("infouserz","${session.userId}, ${session.token}")
+                val result = repository.updateUser(session.token, session.userId, file, username, fullName, email, password, phone)
+                _updateUser.postValue(result)
+            }
+        }
+    }
 
     fun getUserInfo() {
         viewModelScope.launch {

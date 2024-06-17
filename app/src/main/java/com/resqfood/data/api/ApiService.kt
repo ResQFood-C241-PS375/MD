@@ -8,8 +8,9 @@ import com.resqfood.data.response.LoginResponse
 import com.resqfood.data.response.PostDonationResponse
 import com.resqfood.data.response.PostSellResponse
 import com.resqfood.data.response.RegisterResponse
-import com.resqfood.data.response.SearchSell
 import com.resqfood.data.response.SellResponse
+import com.resqfood.data.response.SellSearch
+import com.resqfood.data.response.UpdateUser
 import com.resqfood.data.response.UserDonation
 import com.resqfood.data.response.UserInfo
 import com.resqfood.data.response.UserSell
@@ -22,6 +23,7 @@ import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -51,6 +53,18 @@ interface ApiService {
     fun getUserInfo(
         @Path("user_id") id: String
     ): Call<UserInfo>
+
+    @Multipart
+    @PUT("profile/{user_id}")
+    fun updateUserInfo(
+        @Path("user_id") userId: String,
+        @Part("username") username: RequestBody,
+        @Part("nama_lengkap") name: RequestBody,
+        @Part("email") email: RequestBody,
+        @Part("password") password: RequestBody,
+        @Part("no_hp") noHp: RequestBody,
+        @Part profileImg: MultipartBody.Part
+    ): Call<UpdateUser>
 
     @GET("profile/donation/{user_id}")
     fun getUserDonationInfo(
@@ -105,8 +119,8 @@ interface ApiService {
         @Part("user_id") userId: RequestBody
     ): Call<PostSellResponse>
 
-    @POST("sell/search")
+    @GET("sell/search")
     fun getSearchSell(
         @Query("title") title: String
-    ): Call<SearchSell>
+    ): Call<SellSearch>
 }

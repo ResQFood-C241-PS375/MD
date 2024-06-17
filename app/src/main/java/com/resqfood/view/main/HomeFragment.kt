@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import androidx.appcompat.widget.SearchView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -45,32 +47,75 @@ class HomeFragment : Fragment() {
 
         setupRVDonation()
         setupRVSale()
+
+
+        viewModel.search.observe(viewLifecycleOwner) { searchResult ->
+            val adapter = ForSaleAdapter()
+            adapter.submitList(searchResult?.sells)
+            binding.rvSale.adapter = adapter
+            binding.rvSale.layoutManager = GridLayoutManager(requireContext(), 2)
+        }
+
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let {
+                    if (it.isNotEmpty()){
+                        viewModel.getSearch(it)
+                    } else {
+                        viewModel.resetSearch()
+                        viewModel.getSale()
+                    }
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                newText?.let {
+                    if(newText.isNullOrEmpty()){
+                        viewModel.resetSearch()
+                        viewModel.getSale()
+                    }
+                }
+                return true
+            }
+        })
+
 //        setupSearchView()
 
-        binding.tesLogout.setOnClickListener {
-            viewModel.logout()
-        }
+//        binding.tesLogout.setOnClickListener {
+//            viewModel.logout()
+//        }
 
-        var searchBarText = ""
-
-        with(binding){
-            searchView.setupWithSearchBar(searchBar)
-            searchView
-                .editText
-                .setOnEditorActionListener { _, actionID, _ ->
-                    viewModel.getSearch(searchView.text.toString())
+//        with(binding){
+//            searchView.setupWithSearchBar(searchBar)
+//            searchView
+//                .editText
+//                .setOnEditorActionListener { textView, actionID, event ->
+//                    viewModel.getSearch(searchView.text.toString())
 //                    searchBar.text = searchView.text
-                    searchBarText = searchView.editText.text.toString()
-                    searchView.hide()
-                    false
-                }
-//                    if (actionID == EditorInfo.IME_ACTION_SEARCH) {
-//                        viewModel.getSearch(searchView.editText.text.toString())
-//                        searchBarText = searchView.editText.text.toString()  // Reassignment to a var, not val
-//                        searchView.hide()
-//                        true
-//                    } else false
-        }
+//                    searchView.hide()
+//                    Toast.makeText(requireContext(), searchView.text, Toast.LENGTH_LONG).show()
+//                    false
+//                }
+//        }
+
+//        with(binding){
+//            searchView.setupWithSearchBar(searchBar)
+//            searchView.editText.setOnEditorActionListener { textView, actionId, event ->
+//                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+//                    val searchQuery = searchView.editText.text.toString()
+//                    viewModel.getSearch(searchQuery)
+//                    searchBar.setQuery(searchQuery, false) // Set query without submitting
+//                    searchView.hide()
+//                    Toast.makeText(requireContext(), searchQuery, Toast.LENGTH_LONG).show()
+//                    true
+//                } else {
+//                    false
+//                }
+//            }
+//        }
+
+
     }
 
     private fun setupRVDonation() {

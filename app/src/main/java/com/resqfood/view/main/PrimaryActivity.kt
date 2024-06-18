@@ -23,7 +23,9 @@ import androidx.lifecycle.Observer
 import com.resqfood.R
 import com.resqfood.ViewModelFactory
 import com.resqfood.databinding.ActivityPrimaryBinding
+import com.resqfood.view.login.LoginActivity
 import com.resqfood.view.profile.ProfileActivity
+import com.resqfood.view.profile.ProfilesActivity
 import com.resqfood.view.welcome.WelcomeActivity
 
 class PrimaryActivity : AppCompatActivity() {
@@ -42,7 +44,7 @@ class PrimaryActivity : AppCompatActivity() {
 
         viewModel.getSession().observe(this) { user ->
             if (!user.isLogin) {
-                startActivity(Intent(this, WelcomeActivity::class.java))
+                startActivity(Intent(this, LoginActivity::class.java))
                 finish()
             } else {
 //                setupView()
@@ -84,7 +86,7 @@ class PrimaryActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId) {
             R.id.profile -> {
-                val intent = Intent(this, ProfileActivity::class.java)
+                val intent = Intent(this, ProfilesActivity::class.java)
                 startActivity(intent)
                 true
             }

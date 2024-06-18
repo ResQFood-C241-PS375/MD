@@ -30,6 +30,7 @@ import com.resqfood.data.adapter.ForSaleProfileAdapter
 import com.resqfood.data.adapter.SaleActionListener
 import com.resqfood.data.response.UserDonation
 import com.resqfood.data.response.UserInfo
+import com.resqfood.data.response.UserSell
 import com.resqfood.data.response.UsersItem
 import com.resqfood.databinding.ActivityProfileBinding
 import com.resqfood.reduceFileImage
@@ -64,15 +65,33 @@ class ProfileActivity : AppCompatActivity() {
 
             // bikin if kalo currentImageUri nya kosong
 
-            currentImageUri?.let {
-                viewModel.updateUser(
-                    uriToFile(it, this).reduceFileImage(),
-                    binding.fullnameCIT.text.toString(),
-                    binding.usernameCIT.text.toString(),
-                    binding.emailCIT.text.toString(),
-                    binding.passwordCIT.text.toString(),
-                    binding.whatsappCIT.text.toString()
-                )
+            if (currentImageUri == null
+                    || binding.fullnameCIT.text.toString().isEmpty()
+                    || binding.usernameCIT.text.toString().isEmpty()
+                    || binding.emailCIT.text.toString().isEmpty()
+                    || binding.passwordCIT.text.toString().isEmpty()
+                    || binding.whatsappCIT.text.toString().isEmpty()) {
+
+                AlertDialog.Builder(this).apply {
+                    setTitle("Empty data")
+                    setMessage("Please fill all the fields and select an image!")
+                    setPositiveButton("OK") { dialog, which ->
+                        dialog.dismiss()
+                    }
+                    show()
+                }
+                showLoading(false)
+            } else {
+                currentImageUri?.let {
+                    viewModel.updateUser(
+                        uriToFile(it, this).reduceFileImage(),
+                        binding.fullnameCIT.text.toString(),
+                        binding.usernameCIT.text.toString(),
+                        binding.emailCIT.text.toString(),
+                        binding.passwordCIT.text.toString(),
+                        binding.whatsappCIT.text.toString()
+                    )
+                }
             }
         }
     }
@@ -82,7 +101,7 @@ class ProfileActivity : AppCompatActivity() {
             val userInfo = users.users!![0]
             Glide.with(binding.root)
                 .load(userInfo.profileImg)
-                .into(binding.profileImage)
+                .into(binding.oldProfileImage)
             binding.fullnameCIT.setText(userInfo.namaLengkap)
             binding.emailCIT.setText(userInfo.email)
             binding.usernameCIT.setText(userInfo.username)
@@ -117,9 +136,17 @@ class ProfileActivity : AppCompatActivity() {
             }
         }
 
+        viewModel.getDonationUser()
         viewModel.donationUser.observe(this) { userDonation ->
             userDonation?.let {
                 updateDonationList(it)
+            }
+        }
+
+        viewModel.getSellUser()
+        viewModel.sellUser.observe(this) { userSell ->
+            userSell?.let {
+                updateSellList(it)
             }
         }
 
@@ -129,6 +156,16 @@ class ProfileActivity : AppCompatActivity() {
                     Toast.makeText(this, "Donation deleted successfully", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(this, "Failed to delete donation: ${it.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        viewModel.deleteSell.observe(this) { deleteResult ->
+            deleteResult?.let {
+                if (it.message == "Penjualan berhasil dihapus!") {
+                    Toast.makeText(this, "Product deleted successfully", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, "Failed to delete product: ${it.message}", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -168,6 +205,25 @@ class ProfileActivity : AppCompatActivity() {
             Log.d("Image URI", "showImage: $it")
             binding.profileImage.setImageURI(it)
         }
+    }
+
+    private fun updateSellList(userSell: UserSell){
+        val adapter = ForSaleProfileAdapter(viewModel)
+        adapter.submitList(userSell.sells)
+        adapter.setOnItemClickCallback(object : ForSaleProfileAdapter.OnItemClickCallback {
+            override fun onItemClicked(id: String) {
+                AlertDialog.Builder(this@ProfileActivity)
+                    .setTitle("Konfirmasi Hapus")
+                    .setMessage("Apakah Anda yakin ingin menghapus donasi ini?")
+                    .setPositiveButton("Hapus") { _, _ ->
+                        viewModel.deleteSell(id)
+                    }
+                    .setNegativeButton("Batal", null)
+                    .show()
+            }
+        })
+        binding.rvSaleProfile.adapter = adapter
+        binding.rvSaleProfile.layoutManager = LinearLayoutManager(this)
     }
 
     private fun updateDonationList(userDonation: UserDonation) {

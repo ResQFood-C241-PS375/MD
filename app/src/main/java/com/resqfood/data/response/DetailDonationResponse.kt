@@ -16,8 +16,8 @@ data class DetailDonationResponse(
 @Parcelize
 data class Donation(
 
-	@field:SerializedName("image")
-	val image: String,
+	@field:SerializedName("donation_img")
+	val donationImg: String,
 
 	@field:SerializedName("user_id")
 	val userId: String,

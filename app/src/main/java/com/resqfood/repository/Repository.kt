@@ -6,6 +6,7 @@ import com.resqfood.data.api.ApiConfig
 import com.resqfood.data.pref.UserModel
 import com.resqfood.data.pref.UserPreference
 import com.resqfood.data.response.DeleteDonation
+import com.resqfood.data.response.DeleteSell
 import com.resqfood.data.response.DetailDonationResponse
 import com.resqfood.data.response.DetailSellResponse
 import com.resqfood.data.response.DonationResponse
@@ -87,6 +88,20 @@ class Repository private constructor(
         }
     }
 
+    suspend fun deleteSell(id: String, token: String): DeleteSell? {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = ApiConfig.getApiServiceWithToken(token).deleteSell(id).execute()
+                if (response.isSuccessful) {
+                    response.body()
+                } else {
+                    null
+                }
+            } catch (e: Exception) {
+                null
+            }
+        }
+    }
 
 
     suspend fun getUserDonationInfo(id: String, token: String): UserDonation {

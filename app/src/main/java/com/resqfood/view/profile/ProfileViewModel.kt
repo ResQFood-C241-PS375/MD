@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.resqfood.data.response.DeleteDonation
+import com.resqfood.data.response.DeleteSell
 import com.resqfood.data.response.UpdateUser
 import com.resqfood.data.response.UserDonation
 import com.resqfood.data.response.UserInfo
@@ -26,11 +27,14 @@ class ProfileViewModel(private val repository: Repository) : ViewModel() {
     private val _donationUser = MutableLiveData<UserDonation>()
     val donationUser: LiveData<UserDonation> = _donationUser
 
+    private val _sellUser = MutableLiveData<UserSell>()
+    val sellUser: LiveData<UserSell> = _sellUser
+
     private val _deleteDonation = MutableLiveData<DeleteDonation?>()
     val deleteDonation: LiveData<DeleteDonation?> = _deleteDonation
 
-    private val _sellUser = MutableLiveData<UserSell>()
-    val sellUser: LiveData<UserSell> = _sellUser
+    private val _deleteSell = MutableLiveData<DeleteSell?>()
+    val deleteSell: LiveData<DeleteSell?> = _deleteSell
 
     private val _updateUser = MutableLiveData<UpdateUser?>()
     val updateUser: LiveData<UpdateUser?> = _updateUser
@@ -47,6 +51,22 @@ class ProfileViewModel(private val repository: Repository) : ViewModel() {
                     }
                 }
                 _deleteDonation.postValue(result)
+            }
+        }
+    }
+
+    fun deleteSell(id: String) {
+        viewModelScope.launch {
+            repository.getSession().collect { session ->
+                val result = repository.deleteSell(id, session.token)
+                if (result != null && result.message == "Penjualan berhasil dihapus!") {
+                    // Filter out the deleted donation from the current list
+                    _sellUser.value?.let {
+                        val updatedList = it.sells.filterNot { donation -> donation.sellId == id }
+                        _sellUser.postValue(it.copy(sells = updatedList))
+                    }
+                }
+                _deleteSell.postValue(result)
             }
         }
     }

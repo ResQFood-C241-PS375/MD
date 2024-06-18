@@ -1,6 +1,7 @@
 package com.resqfood.data.api
 
 import com.resqfood.data.response.DeleteDonation
+import com.resqfood.data.response.DeleteSell
 import com.resqfood.data.response.DetailDonationResponse
 import com.resqfood.data.response.DetailSellResponse
 import com.resqfood.data.response.DonationResponse
@@ -80,6 +81,11 @@ interface ApiService {
     fun deleteDonation(
         @Path("donation_id") id: String
     ): Call<DeleteDonation>
+
+    @DELETE("profile/sell/{sell_id}")
+    fun deleteSell(
+        @Path("sell_id") id: String
+    ): Call<DeleteSell>
 
     @GET("sell")
     fun getSale(): Call<SellResponse>

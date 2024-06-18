@@ -21,7 +21,7 @@ data class SellsItems(
 	val sellImg: String? = null,
 
 	@field:SerializedName("sell_id")
-	val sellId: String? = null,
+	val sellId: String,
 
 	@field:SerializedName("harga")
 	val harga: String? = null,

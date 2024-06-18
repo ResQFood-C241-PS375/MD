@@ -67,4 +67,16 @@
     <string name="copyright"><![CDATA[Copyright © 2024 ResQFood Team. All rights reserved]]></string>
     <string name="price_example">Price Example</string>
     <string name="phone_number">Phone Number</string>
+    <string name="old">Old Images</string>
+    <string name="title_activity_profiles">ProfilesActivity</string>
+
+    <string name="title_home">My Account</string>
+    <string name="title_user_donation">Donation List</string>
+    <string name="title_user_sell">Product List</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="judul_produk">Judul produk</string>
+    <string name="account_reminder">Didn\'t have an account?</string>
+    <string name="register_now">Register Now!</string>
 </resources>

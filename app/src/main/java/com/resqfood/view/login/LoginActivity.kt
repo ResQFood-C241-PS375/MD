@@ -19,6 +19,7 @@ import com.resqfood.ViewModelFactory
 import com.resqfood.data.pref.UserModel
 import com.resqfood.databinding.ActivityLoginBinding
 import com.resqfood.view.main.PrimaryActivity
+import com.resqfood.view.register.RegisterActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -32,6 +33,11 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.tvRegister.setOnClickListener {
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+        }
 
         showLoading(false)
 
@@ -76,7 +82,7 @@ class LoginActivity : AppCompatActivity() {
                     showLoading(false)
                     alertDialog = AlertDialog.Builder(this).apply {
                         setTitle("Yeah!")
-                        setMessage("Anda berhasil login. Sudah tidak sabar untuk belajar ya?")
+                        setMessage("Anda berhasil login. Silahkan menikmati")
                         setPositiveButton("Lanjut") { dialog, _ ->
                             dialog.dismiss()
                             val intent = Intent(this@LoginActivity, PrimaryActivity::class.java)

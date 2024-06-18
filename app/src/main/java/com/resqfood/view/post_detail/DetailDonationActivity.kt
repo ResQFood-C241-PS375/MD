@@ -73,7 +73,7 @@ class DetailDonationActivity : AppCompatActivity() {
 
 //        detailDonation.userId
         Glide.with(binding.root)
-            .load(detailDonation.image)
+            .load(detailDonation.donationImg)
             .into(binding.imageDetail)
         binding.donationTitle.text = detailDonation.title
         binding.donationDescription.text = detailDonation.deskripsi

@@ -22,7 +22,7 @@ class DonationAdapter : ListAdapter<Donation, DonationAdapter.ViewHolder>(DIFF_C
         fun bind(item: Donation) {
             binding.donationTitle.text = item.title
             Glide.with(binding.root)
-                .load(item.image)
+                .load(item.donationImg)
                 .into(binding.donationImgUrl)
             binding.root.setOnClickListener {
                 val context = binding.root.context

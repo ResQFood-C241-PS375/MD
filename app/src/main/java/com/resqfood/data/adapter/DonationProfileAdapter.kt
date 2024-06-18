@@ -26,7 +26,7 @@ class DonationProfileAdapter(private val viewModel: ProfileViewModel) : ListAdap
         fun bind(item: DonationsItem) {
             binding.donationTitle.text = item.title
             Glide.with(binding.root)
-                .load(item.image)
+                .load(item.donationImg)
                 .into(binding.donationImgUrl)
             binding.root.setOnClickListener {
                 onItemClickCallback.onItemClicked(item.donationId)

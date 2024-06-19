@@ -13,27 +13,3 @@ data class SellSearch(
 	@field:SerializedName("message")
 	val message: String? = null
 )
-//
-//data class SellsItem(
-//
-//	@field:SerializedName("sell_img")
-//	val sellImg: String,
-//
-//	@field:SerializedName("sell_id")
-//	val sellId: String,
-//
-//	@field:SerializedName("harga")
-//	val harga: Int,
-//
-//	@field:SerializedName("user_id")
-//	val userId: String,
-//
-//	@field:SerializedName("expire")
-//	val expire: String,
-//
-//	@field:SerializedName("deskripsi")
-//	val deskripsi: String,
-//
-//	@field:SerializedName("title")
-//	val title: String
-//)

@@ -15,28 +15,3 @@ data class SellResponse(
 	@field:SerializedName("message")
 	val message: String? = null
 )
-
-//@Parcelize
-//data class SellsItem(
-//
-//	@field:SerializedName("sell_img")
-//	val sellImg: String? = null,
-//
-//	@field:SerializedName("sell_id")
-//	val sellId: String? = null,
-//
-//	@field:SerializedName("harga")
-//	val harga: String? = null,
-//
-//	@field:SerializedName("user_id")
-//	val userId: String? = null,
-//
-//	@field:SerializedName("expire")
-//	val expire: String? = null,
-//
-//	@field:SerializedName("deskripsi")
-//	val deskripsi: String? = null,
-//
-//	@field:SerializedName("title")
-//	val title: String? = null
-//): Parcelable

@@ -92,4 +92,12 @@ class PrimaryActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_primary)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+
+    override fun onBackPressed() {
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.nav_home)
+        if (currentFragment is HomeFragment) {
+            finish()
+        }
+        super.onBackPressed()
+    }
 }

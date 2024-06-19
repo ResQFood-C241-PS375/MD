@@ -37,7 +37,7 @@ class RegisEmailText : AppCompatEditText {
                 if (emailPattern.matches(s)) {
                     error = null
                 } else {
-                    setError("Email tidak valid", null)
+                    setError("Email Invalid", null)
                 }
             }
             override fun afterTextChanged(s: Editable) {

@@ -31,8 +31,6 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Response
 import java.io.File
 
-// Ini juga nunggu CC baru disesuain
-
 class Repository private constructor(
     private val userPreference: UserPreference
 ) {
@@ -50,7 +48,6 @@ class Repository private constructor(
     suspend fun updateUser(token: String, userId: String, imageFile: File, username: String, fullName: String, email: String, password: String, phone: String): UpdateUser? {
         return withContext(Dispatchers.IO) {
             Log.d("inforepo","repooo")
-//            val requestUserId = userId.toRequestBody("text/plain".toMediaType())
             val requestUserame = username.toRequestBody("text/plain".toMediaType())
             val requestFullName = fullName.toRequestBody("text/plain".toMediaType())
             val requestEmail = email.toRequestBody("text/plain".toMediaType())

@@ -67,31 +67,6 @@ class InputExpired : AppCompatEditText {
                         setSelection(if (current.length < 10) current.length else 10)
                     }
                 }
-
-//                if (s.toString() != current) {
-//                    var clean = s.replace(Regex("[^\\d.]|\\."), "")
-//                    val cleanC = current.replace(Regex("[^\\d.]|\\."), "")
-//
-//                    if (clean.length < 8) {
-//                        clean = clean.padEnd(8, '0')
-//                    }
-//
-//                    var day = clean.substring(0, 2)
-//                    var month = clean.substring(2, 4)
-//                    var year = clean.substring(4, 8)
-//
-//                    month = if (month.toInt() < 1) "01" else if (month.toInt() > 12) "12" else month
-//                    cal.set(Calendar.MONTH, month.toInt() - 1)
-//                    year = if (year.toInt() < 1900) "1900" else if (year.toInt() > 2100) "2100" else year
-//                    cal.set(Calendar.YEAR, year.toInt())
-//
-//                    day = if (day.toInt() > cal.getActualMaximum(Calendar.DATE)) cal.getActualMaximum(Calendar.DATE).toString() else day
-//                    clean = String.format("%s/%s/%s", day, month, year)
-//
-//                    current = clean
-//                    setText(current)
-//                    setSelection(if (current.length < 10) current.length else 10)
-//                }
             }
 
             override fun afterTextChanged(s: Editable) {

@@ -125,7 +125,7 @@
             app:layout_constraintStart_toEndOf="@+id/rupiah"
             app:layout_constraintTop_toBottomOf="@+id/priceTV">
 
-            <com.resqfood.view.custom_view.CInputText
+            <com.resqfood.view.custom_view.InputPrice
                 android:id="@+id/inputPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

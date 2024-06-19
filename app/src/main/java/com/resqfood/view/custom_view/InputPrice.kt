@@ -9,7 +9,7 @@ import android.view.View
 import androidx.appcompat.widget.AppCompatEditText
 import com.resqfood.R
 
-class CInputText : AppCompatEditText {
+class InputPrice : AppCompatEditText {
     constructor(context: Context) : super(context) {
         init()
     }
@@ -35,6 +35,12 @@ class CInputText : AppCompatEditText {
                     setError(context.getString(R.string.error_text), null)
                 } else {
                     error = null
+                }
+                if (!s.matches(Regex("^[0-9]+$"))) {
+                    setError(context.getString(R.string.error_price), null)
+                } else {
+                    // Hanya menghilangkan error jika sudah memenuhi kedua kondisi
+                    if (s.length >= 2) error = null
                 }
             }
             override fun afterTextChanged(s: Editable) {

@@ -43,16 +43,6 @@ class DetailDonationActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
-
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-////            detailDonation = intent.getParcelableExtra(EXTRA_ID, Donation::class.java)!!
-//            detailProfile = intent.getParcelableExtra(EXTRA_ID, Users::class.java)!!
-//        } else {
-//            @Suppress("DEPRECATION")
-////            detailDonation = intent.getParcelableExtra(EXTRA_ID)!!
-//            detailProfile = intent.getParcelableExtra(EXTRA_ID)!!
-//        }
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             detailDonation = intent.getParcelableExtra(EXTRA_ID, Donation::class.java)!!
         } else {
@@ -60,18 +50,6 @@ class DetailDonationActivity : AppCompatActivity() {
             detailDonation = intent.getParcelableExtra(EXTRA_ID)!!
         }
 
-//        viewModel.getDonationId(detailProfile.userId)
-//        viewModel.donationId.observe(this){
-//            // DonationDetail
-//            Glide.with(binding.root)
-//                .load(detailProfile.donation.image)
-//                .into(binding.imageDetail)
-//            binding.donationTitle.text = detailProfile.donation.title
-//            binding.donationDescription.text = detailProfile.donation.deskripsi
-//            binding.donationLocation.text = detailProfile.donation.location
-//        }
-
-//        detailDonation.userId
         Glide.with(binding.root)
             .load(detailDonation.donationImg)
             .into(binding.imageDetail)
@@ -90,42 +68,8 @@ class DetailDonationActivity : AppCompatActivity() {
             userNumber = users.user?.noHp
         }
 
-
-
-        // Users
-//        getProfile()
-
-//        val id = intent.getStringExtra(EXTRA_ID)
-
-
-//
-//        Log.d("info234", "${detailDonation}")
-//
-////        viewModel.getIdDonation(detailProfile.userId)
-////        viewModel.theUserId.observe(this){
-//
-//            //                Glide.with(binding.root)
-////                    .load(detailProfile.)
-////                    .into(binding.userImage)
-//
-////            binding.userName.text = detailProfile.namaLengkap
-////            userNumber = detailProfile.noHp
-////        }
-//
-//            viewModel.getIdDonation(detailDonation.donation.donationId)
-//            viewModel.theUserId.observe(this){
-//                Glide.with(binding.root)
-//                    .load(detailDonation.donation.image)
-//                    .into(binding.imageDetail)
-//                binding.donationTitle.text = detailDonation.donation.title
-//                binding.donationDescription.text = detailDonation.donation.deskripsi
-//                binding.donationLocation.text = detailDonation.donation.location
-//                binding.userName.text = detailDonation.namaLengkap
-//                userNumber = detailDonation.noHp
-//            }
-
         binding.button.setOnClickListener {
-            openWhatsApp()
+            openTelephone()
         }
     }
 
@@ -138,15 +82,14 @@ class DetailDonationActivity : AppCompatActivity() {
     }
 
 
-    private fun openWhatsApp() {
+    private fun openTelephone() {
         userNumber?.let {
-            val message = "Halo, saya tertarik dengan donasi ini."
-            val intent = Intent(Intent.ACTION_VIEW).apply {
-                data = Uri.parse("https://wa.me/$it/?text=${Uri.encode(message)}")
+            val intent = Intent(Intent.ACTION_DIAL).apply {
+                data = Uri.parse("tel:$it")
             }
             startActivity(intent)
         } ?: run {
-            Toast.makeText(this, "Nomor telepon tidak tersedia", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Phone number is not available", Toast.LENGTH_SHORT).show()
         }
     }
 

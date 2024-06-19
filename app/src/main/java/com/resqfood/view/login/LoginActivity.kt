@@ -8,12 +8,9 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.resqfood.R
 import com.resqfood.ViewModelFactory
 import com.resqfood.data.pref.UserModel
@@ -72,7 +69,7 @@ class LoginActivity : AppCompatActivity() {
                     alertDialog = AlertDialog.Builder(this).apply {
                         setTitle("Oops !")
                         setMessage(it.message)
-                        setNegativeButton("Lanjut") { dialog, _ ->
+                        setNegativeButton("Back") { dialog, _ ->
                             dialog.dismiss()
                         }
                     }
@@ -80,10 +77,11 @@ class LoginActivity : AppCompatActivity() {
                     alertDialog?.show()
                 } else {
                     showLoading(false)
+
                     alertDialog = AlertDialog.Builder(this).apply {
-                        setTitle("Yeah!")
-                        setMessage("Anda berhasil login. Silahkan menikmati")
-                        setPositiveButton("Lanjut") { dialog, _ ->
+                        setTitle("Login Success !")
+                        setMessage("Enjoy our app :)")
+                        setPositiveButton("Next") { dialog, _ ->
                             dialog.dismiss()
                             val intent = Intent(this@LoginActivity, PrimaryActivity::class.java)
                             startActivity(intent)

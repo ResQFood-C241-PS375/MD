@@ -27,8 +27,6 @@ class UserFragment : Fragment() {
 
     private var _binding: FragmentUserBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
     private val viewModel by viewModels<ProfileViewModel> {
         ViewModelFactory.getInstance(requireContext())
@@ -53,8 +51,6 @@ class UserFragment : Fragment() {
 
         binding.btnSubmitEdit.setOnClickListener {
             showLoading(true)
-
-            // bikin if kalo currentImageUri nya kosong
 
             if (currentImageUri == null
                 || binding.fullnameCIT.text.toString().isEmpty()
@@ -105,21 +101,20 @@ class UserFragment : Fragment() {
             updateUser?.let {
                 val alertDialog = if (it.error == true) {
                     AlertDialog.Builder(requireActivity()).apply {
-                        setTitle("Kesalahan Pemasukan Data !")
-                        setMessage(it.message)
-                        setNegativeButton("isi ulang kembali") { dialog, _ ->
+                        setTitle("Wrong Input")
+                        setMessage("Please input correctly")
+                        setNegativeButton("OK") { dialog, _ ->
                             dialog.cancel()
                         }
                         create()
                     }
                 } else {
                     AlertDialog.Builder(requireActivity()).apply {
-                        setTitle("Data berhasil diubah !")
+                        setTitle("Data successfully changed !")
                         setMessage(it.message)
-                        setNegativeButton("tutup") { dialog, _ ->
+                        setNegativeButton("Close") { dialog, _ ->
                             dialog.dismiss()
                             dialog.cancel()
-//                            finish()
                             val intent = Intent(requireActivity(), PrimaryActivity::class.java)
                             startActivity(intent)
                         }

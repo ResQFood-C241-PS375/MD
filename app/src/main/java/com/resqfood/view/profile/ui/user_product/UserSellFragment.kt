@@ -65,12 +65,12 @@ class UserSellFragment : Fragment() {
         adapter.setOnItemClickCallback(object : ForSaleProfileAdapter.OnItemClickCallback {
             override fun onItemClicked(id: String) {
                 AlertDialog.Builder(requireActivity())
-                    .setTitle("Konfirmasi Hapus")
-                    .setMessage("Apakah Anda yakin ingin menghapus donasi ini?")
-                    .setPositiveButton("Hapus") { _, _ ->
+                    .setTitle("Delete Confirmation")
+                    .setMessage("Are you sure you want to delete this donation?")
+                    .setPositiveButton("Delete") { _, _ ->
                         viewModel.deleteSell(id)
                     }
-                    .setNegativeButton("Batal", null)
+                    .setNegativeButton("Cancel", null)
                     .show()
             }
         })

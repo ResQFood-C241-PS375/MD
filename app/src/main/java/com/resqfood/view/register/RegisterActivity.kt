@@ -85,13 +85,12 @@ class RegisterActivity : AppCompatActivity() {
         viewModel.resultRegister.observe(this) {
             showLoading(true)
             val alertDialog: AlertDialog.Builder?
-            Log.d("${it.error}","GGGGGGGG")
             if (it.error == true) {
                 showLoading(false)
                 alertDialog = AlertDialog.Builder(this).apply {
-                    setTitle("Kesalahan Pemasukan Data !")
-                    setMessage(it.message)
-                    setNegativeButton("isi ulang kembali") { dialog, _ ->
+                    setTitle("Wrong Input Data !")
+                    setMessage("Data didn't match")
+                    setNegativeButton("Input Again") { dialog, _ ->
                         dialog.cancel()
                     }
                     create()
@@ -100,10 +99,9 @@ class RegisterActivity : AppCompatActivity() {
             } else {
                 showLoading(false)
                 alertDialog = AlertDialog.Builder(this).apply {
-                    setTitle("Berhasil dibuat !")
-                    setMessage(it.message)
-                    Log.d("${it.message}","BISALAAAAAHHH")
-                    setNegativeButton("silahkan login") { dialog, _ ->
+                    setTitle("Account Successfully Created")
+                    setMessage("Please Login")
+                    setNegativeButton("Login") { dialog, _ ->
                         dialog.dismiss()
                         dialog.cancel()
                         val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
@@ -119,16 +117,36 @@ class RegisterActivity : AppCompatActivity() {
         binding.signupButton.setOnClickListener {
             showLoading(true)
 
-            currentImageUri?.let {
-                viewModel.registerUser(
-                    uriToFile(it, this).reduceFileImage(),
+            if (currentImageUri == null
+                || binding.userNameEditText.text.toString().isEmpty()
+                || binding.fullNameEditText.text.toString().isEmpty()
+                || binding.emailEditText.text.toString().isEmpty()
+                || binding.passwordEditText.text.toString().isEmpty()
+                || binding.confirmPasswordEditText.text.toString().isEmpty()
+                || binding.phoneEditText.text.toString().isEmpty()
+                ) {
+
+                android.app.AlertDialog.Builder(this).apply {
+                    setTitle("Empty data")
+                    setMessage("Please fill all the fields and select an image!")
+                    setPositiveButton("OK") { dialog, which ->
+                        dialog.dismiss()
+                    }
+                    show()
+                }
+                showLoading(false)
+            } else {
+                currentImageUri?.let {
+                    viewModel.registerUser(
+                        uriToFile(it, this).reduceFileImage(),
                     binding.userNameEditText.text.toString(),
                     binding.fullNameEditText.text.toString(),
                     binding.emailEditText.text.toString(),
                     binding.passwordEditText.text.toString(),
                     binding.confirmPasswordEditText.text.toString(),
                     binding.phoneEditText.text.toString()
-                )
+                    )
+                }
             }
         }
     }

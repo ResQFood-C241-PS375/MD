@@ -27,10 +27,10 @@ class PostingViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-    fun saleUpload(file: File,title: String, description: String, expired: String, price: String) {
+    fun saleUpload(file: File,title: String, description: String, expired: String, price: Int) {
         viewModelScope.launch {
             repository.getSession().collect {
-                _uploadSale.value = repository.postSale(file, title, description, expired,price, it.token, it.userId)
+                _uploadSale.value = repository.postSale(file, title, description, expired, it.token, price, it.userId)
             }
         }
     }

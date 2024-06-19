@@ -22,6 +22,7 @@ class RegisPhoneText: AppCompatEditText {
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+//        hint = ".   example = 081290874562"
         textAlignment = View.TEXT_ALIGNMENT_VIEW_START
     }
 

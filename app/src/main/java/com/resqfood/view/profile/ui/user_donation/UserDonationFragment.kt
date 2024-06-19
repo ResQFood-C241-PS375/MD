@@ -69,12 +69,12 @@ class UserDonationFragment : Fragment() {
         adapter.setOnItemClickCallback(object : DonationProfileAdapter.OnItemClickCallback {
             override fun onItemClicked(id: String) {
                 AlertDialog.Builder(requireActivity())
-                    .setTitle("Konfirmasi Hapus")
-                    .setMessage("Apakah Anda yakin ingin menghapus donasi ini?")
-                    .setPositiveButton("Hapus") { _, _ ->
+                    .setTitle("Delete Confirmation")
+                    .setMessage("Are you sure you want to delete this donation?")
+                    .setPositiveButton("Delete") { _, _ ->
                         viewModel.deleteDonation(id)
                     }
-                    .setNegativeButton("Batal", null)
+                    .setNegativeButton("Cancel", null)
                     .show()
             }
         })

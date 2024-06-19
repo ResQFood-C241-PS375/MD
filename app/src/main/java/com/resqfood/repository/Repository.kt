@@ -215,13 +215,13 @@ class Repository private constructor(
         }
     }
 
-    suspend fun postSale(imageFile: File, title: String, description: String, expired: String, token: String, price: String, userId: String): PostSellResponse {
+    suspend fun postSale(imageFile: File, title: String, description: String, expired: String, token: String, price: Int, userId: String): PostSellResponse {
         return withContext(Dispatchers.IO) {
             val requestTitle = title.toRequestBody("text/plain".toMediaType())
             val requestDescription = description.toRequestBody("text/plain".toMediaType())
             val requestExpired = expired.toRequestBody("text/plain".toMediaType())
             val requestUserId = userId.toRequestBody("text/plain".toMediaType())
-            val requestPrice = price.toRequestBody("text/plain".toMediaType())
+            val requestPrice = price.toString().toRequestBody("text/plain".toMediaType())
             val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
             val multipartBody = MultipartBody.Part.createFormData(
                 "sell_img",

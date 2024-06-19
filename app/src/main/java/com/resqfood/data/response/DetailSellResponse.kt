@@ -27,7 +27,7 @@ data class Sell(
 	val sellId: String,
 
 	@field:SerializedName("harga")
-	val harga: String,
+	val harga: Int,
 
 	@field:SerializedName("user_id")
 	val userId: String,

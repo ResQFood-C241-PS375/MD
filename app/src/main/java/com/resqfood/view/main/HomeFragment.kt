@@ -26,8 +26,6 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
     private val viewModel by viewModels<HomeViewModel> {
         ViewModelFactory.getInstance(requireContext())
@@ -79,43 +77,6 @@ class HomeFragment : Fragment() {
                 return true
             }
         })
-
-//        setupSearchView()
-
-//        binding.tesLogout.setOnClickListener {
-//            viewModel.logout()
-//        }
-
-//        with(binding){
-//            searchView.setupWithSearchBar(searchBar)
-//            searchView
-//                .editText
-//                .setOnEditorActionListener { textView, actionID, event ->
-//                    viewModel.getSearch(searchView.text.toString())
-//                    searchBar.text = searchView.text
-//                    searchView.hide()
-//                    Toast.makeText(requireContext(), searchView.text, Toast.LENGTH_LONG).show()
-//                    false
-//                }
-//        }
-
-//        with(binding){
-//            searchView.setupWithSearchBar(searchBar)
-//            searchView.editText.setOnEditorActionListener { textView, actionId, event ->
-//                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-//                    val searchQuery = searchView.editText.text.toString()
-//                    viewModel.getSearch(searchQuery)
-//                    searchBar.setQuery(searchQuery, false) // Set query without submitting
-//                    searchView.hide()
-//                    Toast.makeText(requireContext(), searchQuery, Toast.LENGTH_LONG).show()
-//                    true
-//                } else {
-//                    false
-//                }
-//            }
-//        }
-
-
     }
 
     private fun setupRVDonation() {
@@ -138,25 +99,9 @@ class HomeFragment : Fragment() {
         viewModel.getSale()
     }
 
-    private fun setupSearchView() {
-//        val searchView = view?.findViewById<SearchView>(R.id.searchView)
-//
-//        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-//            override fun onQueryTextSubmit(query: String?): Boolean {
-//                return false // Biarkan SearchView menangani submit secara default
-//            }
-//
-//            override fun onQueryTextChange(newText: String?): Boolean {
-////                (binding.rvSale.adapter as ForSaleAdapter).filter.filter(newText)
-//                return true
-//            }
-//        })
-    }
-
     override fun onResume() {
         super.onResume()
         setupRVDonation()
         setupRVSale()
-//        setupSearchView()
     }
 }

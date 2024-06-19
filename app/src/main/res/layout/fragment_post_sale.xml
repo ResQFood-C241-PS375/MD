@@ -106,12 +106,23 @@
             app:layout_constraintStart_toStartOf="@+id/descriptionTV"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
 
+        <com.resqfood.view.custom_view.CTextView
+            android:id="@+id/rupiah"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rupiah"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toBottomOf="@+id/InputLayout"
+            app:layout_constraintStart_toStartOf="@+id/textInputLayout"
+            app:layout_constraintTop_toTopOf="@+id/InputLayout" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/InputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
             app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
-            app:layout_constraintStart_toStartOf="@+id/textInputLayout"
+            app:layout_constraintStart_toEndOf="@+id/rupiah"
             app:layout_constraintTop_toBottomOf="@+id/priceTV">
 
             <com.resqfood.view.custom_view.CInputText
@@ -132,7 +143,7 @@
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@+id/InputLayout"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/InputLayout"
+            app:layout_constraintStart_toStartOf="@+id/galleryButton"
             app:layout_constraintTop_toBottomOf="@+id/InputLayout" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -140,15 +151,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="@+id/InputLayout"
-            app:layout_constraintStart_toStartOf="@+id/InputLayout"
+            app:layout_constraintStart_toStartOf="@+id/galleryButton"
             app:layout_constraintTop_toBottomOf="@+id/CTextView">
 
-            <com.resqfood.view.custom_view.CInputText
+            <com.resqfood.view.custom_view.InputExpired
                 android:id="@+id/inputExpired"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="top"
-                android:padding="10dp" />
+                android:padding="9dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

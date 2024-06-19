@@ -98,7 +98,7 @@ class PostSaleFragment : Fragment() {
                                     getString(R.string.label_1)
                                 }
                                 if (predictedLabel == "Bukan Roti") {
-                                    showAlert("Ini bukan foto roti!")
+                                    showAlert("This is not bread thing !")
                                 }
                             }
                         }
@@ -117,15 +117,19 @@ class PostSaleFragment : Fragment() {
             val description = binding.inputDescription.text.toString()
             val expired = binding.inputExpired.text.toString()
             val price = binding.inputPrice.text.toString()
-            viewModel.saleUpload(imageFile,title, description, expired, price)
+            val priceInt = price.toInt()
+
+            //            if (title.isEmpty()), kaya gini di lanjutin
+
+            viewModel.saleUpload(imageFile,title, description, expired, priceInt)
             viewModel.uploadSale.observe(viewLifecycleOwner) { result: PostSellResponse ->
                 var alertDialog: AlertDialog.Builder? = null
                 if (result.error == true) {
                     showLoading(false)
                     alertDialog = AlertDialog.Builder(requireActivity()).apply {
-                        setTitle("Kesalahan Input !")
-                        setMessage(result.message)
-                        setNegativeButton("Upload ulang") { dialog, _ ->
+                        setTitle("Wrong Input !")
+                        setMessage(R.string.error_input)
+                        setNegativeButton("Upload Again") { dialog, _ ->
                             dialog.cancel()
                             dialog.dismiss()
                         }
@@ -135,9 +139,13 @@ class PostSaleFragment : Fragment() {
                 } else {
                     showLoading(false)
                     alertDialog = AlertDialog.Builder(requireActivity()).apply {
-                        setTitle("Berhasil !")
-                        setMessage(result.message)
-                        setNegativeButton("Lanjut") { dialog, _ ->
+
+                        val appInfoArray = resources.getStringArray(R.array.app_info)
+                        val appInfoString = appInfoArray.joinToString("\n \n")
+
+                        setTitle("Succes... Disclaimer !")
+                        setMessage(appInfoString)
+                        setNegativeButton("Next") { dialog, _ ->
                             val intent = Intent(requireActivity(), PrimaryActivity::class.java)
                             startActivity(intent)
                             dialog.cancel()
@@ -157,7 +165,7 @@ class PostSaleFragment : Fragment() {
             setTitle(getString(R.string.alert_title))
             setIcon(R.drawable.ic_warning)
             setMessage(message)
-            setPositiveButton("OKE") { dialog, _ ->
+            setPositiveButton("Upload Again") { dialog, _ ->
                 dialog.dismiss()
             }
             create()

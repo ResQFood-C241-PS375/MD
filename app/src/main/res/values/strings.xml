@@ -7,8 +7,8 @@
     <string name="upload">Upload</string>
     <string name="location_name">Location</string>
     <string name="donation_title">Judul Donasi</string>
-    <string name="for_sale">For Sale</string>
-    <string name="donation">Donation</string>
+    <string name="for_sale">Sell Stuff</string>
+    <string name="donation">Donation Info</string>
     <string name="dishes_name">Dishes Name</string>
     <string name="price">Price</string>
     <string name="expired">Expired</string>
@@ -20,6 +20,13 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+    <string-array name="app_info">
+
+        <item>1. ResQFood is not responsible for transactions made outside the application. Any transactions made outside the application are the responsibility of the user it self.</item>
+        <item>2. We remind you to be careful and considerate when making transactions outside the app. ResQFood does not guarantee the security of such transactions.</item>
+
+    </string-array>
+
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
@@ -29,7 +36,7 @@
     <string name="profile">Profile</string>
 
     <string name="title_login_page">Kebersihan sebagian dari iman !</string>
-    <string name="message_login_page">Login terlebih dahulu</string>
+    <string name="message_login_page">Please Login First !</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
@@ -41,7 +48,7 @@
     <string name="error_phone">No HP tidak boleh kurang dari 10 angka</string>
 
     <string name="nama_lengkap">Nama Lengkap</string>
-    <string name="register_data">Lengkapi data dirimu !</string>
+    <string name="register_data">Fill your data !</string>
     <string name="user">User</string>
     <string name="description_example">Description Example</string>
     <string name="location">Location</string>
@@ -53,17 +60,17 @@
     <string name="expired_example">Expired Example</string>
     <string name="whatsapp_icon">WhatsApp Icon</string>
     <string name="title_example">Title Example</string>
-    <string name="nomor_hp">Nomor HP</string>
+    <string name="nomor_hp">Phone Number</string>
     <string name="search_bar_hint">Masukkan nama produk</string>
     <string name="test">ORAAA ORAAA</string>
     <string name="confirm_password">Confirm Password</string>
 
-    <string name="error_input">Data yg dimasukkan tidak benar</string>
+    <string name="error_input">Data didn\'t matched correctly</string>
     <string name="image_classifier_failed">Image classifier failed to initialize. See error logs for details</string>
     <string name="empty_image_warning">Silakan masukkan pilih gambar di galeri terlebih dahulu</string>
     <string name="label_0">Roti</string>
     <string name="label_1">Bukan Roti</string>
-    <string name="alert_title">Perhatian</string>
+    <string name="alert_title">Warning</string>
     <string name="copyright"><![CDATA[Copyright © 2024 ResQFood Team. All rights reserved]]></string>
     <string name="price_example">Price Example</string>
     <string name="phone_number">Phone Number</string>
@@ -79,4 +86,6 @@
     <string name="judul_produk">Judul produk</string>
     <string name="account_reminder">Didn\'t have an account?</string>
     <string name="register_now">Register Now!</string>
+    <string name="rupiah">Rp</string>
+    <string name="login_string">Some food is just wasted. Let\'s tackle it!</string>
 </resources>

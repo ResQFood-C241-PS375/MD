@@ -9,7 +9,6 @@ import com.resqfood.view.login.LoginViewModel
 import com.resqfood.view.main.HomeViewModel
 import com.resqfood.view.post_detail.DetailViewModel
 import com.resqfood.view.posting.PostingViewModel
-import com.resqfood.view.profile.ProfileActivity
 import com.resqfood.view.profile.ProfileViewModel
 import com.resqfood.view.register.RegisterViewModel
 

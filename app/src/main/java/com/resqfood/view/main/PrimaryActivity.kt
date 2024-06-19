@@ -5,11 +5,8 @@ import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
-import android.view.inputmethod.EditorInfo
-import android.widget.Toast
 import androidx.activity.viewModels
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -19,14 +16,11 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import com.resqfood.R
 import com.resqfood.ViewModelFactory
 import com.resqfood.databinding.ActivityPrimaryBinding
 import com.resqfood.view.login.LoginActivity
-import com.resqfood.view.profile.ProfileActivity
 import com.resqfood.view.profile.ProfilesActivity
-import com.resqfood.view.welcome.WelcomeActivity
 
 class PrimaryActivity : AppCompatActivity() {
 

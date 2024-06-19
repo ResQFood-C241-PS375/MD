@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/baseline_arrow_back"
         app:titleTextColor="@color/white"
-        app:title="Deskripsi Donasi" />
+        app:title="Donation Detail" />
 
     <ImageView
         android:id="@+id/imageDetail"
@@ -133,25 +133,8 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_gravity="center"
-            android:src="@drawable/ic_whatsapp"
+            android:src="@drawable/baseline_phone_white"
             android:contentDescription="@string/whatsapp_icon" />
-    </FrameLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/main_green"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="@color/white"
-            android:text="@string/copyright" />
-
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

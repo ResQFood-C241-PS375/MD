@@ -21,7 +21,7 @@ class RegisEmailText : AppCompatEditText {
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-//        hint = "Masukkan Email Anda"
+        hint = "example@gmail.com"
         textAlignment = View.TEXT_ALIGNMENT_VIEW_START
     }
 

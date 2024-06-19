@@ -74,7 +74,6 @@ class PostDonationFragment : Fragment() {
         }
     }
 
-
     private fun postDonation() {
         currentImageUri?.let { uri ->
             val imageFile = uriToFile(uri, requireActivity()).reduceFileImage()
@@ -82,15 +81,18 @@ class PostDonationFragment : Fragment() {
             val title = binding.inputDonation.text.toString()
             val description = binding.inputDescription.text.toString()
             val location = binding.inputLocation.text.toString()
+
+//            if (title.isEmpty()), kaya gini di lanjutin
+
             viewModel.donationUpload(imageFile,title, description, location)
             viewModel.uploadDonation.observe(viewLifecycleOwner) { result: PostDonationResponse ->
                 var alertDialog: AlertDialog.Builder? = null
                 if (result.message != "Donasi berhasil dibuat!") {
                     showLoading(false)
                     alertDialog = AlertDialog.Builder(requireActivity()).apply {
-                        setTitle("Kesalahan Input !")
+                        setTitle("Wrong Input !")
                         setMessage(R.string.error_input)
-                        setNegativeButton("Upload ulang") { dialog, _ ->
+                        setNegativeButton("Upload Again") { dialog, _ ->
                             dialog.cancel()
                             dialog.dismiss()
                         }
@@ -100,9 +102,13 @@ class PostDonationFragment : Fragment() {
                 } else {
                     showLoading(false)
                     alertDialog = AlertDialog.Builder(requireActivity()).apply {
-                        setTitle("Berhasil !")
-                        setMessage(result.message)
-                        setNegativeButton("Lanjut") { dialog, _ ->
+
+                        val appInfoArray = resources.getStringArray(R.array.app_info)
+                        val appInfoString = appInfoArray.joinToString("\n \n")
+
+                        setTitle("Succes... Disclaimer !")
+                        setMessage(appInfoString)
+                        setNegativeButton("Next") { dialog, _ ->
                             val intent = Intent(requireActivity(), PrimaryActivity::class.java)
                             startActivity(intent)
                             dialog.cancel()

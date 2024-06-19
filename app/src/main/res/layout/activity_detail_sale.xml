@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/baseline_arrow_back"
         app:titleTextColor="@color/white"
-        app:title="Deskripsi Produk" />
+        app:title="Product Detail" />
 
     <ImageView
         android:id="@+id/imageDetail"
@@ -120,6 +120,28 @@
         app:layout_constraintStart_toStartOf="@+id/CBTextView221"
         app:layout_constraintTop_toBottomOf="@+id/CBTextView221" />
 
+<!--    <com.resqfood.view.custom_view.CBTextView-->
+<!--        android:id="@+id/CBTextView1"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="15dp"-->
+<!--        android:text="@string/price"-->
+<!--        android:textSize="16sp"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/saleExpired"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/saleExpired" />-->
+
+<!--    <com.resqfood.view.custom_view.CTextView-->
+<!--        android:id="@+id/salePrice"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/price_example"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:textSize="14sp"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/imageDetail"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/CBTextView1"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/CBTextView1" />-->
+
     <FrameLayout
         android:id="@+id/btn_whatsapp"
         android:layout_width="0dp"
@@ -143,25 +165,8 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_gravity="center"
-            android:src="@drawable/ic_whatsapp"
+            android:src="@drawable/baseline_phone_white"
             android:contentDescription="@string/whatsapp_icon" />
-    </FrameLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/main_green"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="@color/white"
-            android:text="@string/copyright" />
-
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

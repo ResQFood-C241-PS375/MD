@@ -53,6 +53,7 @@ class DetailSaleActivity : AppCompatActivity() {
         binding.saleTitle.text = detailSale.title
         binding.saleDescription.text = detailSale.deskripsi
         binding.saleExpired.text = detailSale.expire
+        binding.sellPrice.text = "Rp ${detailSale.harga}"
 
         viewModel.getSellUser(detailSale.userId)
         viewModel.sellUser.observe(this) { users ->
@@ -64,7 +65,7 @@ class DetailSaleActivity : AppCompatActivity() {
         }
 
         binding.button.setOnClickListener {
-            openWhatsApp()
+            openTelephone()
         }
     }
 
@@ -76,15 +77,14 @@ class DetailSaleActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun openWhatsApp() {
+    private fun openTelephone() {
         userNumber?.let {
-            val message = "Halo, saya tertarik dengan donasi ini."
-            val intent = Intent(Intent.ACTION_VIEW).apply {
-                data = Uri.parse("https://wa.me/$it/?text=${Uri.encode(message)}")
+            val intent = Intent(Intent.ACTION_DIAL).apply {
+                data = Uri.parse("tel:$it")
             }
             startActivity(intent)
         } ?: run {
-            Toast.makeText(this, "Nomor telepon tidak tersedia", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Phone number is not available", Toast.LENGTH_SHORT).show()
         }
     }
 

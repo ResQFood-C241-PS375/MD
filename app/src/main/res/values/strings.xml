@@ -87,5 +87,6 @@
     <string name="account_reminder">Didn\'t have an account?</string>
     <string name="register_now">Register Now!</string>
     <string name="rupiah">Rp</string>
-    <string name="login_string">Some food is just wasted. Let\'s tackle it!</string>
+    <string name="login_string">Some food just wasted. Let\'s tackle it!</string>
+    <string name="sale_title">Sale Title</string>
 </resources>

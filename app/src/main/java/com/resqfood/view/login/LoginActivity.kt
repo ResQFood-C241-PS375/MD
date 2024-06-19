@@ -79,8 +79,12 @@ class LoginActivity : AppCompatActivity() {
                     showLoading(false)
 
                     alertDialog = AlertDialog.Builder(this).apply {
-                        setTitle("Login Success !")
-                        setMessage("Enjoy our app :)")
+
+                        val appInfoArray = resources.getStringArray(R.array.app_info)
+                        val appInfoString = appInfoArray.joinToString("\n \n")
+
+                        setTitle("Login Success... Disclaimer !")
+                        setMessage(appInfoString)
                         setPositiveButton("Next") { dialog, _ ->
                             dialog.dismiss()
                             val intent = Intent(this@LoginActivity, PrimaryActivity::class.java)

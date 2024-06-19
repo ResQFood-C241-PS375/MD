@@ -50,8 +50,7 @@ class PostSaleFragment : Fragment() {
 
         binding.galleryButton.setOnClickListener { startGallery() }
         binding.uploadButton.setOnClickListener {
-            postSale()
-            showLoading(true)
+            setupObservers()
         }
     }
 
@@ -111,60 +110,68 @@ class PostSaleFragment : Fragment() {
         imageClassifierHelper.classifyStaticImage(uri)
     }
 
+
+    private fun setupObservers() {
+        postSale()
+        viewModel.uploadSale.observe(viewLifecycleOwner) { result ->
+            handleSaleResult(result)
+        }
+    }
+
+    private fun handleSaleResult(result: PostSellResponse) {
+        showLoading(false)
+        if (result.error == true) {
+            showErrorDialog()
+        } else {
+            showSuccessDialog()
+        }
+    }
+
+    private fun showErrorDialog() {
+        AlertDialog.Builder(requireActivity()).apply {
+            setTitle("Wrong Input")
+            setMessage("Data input didn\'t matched correctly or it's not a bread photo")
+            setNegativeButton("Upload Again") { dialog, _ ->
+                dialog.dismiss()
+            }
+            show()
+        }
+    }
+
+    private fun showSuccessDialog() {
+        AlertDialog.Builder(requireActivity()).apply {
+            setTitle("Success!")
+            setMessage("Your food sale has been posted")
+            setNegativeButton("OK") { dialog, _ ->
+                val intent = Intent(requireActivity(), PrimaryActivity::class.java)
+                startActivity(intent)
+                dialog.dismiss()
+            }
+            show()
+        }
+    }
+
     private fun postSale() {
-        currentImageUri?.let { uri ->
-//            labelClassifications?.let {
-//
-//            } kaya gini
-            val imageFile = uriToFile(uri, requireActivity()).reduceFileImage()
-            Log.d("Image File", "showImage: ${imageFile.path}")
-            val title = binding.inputDishes.text.toString()
-            val description = binding.inputDescription.text.toString()
-            val expired = binding.inputExpired.text.toString()
-            val price = binding.inputPrice.text.toString()
-            val priceInt = price.toInt()
+        showLoading(true)
+            if (currentImageUri == null || labelClassifications != "Roti" ||
+                binding.inputDishes.text.toString().isEmpty() ||
+                binding.inputDescription.text.toString().isEmpty() ||
+                binding.inputExpired.text.toString().isEmpty() ||
+                binding.inputPrice.text.toString().isEmpty()) {
+                showLoading(false)
+                showErrorDialog()
+            } else {
+                currentImageUri?.let { uri ->
+                    val imageFile = uriToFile(uri, requireActivity()).reduceFileImage()
+                    val title = binding.inputDishes.text.toString()
+                    val description = binding.inputDescription.text.toString()
+                    val expired = binding.inputExpired.text.toString()
+                    val price = binding.inputPrice.text.toString()
+                    val priceInt = price.toInt()
 
-            //            if (title.isEmpty()), kaya gini di lanjutin
-
-            // logic kalo classificationnya roti disimpen dalam labelClassification?.let {} gitu
-
-            viewModel.saleUpload(imageFile,title, description, expired, priceInt)
-            viewModel.uploadSale.observe(viewLifecycleOwner) { result: PostSellResponse ->
-                var alertDialog: AlertDialog.Builder? = null
-                if (result.error == true) {
-                    showLoading(false)
-                    alertDialog = AlertDialog.Builder(requireActivity()).apply {
-                        setTitle("Wrong Input !")
-                        setMessage(R.string.error_input)
-                        setNegativeButton("Upload Again") { dialog, _ ->
-                            dialog.cancel()
-                            dialog.dismiss()
-                        }
-                        create()
-                    }
-                    alertDialog.show()
-                } else {
-                    showLoading(false)
-                    alertDialog = AlertDialog.Builder(requireActivity()).apply {
-
-                        val appInfoArray = resources.getStringArray(R.array.app_info)
-                        val appInfoString = appInfoArray.joinToString("\n \n")
-
-                        setTitle("Succes... Disclaimer !")
-                        setMessage(appInfoString)
-                        setNegativeButton("Next") { dialog, _ ->
-                            val intent = Intent(requireActivity(), PrimaryActivity::class.java)
-                            startActivity(intent)
-                            dialog.cancel()
-                            dialog.dismiss()
-                        }
-                        create()
-                    }
-                    alertDialog.show()
+                    viewModel.saleUpload(imageFile,title, description, expired, priceInt)
                 }
             }
-
-        }
     }
 
     private fun showAlert(message: String) {

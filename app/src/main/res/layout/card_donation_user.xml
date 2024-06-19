@@ -13,16 +13,16 @@
         android:src="@drawable/donation_photo"
         app:riv_corner_radius="7dp" />
 
-    <TextView
+    <com.resqfood.view.custom_view.CBTextView
         android:id="@+id/donation_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ellipsize="end"
+        android:background="@color/black"
         android:maxLines="1"
         android:text="@string/donation_title"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:paddingBottom="4dp"
         android:paddingHorizontal="8dp"
         android:textColor="@color/white"
         android:shadowColor="@color/black"

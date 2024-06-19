@@ -32,6 +32,7 @@ class PostSaleFragment : Fragment() {
     private val viewModel by viewModels<PostingViewModel> {
         ViewModelFactory.getInstance(requireActivity())
     }
+    private var labelClassifications: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -94,6 +95,7 @@ class PostSaleFragment : Fragment() {
                                 val highestConfidenceCategory = it[0].categories.maxByOrNull { it.score }
                                 val predictedLabel = if (highestConfidenceCategory != null && highestConfidenceCategory.score > 0.8) {
                                     getString(R.string.label_0)
+                                    labelClassifications = getString(R.string.label_0)
                                 } else {
                                     getString(R.string.label_1)
                                 }
@@ -111,6 +113,9 @@ class PostSaleFragment : Fragment() {
 
     private fun postSale() {
         currentImageUri?.let { uri ->
+//            labelClassifications?.let {
+//
+//            } kaya gini
             val imageFile = uriToFile(uri, requireActivity()).reduceFileImage()
             Log.d("Image File", "showImage: ${imageFile.path}")
             val title = binding.inputDishes.text.toString()
@@ -120,6 +125,8 @@ class PostSaleFragment : Fragment() {
             val priceInt = price.toInt()
 
             //            if (title.isEmpty()), kaya gini di lanjutin
+
+            // logic kalo classificationnya roti disimpen dalam labelClassification?.let {} gitu
 
             viewModel.saleUpload(imageFile,title, description, expired, priceInt)
             viewModel.uploadSale.observe(viewLifecycleOwner) { result: PostSellResponse ->

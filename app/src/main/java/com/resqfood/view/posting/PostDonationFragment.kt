@@ -75,48 +75,64 @@ class PostDonationFragment : Fragment() {
     }
 
     private fun postDonation() {
-        currentImageUri?.let { uri ->
-            val imageFile = uriToFile(uri, requireActivity()).reduceFileImage()
-            Log.d("Image File", "showImage: ${imageFile.path}")
-            val title = binding.inputDonation.text.toString()
-            val description = binding.inputDescription.text.toString()
-            val location = binding.inputLocation.text.toString()
 
-//            if (title.isEmpty()), kaya gini di lanjutin
+        // dibikin mirip kaya donation aja deh logic klo ga keisi
 
-            viewModel.donationUpload(imageFile,title, description, location)
-            viewModel.uploadDonation.observe(viewLifecycleOwner) { result: PostDonationResponse ->
-                var alertDialog: AlertDialog.Builder? = null
-                if (result.message != "Donasi berhasil dibuat!") {
-                    showLoading(false)
-                    alertDialog = AlertDialog.Builder(requireActivity()).apply {
-                        setTitle("Wrong Input !")
-                        setMessage(R.string.error_input)
-                        setNegativeButton("Upload Again") { dialog, _ ->
-                            dialog.cancel()
-                            dialog.dismiss()
+        // perbaikan dikit lagi buggnyaa
+
+        // gausa dibuat variabel
+
+        val title = binding.inputDonation.text.toString()
+        val description = binding.inputDescription.text.toString()
+        val location = binding.inputLocation.text.toString()
+
+        if (title.isEmpty() || currentImageUri == null || description.isEmpty() || location.isEmpty()) {
+            AlertDialog.Builder(requireContext()).apply {
+                setTitle("Empty data")
+                setMessage("Please fill all the fields and select an image!")
+                setPositiveButton("OK") { dialog, which ->
+                    dialog.dismiss()
+                }
+                show()
+            }
+            showLoading(false)
+        } else {
+            currentImageUri?.let { uri ->
+                val imageFile = uriToFile(uri, requireContext()).reduceFileImage()
+                viewModel.donationUpload(imageFile, title, description, location)
+                viewModel.uploadDonation.observe(viewLifecycleOwner) { result: PostDonationResponse ->
+                    var alertDialog: AlertDialog.Builder? = null
+                    if (result.message != "Donasi berhasil dibuat!") {
+                        showLoading(false)
+                        alertDialog = AlertDialog.Builder(requireActivity()).apply {
+                            setTitle("Wrong Input !")
+                            setMessage(R.string.error_input)
+                            setNegativeButton("Upload Again") { dialog, _ ->
+                                dialog.cancel()
+                                dialog.dismiss()
+                            }
+                            create()
                         }
-                        create()
-                    }
-                    alertDialog.show()
-                } else {
-                    showLoading(false)
-                    alertDialog = AlertDialog.Builder(requireActivity()).apply {
+                        alertDialog.show()
 
-                        val appInfoArray = resources.getStringArray(R.array.app_info)
-                        val appInfoString = appInfoArray.joinToString("\n \n")
+                        showLoading(false)
+                        alertDialog = AlertDialog.Builder(requireActivity()).apply {
 
-                        setTitle("Succes... Disclaimer !")
-                        setMessage(appInfoString)
-                        setNegativeButton("Next") { dialog, _ ->
-                            val intent = Intent(requireActivity(), PrimaryActivity::class.java)
-                            startActivity(intent)
-                            dialog.cancel()
-                            dialog.dismiss()
+                            val appInfoArray = resources.getStringArray(R.array.app_info)
+                            val appInfoString = appInfoArray.joinToString("\n \n")
+
+                            setTitle("Succes... Disclaimer !")
+                            setMessage(appInfoString)
+                            setNegativeButton("Next") { dialog, _ ->
+                                val intent = Intent(requireActivity(), PrimaryActivity::class.java)
+                                startActivity(intent)
+                                dialog.cancel()
+                                dialog.dismiss()
+                            }
+                            create()
                         }
-                        create()
+                        alertDialog.show()
                     }
-                    alertDialog.show()
                 }
             }
         }

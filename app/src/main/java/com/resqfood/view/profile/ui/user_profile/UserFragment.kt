@@ -77,7 +77,6 @@ class UserFragment : Fragment() {
                         binding.emailCIT.text.toString(),
                         binding.passwordCIT.text.toString(),
                         binding.whatsappCIT.text.toString()
-
                     )
                 }
             }

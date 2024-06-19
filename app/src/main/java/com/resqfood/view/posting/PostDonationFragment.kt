@@ -47,8 +47,71 @@ class PostDonationFragment : Fragment() {
 
         binding.galleryButton.setOnClickListener { startGallery() }
         binding.uploadButton.setOnClickListener {
-            postDonation()
-            showLoading(true)
+//            postDonation()
+              setupObservers()
+        }
+    }
+
+
+    private fun setupObservers() {
+        postDonation()
+        viewModel.uploadDonation.observe(viewLifecycleOwner) { result ->
+            handleDonationResult(result)
+        }
+    }
+
+    private fun handleDonationResult(result: PostDonationResponse) {
+        showLoading(false)
+        if (result.message != "Donasi berhasil dibuat!") {
+            showErrorDialog()
+        } else {
+            showSuccessDialog()
+        }
+    }
+
+    private fun showErrorDialog() {
+        AlertDialog.Builder(requireActivity()).apply {
+            setTitle("Wrong Input !")
+            setMessage("Please check your inputs or network and try again!")
+            setNegativeButton("Retry") { dialog, _ ->
+                dialog.dismiss()
+            }
+            show()
+        }
+    }
+
+    private fun showSuccessDialog() {
+        AlertDialog.Builder(requireActivity()).apply {
+            setTitle("Success!")
+            setMessage("Your donation info has been posted")
+            setPositiveButton("OK") { dialog, _ ->
+                val intent = Intent(requireActivity(), PrimaryActivity::class.java)
+                startActivity(intent)
+                dialog.dismiss()
+            }
+            show()
+        }
+    }
+
+    private fun postDonation() {
+        showLoading(true)
+        // Cek jika semua fields sudah terisi
+        if (currentImageUri == null ||
+            binding.inputDonation.text.toString().isEmpty() ||
+            binding.inputDescription.text.toString().isEmpty() ||
+            binding.inputLocation.text.toString().isEmpty()) {
+            showLoading(false)
+            showErrorDialog()
+        } else {
+            // Posting donation...
+            currentImageUri?.let { uri ->
+                val imageFile = uriToFile(uri, requireActivity()).reduceFileImage()
+                val title = binding.inputDonation.text.toString()
+                val description = binding.inputDescription.text.toString()
+                val location = binding.inputLocation.text.toString()
+
+                viewModel.donationUpload(imageFile, title, description, location)
+            }
         }
     }
 
@@ -74,69 +137,130 @@ class PostDonationFragment : Fragment() {
         }
     }
 
-    private fun postDonation() {
-
-        // dibikin mirip kaya donation aja deh logic klo ga keisi
-
-        // perbaikan dikit lagi buggnyaa
-
-        // gausa dibuat variabel
-
-        val title = binding.inputDonation.text.toString()
-        val description = binding.inputDescription.text.toString()
-        val location = binding.inputLocation.text.toString()
-
-        if (title.isEmpty() || currentImageUri == null || description.isEmpty() || location.isEmpty()) {
-            AlertDialog.Builder(requireContext()).apply {
-                setTitle("Empty data")
-                setMessage("Please fill all the fields and select an image!")
-                setPositiveButton("OK") { dialog, which ->
-                    dialog.dismiss()
-                }
-                show()
-            }
-            showLoading(false)
-        } else {
-            currentImageUri?.let { uri ->
-                val imageFile = uriToFile(uri, requireContext()).reduceFileImage()
-                viewModel.donationUpload(imageFile, title, description, location)
-                viewModel.uploadDonation.observe(viewLifecycleOwner) { result: PostDonationResponse ->
-                    var alertDialog: AlertDialog.Builder? = null
-                    if (result.message != "Donasi berhasil dibuat!") {
-                        showLoading(false)
-                        alertDialog = AlertDialog.Builder(requireActivity()).apply {
-                            setTitle("Wrong Input !")
-                            setMessage(R.string.error_input)
-                            setNegativeButton("Upload Again") { dialog, _ ->
-                                dialog.cancel()
-                                dialog.dismiss()
-                            }
-                            create()
-                        }
-                        alertDialog.show()
-
-                        showLoading(false)
-                        alertDialog = AlertDialog.Builder(requireActivity()).apply {
-
-                            val appInfoArray = resources.getStringArray(R.array.app_info)
-                            val appInfoString = appInfoArray.joinToString("\n \n")
-
-                            setTitle("Succes... Disclaimer !")
-                            setMessage(appInfoString)
-                            setNegativeButton("Next") { dialog, _ ->
-                                val intent = Intent(requireActivity(), PrimaryActivity::class.java)
-                                startActivity(intent)
-                                dialog.cancel()
-                                dialog.dismiss()
-                            }
-                            create()
-                        }
-                        alertDialog.show()
-                    }
-                }
-            }
-        }
-    }
+//    private fun postDonation() {
+//
+//        // dibikin mirip kaya donation aja deh logic klo ga keisi
+//
+//        // perbaikan dikit lagi buggnyaa
+//
+//        // gausa dibuat variabel
+//
+//        showLoading(true)
+//
+//        if (currentImageUri == null ||
+//            binding.inputDonation.text.toString().isEmpty() ||
+//            binding.inputDescription.text.toString().isEmpty() ||
+//            binding.inputLocation.text.toString().isEmpty()) {
+//            AlertDialog.Builder(requireActivity()).apply {
+//                setTitle("Empty data")
+//                setMessage("Please fill all the fields and select an image!")
+//                setPositiveButton("OK") { dialog, which ->
+//                    dialog.dismiss()
+//                }
+//                show()
+//            }
+//            showLoading(false)
+//        } else {
+//            currentImageUri?.let { uri ->
+//
+//                val imageFile = uriToFile(uri, requireActivity()).reduceFileImage()
+//                val title = binding.inputDonation.text.toString()
+//                val description = binding.inputDescription.text.toString()
+//                val location = binding.inputLocation.text.toString()
+//
+//                viewModel.donationUpload(imageFile, title, description, location)
+//                viewModel.uploadDonation.observe(viewLifecycleOwner) { result: PostDonationResponse ->
+//                    var alertDialog: AlertDialog.Builder? = null
+//                    if (result.message != "Donasi berhasil dibuat!") {
+//                        showLoading(false)
+//                        alertDialog = AlertDialog.Builder(requireActivity()).apply {
+//                            setTitle("Wrong Input !")
+//                            setMessage(R.string.error_input)
+//                            setNegativeButton("Upload Again") { dialog, _ ->
+//                                dialog.cancel()
+//                                dialog.dismiss()
+//                            }
+//                            create()
+//                        }
+//                        alertDialog.show()
+//
+//                        showLoading(false)
+//                        alertDialog = AlertDialog.Builder(requireActivity()).apply {
+//
+//                            val appInfoArray = resources.getStringArray(R.array.app_info)
+//                            val appInfoString = appInfoArray.joinToString("\n \n")
+//
+//                            setTitle("Succes... Disclaimer !")
+//                            setMessage(appInfoString)
+//                            setNegativeButton("Next") { dialog, _ ->
+//                                val intent = Intent(requireActivity(), PrimaryActivity::class.java)
+//                                startActivity(intent)
+//                                dialog.cancel()
+//                                dialog.dismiss()
+//                            }
+//                            create()
+//                        }
+//                        alertDialog.show()
+//                    }
+//                }
+//            }
+//        }
+//
+////        val title = binding.inputDonation.text.toString()
+////        val description = binding.inputDescription.text.toString()
+////        val location = binding.inputLocation.text.toString()
+////
+////        if (title.isEmpty() || currentImageUri == null || description.isEmpty() || location.isEmpty()) {
+////            AlertDialog.Builder(requireContext()).apply {
+////                setTitle("Empty data")
+////                setMessage("Please fill all the fields and select an image!")
+////                setPositiveButton("OK") { dialog, which ->
+////                    dialog.dismiss()
+////                }
+////                show()
+////            }
+////            showLoading(false)
+////        } else {
+////            currentImageUri?.let { uri ->
+////                val imageFile = uriToFile(uri, requireContext()).reduceFileImage()
+////                viewModel.donationUpload(imageFile, title, description, location)
+////                viewModel.uploadDonation.observe(viewLifecycleOwner) { result: PostDonationResponse ->
+////                    var alertDialog: AlertDialog.Builder? = null
+////                    if (result.message != "Donasi berhasil dibuat!") {
+////                        showLoading(false)
+////                        alertDialog = AlertDialog.Builder(requireActivity()).apply {
+////                            setTitle("Wrong Input !")
+////                            setMessage(R.string.error_input)
+////                            setNegativeButton("Upload Again") { dialog, _ ->
+////                                dialog.cancel()
+////                                dialog.dismiss()
+////                            }
+////                            create()
+////                        }
+////                        alertDialog.show()
+////
+////                        showLoading(false)
+////                        alertDialog = AlertDialog.Builder(requireActivity()).apply {
+////
+////                            val appInfoArray = resources.getStringArray(R.array.app_info)
+////                            val appInfoString = appInfoArray.joinToString("\n \n")
+////
+////                            setTitle("Succes... Disclaimer !")
+////                            setMessage(appInfoString)
+////                            setNegativeButton("Next") { dialog, _ ->
+////                                val intent = Intent(requireActivity(), PrimaryActivity::class.java)
+////                                startActivity(intent)
+////                                dialog.cancel()
+////                                dialog.dismiss()
+////                            }
+////                            create()
+////                        }
+////                        alertDialog.show()
+////                    }
+////                }
+////            }
+////        }
+//    }
 
     private fun showLoading(isLoading: Boolean) {
         binding.loadingPost.visibility = if (isLoading) View.VISIBLE else View.GONE

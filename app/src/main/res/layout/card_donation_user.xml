@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:padding="15dp">
 
     <com.makeramen.roundedimageview.RoundedImageView
@@ -11,24 +13,17 @@
         android:layout_height="140dp"
         android:scaleType="centerCrop"
         android:src="@drawable/donation_photo"
-        app:riv_corner_radius="7dp" />
+        app:riv_corner_radius="7dp"
+        android:layout_marginBottom="11dp" />
 
     <TextView
         android:id="@+id/donation_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:maxLines="1"
+        android:maxLines="2"
         android:text="@string/donation_title"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:paddingBottom="4dp"
-        android:paddingHorizontal="8dp"
-        android:textColor="@color/white"
-        android:shadowColor="@color/black"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="2"
-        android:layout_gravity="bottom" />
+        android:textSize="20sp"
+        android:textStyle="bold" />
     
-</FrameLayout>
+</LinearLayout>

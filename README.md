@@ -16,5 +16,6 @@ We are android team are responsible for designing the application layout and int
 
 + Kotlin ![Kotlin](https://img.shields.io/badge/kotlin-%237F52FF.svg?style=for-the-badge&logo=kotlin&logoColor=white)
 + Android Studio ![Android Studio](https://img.shields.io/badge/Android%20Studio-3DDC84.svg?style=for-the-badge&logo=android-studio&logoColor=white)
++ Retrofit ![Retrofit](https://img.shields.io/badge/Retrofit-58595B.svg?style=for-the-badge&logo=retrofit&logoColor=white)
 
 

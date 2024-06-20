@@ -1,5 +1,6 @@
 package com.resqfood.view.posting
 
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -22,6 +23,7 @@ import com.resqfood.reduceFileImage
 import com.resqfood.uriToFile
 import com.resqfood.view.main.PrimaryActivity
 import org.tensorflow.lite.task.vision.classifier.Classifications
+import java.util.Calendar
 
 class PostSaleFragment : Fragment() {
 
@@ -48,10 +50,32 @@ class PostSaleFragment : Fragment() {
 
         showLoading(false)
 
+        viewModel.imageUri.observe(viewLifecycleOwner) { uri ->
+            currentImageUri = uri
+            showImage()
+        }
+
         binding.galleryButton.setOnClickListener { startGallery() }
         binding.uploadButton.setOnClickListener {
             setupObservers()
         }
+        binding.inputExpired.setOnClickListener { showDatePicker() }
+    }
+
+    private fun showDatePicker() {
+        val calendar = Calendar.getInstance()
+        val datePickerDialog = DatePickerDialog(
+            requireContext(),
+            { _, year, month, dayOfMonth ->
+                val selectedDate = "$year-${month + 1}-$dayOfMonth"
+                binding.inputExpired.setText(selectedDate)
+            },
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        )
+        datePickerDialog.datePicker.minDate = calendar.timeInMillis
+        datePickerDialog.show()
     }
 
     private fun startGallery() {
@@ -65,6 +89,7 @@ class PostSaleFragment : Fragment() {
             currentImageUri = uri
             showImage()
             analyzeImage(uri)
+            viewModel.imageUri.value = uri
         } else {
             Log.d("Photo Picker", "No media selected")
         }

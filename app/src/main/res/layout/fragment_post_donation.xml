@@ -1,130 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.posting.PostDonationFragment">
 
-    <ProgressBar
-        android:id="@+id/loadingPost"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
-    <ImageView
-        android:id="@+id/galleryButton"
-        android:layout_width="350dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="15dp"
-        android:padding="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/add_donation_photo" />
+        <ProgressBar
+            android:id="@+id/loadingPost"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <com.resqfood.view.custom_view.CTextView
-        android:id="@+id/donationTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/donation_name"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/galleryButton"
-        app:layout_constraintTop_toBottomOf="@+id/galleryButton" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/inputLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/galleryButton"
-        app:layout_constraintStart_toStartOf="@+id/galleryButton"
-        app:layout_constraintTop_toBottomOf="@+id/donationTV">
-
-        <com.resqfood.view.custom_view.CInputText
-            android:id="@+id/inputDonation"
+        <ImageView
+            android:id="@+id/galleryButton"
             android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginHorizontal="25dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/add_donation_photo" />
+
+        <com.resqfood.view.custom_view.CTextView
+            android:id="@+id/donationTV"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="top"
-            android:padding="10dp" />
+            android:layout_marginTop="20dp"
+            android:text="@string/donation_name"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/galleryButton"
+            app:layout_constraintTop_toBottomOf="@+id/galleryButton" />
 
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.resqfood.view.custom_view.CTextView
-        android:id="@+id/descriptionTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/description"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/donationTV"
-        app:layout_constraintHorizontal_bias="0.033"
-        app:layout_constraintStart_toStartOf="@+id/donationTV"
-        app:layout_constraintTop_toBottomOf="@+id/inputLayout" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/inputLayout"
-        app:layout_constraintStart_toStartOf="@+id/inputLayout"
-        app:layout_constraintTop_toBottomOf="@+id/descriptionTV">
-
-        <com.resqfood.view.custom_view.CInputText
-            android:id="@+id/inputDescription"
-            android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputLayout"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="top"
-            android:inputType="textMultiLine"
-            android:lines="5" />
+            app:layout_constraintEnd_toEndOf="@+id/galleryButton"
+            app:layout_constraintStart_toStartOf="@+id/galleryButton"
+            app:layout_constraintTop_toBottomOf="@+id/donationTV">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.resqfood.view.custom_view.CInputText
+                android:id="@+id/inputDonation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:padding="10dp" />
 
-    <com.resqfood.view.custom_view.CTextView
-        android:id="@+id/locationTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/location_name"
-        android:textSize="16sp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="@+id/descriptionTV"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/descriptionTV"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/InputLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
-        app:layout_constraintStart_toStartOf="@+id/textInputLayout"
-        app:layout_constraintTop_toBottomOf="@+id/locationTV">
-
-        <com.resqfood.view.custom_view.CInputText
-            android:id="@+id/inputLocation"
-            android:layout_width="match_parent"
+        <com.resqfood.view.custom_view.CTextView
+            android:id="@+id/descriptionTV"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="top"
-            android:padding="10dp" />
+            android:layout_marginTop="20dp"
+            android:text="@string/description"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/donationTV"
+            app:layout_constraintHorizontal_bias="0.033"
+            app:layout_constraintStart_toStartOf="@+id/donationTV"
+            app:layout_constraintTop_toBottomOf="@+id/inputLayout" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/inputLayout"
+            app:layout_constraintStart_toStartOf="@+id/inputLayout"
+            app:layout_constraintTop_toBottomOf="@+id/descriptionTV">
 
-    <com.resqfood.view.custom_view.CButton
-        android:id="@+id/uploadButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="@color/main_green"
-        android:padding="0dp"
-        android:text="@string/upload"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="@+id/InputLayout"
-        app:layout_constraintStart_toStartOf="@+id/InputLayout"
-        app:layout_constraintTop_toBottomOf="@+id/InputLayout" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <com.resqfood.view.custom_view.CInputText
+                android:id="@+id/inputDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:inputType="textMultiLine"
+                android:lines="5" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.resqfood.view.custom_view.CTextView
+            android:id="@+id/locationTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/location_name"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="@+id/descriptionTV"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/descriptionTV"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/InputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
+            app:layout_constraintStart_toStartOf="@+id/textInputLayout"
+            app:layout_constraintTop_toBottomOf="@+id/locationTV">
+
+            <com.resqfood.view.custom_view.CInputText
+                android:id="@+id/inputLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:padding="10dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.resqfood.view.custom_view.CButton
+            android:id="@+id/uploadButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/main_green"
+            android:padding="0dp"
+            android:text="@string/upload"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@+id/InputLayout"
+            app:layout_constraintStart_toStartOf="@+id/InputLayout"
+            app:layout_constraintTop_toBottomOf="@+id/InputLayout" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -1,5 +1,6 @@
 package com.resqfood.view.posting
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,6 +19,8 @@ class PostingViewModel(private val repository: Repository) : ViewModel() {
 
     private val _uploadSale = MutableLiveData<PostSellResponse>()
     val uploadSale: LiveData<PostSellResponse> = _uploadSale
+
+    val imageUri = MutableLiveData<Uri?>()
 
     fun donationUpload(file: File,title: String, description: String, location: String) {
         viewModelScope.launch {

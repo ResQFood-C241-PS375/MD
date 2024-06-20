@@ -44,6 +44,11 @@ class UserFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.imageUri.observe(viewLifecycleOwner) { uri ->
+            currentImageUri = uri
+            showImage()
+        }
+
         setupObservers()
         setupUI()
 
@@ -85,14 +90,19 @@ class UserFragment : Fragment() {
 
     private fun setupObservers() {
         viewModel.infoUser.observe(viewLifecycleOwner) { users ->
-            val userInfo = users.users!![0]
-            Glide.with(binding.root)
-                .load(userInfo.profileImg)
-                .into(binding.oldProfileImage)
-            binding.fullnameCIT.setText(userInfo.namaLengkap)
-            binding.emailCIT.setText(userInfo.email)
-            binding.usernameCIT.setText(userInfo.username)
-            binding.whatsappCIT.setText(userInfo.noHp)
+            if (users.users != null && users.users.isNotEmpty()) {
+                val userInfo = users.users[0]
+                Glide.with(binding.root)
+                    .load(userInfo.profileImg)
+                    .into(binding.oldProfileImage)
+                binding.fullnameCIT.setText(userInfo.namaLengkap)
+                binding.emailCIT.setText(userInfo.email)
+                binding.usernameCIT.setText(userInfo.username)
+                binding.whatsappCIT.setText(userInfo.noHp)
+            } else {
+                // Tangani kasus di mana daftar users kosong atau null
+                Log.e("UserFragment", "User list is empty or null")
+            }
         }
 
         viewModel.updateUser.observe(viewLifecycleOwner) { updateUser ->
@@ -126,11 +136,11 @@ class UserFragment : Fragment() {
 
         binding.logout.setOnClickListener {
             viewModel.logout()
-//            finish()
             val intent = Intent(requireActivity(), PrimaryActivity::class.java)
             startActivity(intent)
         }
     }
+
 
     private fun setupUI() {
         showLoading(false)
@@ -146,6 +156,7 @@ class UserFragment : Fragment() {
     ) { uri: Uri? ->
         if (uri != null) {
             currentImageUri = uri
+            viewModel.imageUri.value = uri
             showImage()
         } else {
             Log.d("Photo Picker", "No media selected")

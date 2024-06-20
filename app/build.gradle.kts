@@ -100,4 +100,7 @@ dependencies {
 
     //LiveData
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.4.1")
+
+    //WorkerManager
+    implementation ("androidx.work:work-runtime-ktx:2.7.1")
 }

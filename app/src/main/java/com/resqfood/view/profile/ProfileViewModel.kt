@@ -1,5 +1,6 @@
 package com.resqfood.view.profile
 
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -38,6 +39,8 @@ class ProfileViewModel(private val repository: Repository) : ViewModel() {
 
     private val _updateUser = MutableLiveData<UpdateUser?>()
     val updateUser: LiveData<UpdateUser?> = _updateUser
+
+    val imageUri = MutableLiveData<Uri?>()
 
     fun deleteDonation(id: String) {
         viewModelScope.launch {

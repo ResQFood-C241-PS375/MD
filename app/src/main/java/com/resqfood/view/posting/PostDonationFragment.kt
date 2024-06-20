@@ -45,6 +45,11 @@ class PostDonationFragment : Fragment() {
 
         showLoading(false)
 
+        viewModel.imageUri.observe(viewLifecycleOwner) { uri ->
+            currentImageUri = uri
+            showImage()
+        }
+
         binding.galleryButton.setOnClickListener { startGallery() }
         binding.uploadButton.setOnClickListener {
 //            postDonation()
@@ -124,6 +129,7 @@ class PostDonationFragment : Fragment() {
     ) { uri: Uri? ->
         if (uri != null) {
             currentImageUri = uri
+            viewModel.imageUri.value = uri
             showImage()
         } else {
             Log.d("Photo Picker", "No media selected")

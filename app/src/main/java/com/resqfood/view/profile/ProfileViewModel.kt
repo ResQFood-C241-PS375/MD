@@ -74,14 +74,6 @@ class ProfileViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-//    fun deleteSale() {
-//        viewModelScope.launch {
-//            repository.getSession().collect{
-//                // ini isi apa gitu coks
-//            }
-//        }
-//    }
-
     fun updateUser(file: File, username: String, fullName: String, email: String, password: String, phone: String) {
         viewModelScope.launch {
             repository.getSession().collect { session ->

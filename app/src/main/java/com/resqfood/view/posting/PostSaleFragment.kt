@@ -59,7 +59,7 @@ class PostSaleFragment : Fragment() {
         binding.uploadButton.setOnClickListener {
             setupObservers()
         }
-        binding.inputExpired.setOnClickListener { showDatePicker() }
+        binding.calenderBtn.setOnClickListener { showDatePicker() }
     }
 
     private fun showDatePicker() {
@@ -67,7 +67,7 @@ class PostSaleFragment : Fragment() {
         val datePickerDialog = DatePickerDialog(
             requireContext(),
             { _, year, month, dayOfMonth ->
-                val selectedDate = "$year-${month + 1}-$dayOfMonth"
+                val selectedDate = "$dayOfMonth-${month + 1}-$year"
                 binding.inputExpired.setText(selectedDate)
             },
             calendar.get(Calendar.YEAR),

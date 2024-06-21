@@ -18,4 +18,7 @@ We are android team are responsible for designing the application layout and int
 + Android Studio ![Android Studio](https://img.shields.io/badge/Android%20Studio-3DDC84.svg?style=for-the-badge&logo=android-studio&logoColor=white)
 + Retrofit ![Retrofit](https://img.shields.io/badge/Retrofit-58595B.svg?style=for-the-badge&logo=retrofit&logoColor=white)
 
+### App Release
+[ResQFood.APK](https://drive.google.com/drive/folders/16Q_3BxxgRpwD2wa-A19VJrxuDeWSHLW9?usp=drive_link)
+
 
